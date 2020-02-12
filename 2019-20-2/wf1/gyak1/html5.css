@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Oswald|Source+Sans+Pro&display=swap");
+
 body {
   font-family: "Source Sans Pro", sans-serif;
   margin: 0;
@@ -59,7 +60,7 @@ section {
 }
 
 aside {
-  max-width: 20vw;
+  max-width: 20vw; /*Viewport Widht, Viewport Height*/
   float: right;
   margin: 3vw 3vw 5vw 0;
 }
