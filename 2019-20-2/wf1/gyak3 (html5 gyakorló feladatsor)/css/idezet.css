@@ -1,7 +1,0 @@
-q::before {
-  content: "„";
-}
-
-q::after {
-  content: "”";
-}
