@@ -58,13 +58,13 @@ We have a text field. An user can input a subject name, and then the code should
 
 ### Starting code
 ```javascript
-    courses = [
+    courses = {
         'Fundaments of Computers': ['Linux', 'bash', 'powershell'],
         'Programming Fundamentals': ['C++', 'basic algorythms'],
         'Programming Languages': ['Advanced language concepts', 'Java'],
         'Web-development 1.': ['HTML5', 'CSS'],
         'Web-programming': ['Javascript', 'PHP']
-    ]
+    }
 ```
 
 ## Clicking forbidden links
