@@ -28,13 +28,6 @@ TOTAL: 10 points (+2 for delegating)
 
 ### Example
 
-<picture>
-    <source srcset="example.png" type="image/png" />
-    <img src="example.gif" />
-</picture>
-
-![](example.gif)
-
 ![](example.png)
 
 ### Induló kód
