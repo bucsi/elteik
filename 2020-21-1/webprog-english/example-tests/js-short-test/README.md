@@ -30,7 +30,9 @@ TOTAL: 10 points (+2 for delegating)
 
 ![](example.png)
 
-### Induló kód
+If the picture above is not animated, please refer to the [GIF version](https://github.com/bucsi/elteik/blob/master/2020-21-1/webprog-english/example-tests/js-short-test/example.gif) (and update your browser, animated PNGs are cool!)
+
+### Starting code
 ```javascript
 places = [  'Budapest',
             'Vienna',
