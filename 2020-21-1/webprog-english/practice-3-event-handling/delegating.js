@@ -1,6 +1,10 @@
-function handle(event, target){
-    //do what you want with the (actual) target
+const blackDiv = document.querySelector(".parent")
+
+function handleDivClick(event, target){
+    console.log(event.target)
+    target.innerHTML += "X"
 }
+
 
 /**
  * A function to delegate one "big" event handler to a number of alike elements inside a container.
@@ -10,7 +14,7 @@ function handle(event, target){
  * @param {Function} what The function to run on event
  */
 function delegate(parent, child, when, what){
-    function esemenyKezelo(event){
+    function eventHandler(event){
         let eventsHandler = this;
         let closestWantedElement = event.target.closest(child);
 
@@ -19,7 +23,8 @@ function delegate(parent, child, when, what){
         }
     }
 
-    parent.addEventListener(when, esemenyKezelo);
+    parent.addEventListener(when, eventHandler);
 }
 
-delegate(childContainer, "child css", "event", handle)
+
+delegate(blackDiv, ".child", 'click', handleDivClick)

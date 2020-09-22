@@ -1,4 +1,34 @@
-# Event handling tasks
+# Event handling
+## Delegate template
+You can use this template to write delegated event handling.
+
+```javascript
+function handle(event, target){
+    //do what you want with the (actual) target
+}
+
+/**
+ * A function to delegate one "big" event handler to a number of alike elements inside a container.
+ * @param {Node} parent A HTML element (obtained with querySelector)
+ * @param {string} child A CSS selector (as a string), describing children we want to handle (e.g. `'.items'`)
+ * @param {string} when An event as a string, describing when we want the handler to run (e.g. `'click'`)
+ * @param {(ev: Event,target: Node) => void} what The function to run on event (with parameters: the event itself and the target, which will be a child)
+ */
+function delegate(parent, child, when, what){
+    function esemenyKezelo(event){
+        let eventsHandler = this;
+        let closestWantedElement = event.target.closest(child);
+
+        if(eventsHandler.contains(closestWantedElement)){
+            what(event, closestWantedElement);
+        }
+    }
+
+    parent.addEventListener(when, esemenyKezelo);
+}
+
+delegate(childContainer, "child css", "event", handle)
+```
 ## Emergency meeting
 ### Lore
 Our spaceship might have some aliens aboard. We should program a button, so if we see any suspicious activity *Among Us*, we are able to call an emergency meeting. To be fair to the impostors, after a meeting, the button should be disabled for some time.
