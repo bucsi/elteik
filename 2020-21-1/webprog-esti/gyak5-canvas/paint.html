@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <script src="https://kit.fontawesome.com/a501a02f85.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            font-family: sans-serif;
+            font-size: 2em;
+        }
+        canvas{
+            border: 1px solid black;
+            cursor: crosshair;
+        }
+        .color{
+            height: 2em;
+            text-align: center;
+            cursor: pointer;
+        }
+        td i {
+            cursor: pointer;
+        }
+        [data-color="black"]{
+            background-color: black;
+            color: white;
+        }
+        [data-color="red"]{
+            background-color: red;
+        }
+        [data-color="green"]{
+            background-color: green;
+        }
+        [data-color="blue"]{
+            background-color: blue;
+            color: white;
+        }
+        [data-color="pink"]{
+            background-color: pink;
+        }
+        .aktiv{
+            background: lightgreen;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <td id="pencil"><i class="fas fa-pencil-alt"></i></i></td>
+            <td rowspan="5" colspan="5"><canvas width="500" height="500"></canvas></td>
+        </tr>
+        <tr>
+            <td id="eraser"><i class="fas fa-eraser"></i></td>
+        </tr>
+        <tr>
+            <td id="colorpicker"><i class="fas fa-eye-dropper"></i></td>
+        </tr>
+        <tr>
+            <td id="line" class="aktiv">&mdash;</i></td>
+        </tr>
+        <tr>
+            <td id="square"><i class="fas fa-square"></i></td>
+        </tr>
+        <tr>
+            <td class="color" data-color="black">Fekete</td>
+            <td class="color" data-color="white">Fehér</td>
+            <td class="color" data-color="red">Piros</td>
+            <td class="color" data-color="green">Zöld</td>
+            <td class="color" data-color="blue">Kék</td>
+            <td class="color" data-color="pink">Pink</td>
+        </tr>
+    </table>
+</body>
+<script src="paint.js"></script>
+</html>
