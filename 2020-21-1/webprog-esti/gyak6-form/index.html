@@ -7,12 +7,46 @@
     <style>
         body{
             font-family: sans-serif;
+            background-color: lightgrey;
+        }
+        li{
+            background-color: red;
+            color: white;
+            font-weight: bold;
+            display: inline-block;
+            padding: 1%;
+            margin: 1%;
+            border-radius: 10px;
+
+        }
+        li::after{
+            content: " ×"
+        }
+        form{
+            margin-left: 15%;
+            background-color: #fff;
+            padding: 5%;
+            border-radius: 10px;
+            width: 60%;
+            box-shadow: -2px 3px 30px 1px #000;
+        }
+
+        .hibas{
+            box-shadow: -2px 3px 30px 1px red;
+        }
+
+        .helyes{
+            box-shadow: -2px 3px 30px 1px green;
+        }
+
+        .inputFolyamatban{
+            box-shadow: -2px 3px 30px 1px blue;
         }
     </style>
 </head>
 <body>
-    <h1>Esküvői fotózás</h1>
     <form>
+        <h1>Esküvői fotózás</h1>
         <label for="nev">Az igénylő neve: </label><br />
         <input type="text" name="nev" /><br />
         Az igénylő életkora: <br />
@@ -39,10 +73,11 @@
             <option value="budapest">Budapest</option>
             <option value="pestmegye">Pest megye</option>
             <option value="balaton">Balaton</option>
-        </select>
-
+        </select><br/>
+        <br/>
+        <ul></ul>
+        <br>
         <input type="submit" />
-
 
     </form>
 </body>
