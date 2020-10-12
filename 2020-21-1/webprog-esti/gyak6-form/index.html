@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Űrlap</title>
+    <style>
+        body{
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h1>Esküvői fotózás</h1>
+    <form>
+        <label for="nev">Az igénylő neve: </label><br />
+        <input type="text" name="nev" /><br />
+        Az igénylő életkora: <br />
+        <input type="text" name="kor" /><br />
+        
+        <br />
+
+        Az igénybe vett szolgáltatás: <br />
+        <input type="radio" name="szolg" value="parfotozas"> Párfotózás<br /> 
+        <input type="radio" name="szolg" value="video"> Esküvői videó készítése <br /> 
+        <input type="radio" name="szolg" value="tablo"> Násznép tablókép<br /> 
+        <input type="radio" name="szolg" value="foto+video"> Fotók és videó készítése az esküvőn<br /> 
+
+        <br />
+
+        A küldéssel beleegyezem: <br>
+        <input type="checkbox" name="adatvedelem" > Elfogadom az adatkezelést <br />
+        <input type="checkbox" name="hirlevel" > Feliratkozom a hírlevélre <br />
+
+        <br />
+
+        Az esküvő helyszíne: <br />
+        <select name="helyszin">
+            <option value="budapest">Budapest</option>
+            <option value="pestmegye">Pest megye</option>
+            <option value="balaton">Balaton</option>
+        </select>
+
+        <input type="submit" />
+
+
+    </form>
+</body>
+<script src="index.js"></script>
+</html>
