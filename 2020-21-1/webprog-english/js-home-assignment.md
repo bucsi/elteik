@@ -57,12 +57,12 @@ Pressing a button labeled **Start** starts the game.
 - The players in front of the computer examine the table, and if someone finds a SET, they can declare it:
   1. The player tells the computer it's their action (clicking on their name on the interface, or pressing an assigned button on the keyboard)
   2. A timer of 10 seconds starts. If the timer expires before the player makes a selection, the game considers the player made a wrong selection.
-  3. While declaring a SET, clicking on a card should select it. Clicking on an already selected card should remove the selection. Any number of cards can be selected or unselected until the player select their third card, when the game switches to evaluation.
-- If the player made a wrong selection, they loose a point, and the other players can try finding a set. The original player can't make a new action until someone discovers a SET or all players fail the turn.
-- If the player made a correct selection, the three selected cards disappear from the table and the player gets a point. All players who made a wring selection this turn are re-eanbled, and the table draws three new cards.
-- Dealing new cards onto the table wotks until there is at least one card in the deck. Display the number of remaining cards in the deck!
+  3. While declaring a SET, clicking on a card should select it. Clicking on an already selected card should remove the selection. Any number of cards can be selected or deselected until the player selects their third card, when the game switches to evaluation.
+- If the player made a wrong selection, they lose a point, and the other players can try finding a set. The original player can't make a new action until someone discovers a SET or all players fail the turn.
+- If the player made a correct selection, the three selected cards disappear from the table and the player gets a point. All players who made a wrong selection this turn are re-enabled, and the table draws three new cards.
+- Dealing new cards onto the table works while there is at least one card in the deck. Display the number of remaining cards in the deck!
 - If the table has no valid SET, the game ends. The program should check for this automatically.
-- If all players fail to find a SET, three new cards are dealed (automatically or by button, based on the option). If they find a SET in the expanded table, the extra cards are discarded for the next turn.
+- If all players fail to find a SET, three new cards are dealt (automatically or by button, based on the option). If they find a SET in the expanded table, the extra cards are discarded for the next turn.
 - Two types of hints are available (if enabled in the settings):
   - Asking the program if there is a valid SET on the current table
   - Asking the program to show a valid SET
