@@ -42,10 +42,10 @@ There are two **game modes**:
 
 The **miscellaneous** options:
 - Enable or disable a button which tells if there is a SET in the current deal (*Competitive*: disabled)
-- Enable or disable a button which highligts a SET (*Competitive*: disabled)
+- Enable or disable a button which shows a SET (*Competitive*: disabled)
 - Automatic or button-based deal method for three new cards after no SET was discovered (*Competitive*: automatic)
 
-The programo should store **two lists** in local storage. These lists should be displayed on the starting page:
+The program should store **two lists** in local storage. These lists should be displayed on the starting page:
 - The 10 best times, grouped by difficulty for *One-player Competitive* games
 - The last 10 multiplayer results, using total scores
 
