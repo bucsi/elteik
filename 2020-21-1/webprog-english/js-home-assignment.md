@@ -76,17 +76,17 @@ Pressing a button labeled **Start** starts the game.
 Design is important. Your submission doesn't have to be really pretty and filled with frills, but it should look nice on a screen of at least 
 1024×768 pixels; the shapes on the cards should be centered and displayed in a recognisable size.<br>You can use minimalist design, custom CSS with extra graphical elements or a CSS framework.
 
-There's no mandatory technology for displaying the game: you can use `table`s, `div`s, and `canvas` freely.
+There's no mandatory technique for displaying the game: you can use `table`s, `div`s, and `canvas` freely.
 
-Criteria for function and presentation isn't set in stone, there's flexibility in the grading as long as your game is playable well and the tasks described above work in some way.
+Requirements for function and presentation arent't set in stone, there's flexibility in the grading as long as your game is playable and the subtasks described above work in some way.
 
-The shapes on cards can be created or displayed any way (`canvas`, inline `svg`, bacground pictures)
+The shapes on cards can be created or displayed any way (`canvas`, inline `svg`, background pictures)
 
 ## Grading
 The assignment is worth 20 points. There is a set of minimum requirements, without those, the assignment is not acceptable.
 
 ### Minimum requirements
-- The `README.md` file from the *Other requerements* section is filled with your data and included with your solution (0&nbsp;points)
+- The `README.md` file from the *Other requirements* section is filled with your data and included with your solution (0&nbsp;points)
 - The game page is displayed (0&nbsp;points)
 - A deck of 27 cards consists of cards using a permutation of the three card properties (0.5&nbsp;points)
 - The first deal of 12 cards is displayed,in a 3×4 arrangement (0.5&nbsp;points)
@@ -100,9 +100,9 @@ The assignment is worth 20 points. There is a set of minimum requirements, witho
 - The rules are accessible from the starting page (0.5&nbsp;points)
 - The options are displayed on the starting page (0.5&nbsp;points)
 - Selecting *Competitive* mode hides the miscellaneous options (0.5&nbsp;points)
-- The name pf the players can be set, the number of fields matches the number og players, there is a default name for each player (0.5&nbsp;points)
+- The name of the players can be set, the number of fields matches the number og players, there is a default name for each player (0.5&nbsp;points)
 - The starting page displays the two lists correctly (0.5&nbsp;points)
-- The game mode with 4 cards properties is available
+- The game mode with 4 cards properties is available (1&nbsp;point)
 - The player who is declaring a SET can be selected (1&nbsp;point)
 - If playing a one-player game, the player is always selected (1&nbsp;point)
 - When declaring a set, a selected card can be unselected (0.5&nbsp;points)
@@ -145,7 +145,7 @@ According to the Academic Regulations for Students (Eötvös Loránd University 
 The worst result of a disciplinary offence can be the expulsion of the student.
 
 ### Minimum requirements
- - [ ] The `README.md` file from the *Other requerements* section is filled with your data and included with your solution (0 points)
+ - [ ] The `README.md` file from the *Other requirements* section is filled with your data and included with your solution (0 points)
  - [ ] The game page is displayed (0 points)
  - [ ] A deck of 27 cards consists of cards using a permutation of the three card properties (0.5 points)
  - [ ] The first deal of 12 cards is displayed,in a 3×4 arrangement (0.5 points)
@@ -159,7 +159,7 @@ The worst result of a disciplinary offence can be the expulsion of the student.
  - [ ] The rules are accessible from the starting page (0.5 points)
  - [ ] The options are displayed on the starting page (0.5 points)
  - [ ] Selecting *Competitive* mode hides the miscellaneous options (0.5 points)
- - [ ] The name pf the players can be set, the number of fields matches the number og players, there is a default name for each player (0.5 points)
+ - [ ] The name of the players can be set, the number of fields matches the number og players, there is a default name for each player (0.5 points)
  - [ ] The starting page displays the two lists correctly (0.5 points)
  - [ ] The game mode with 4 cards properties is available
  - [ ] The player who is declaring a SET can be selected (1 point)
