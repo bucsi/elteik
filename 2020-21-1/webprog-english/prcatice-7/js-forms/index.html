@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product review</title>
+</head>
+<body>
+    <form>
+        <label for="name">Reviewer's name: </label>
+        <input type="text" name="name" /> <br> <br>
+        <label for="age">Reviewer's age</label> 
+        <input name="age"/> <br><br>
+
+        <label for="stars">Your review in points:</label><br>
+        <input type="radio" name="stars" value="1"> ⭐ <br>
+        <input type="radio" name="stars" value="2"> ⭐⭐ <br>
+        <input type="radio" name="stars" value="3"> ⭐⭐⭐ <br>
+        <input type="radio" name="stars" value="4"> ⭐⭐⭐⭐ <br>
+        <input type="radio" name="stars" value="5"> ⭐⭐⭐⭐⭐ <br> <br>
+
+        <label for="review">Write your review:</label><br>
+        <textarea name="review"></textarea> <br> <br>
+
+        <label for="acquisition">How did you acquire the product you are reviewing?</label> <br>
+        <select name="acquisition">
+            <option value="sample">I was provided a sample by the makers of the product.</option>
+            <option value="paidFor">I bought the product for myself.</option>
+            <option value="borrowed">I borrowed the product (from either the manufacturer or a friend) and returned it after the review.</option>
+        </select> <br> <br>
+
+        <input name="subscribe" type="checkbox"/>
+        <label for="subscribe">Subscribe to e-mail updates bout your review.</label>
+        <br>
+        <br>
+
+
+        <input type="submit" id="send" value="Send"/>
+        <button>THIS IS DEFINITELY NOT SUBMIT</button><br>
+        <ul id="errorList"></ul>
+    </form>
+
+</body>
+<script src="index.js"></script>
+</html>
