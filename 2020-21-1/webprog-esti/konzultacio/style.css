@@ -1,0 +1,24 @@
+table img{
+    width: 300px;
+    height: 200px;
+    
+}
+
+td{
+    width: 300px;
+    height: 200px;
+    object-fit: contain;
+}
+
+.kijelolve{
+    background-color: greenyellow;
+}
+
+.tobbszor{
+    filter: sepia(100%);
+}
+
+.rejtett{
+    display: none;
+    /*vagy visiblity: hidden;*/
+}
