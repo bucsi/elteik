@@ -1,0 +1,30 @@
+{
+    "5fb38d27a47e2": {
+        "name": "Web-masters, Inc.",
+        "service": "websites",
+        "date": 2010,
+        "revenue": 1000,
+        "employees": 10
+    },
+    "5fb38e63864d2": {
+        "name": "Web-hosters Kft.",
+        "service": "websites",
+        "date": 2005,
+        "revenue": 2000,
+        "employees": 5
+    },
+    "5fb38ea0a8d0d": {
+        "name": "Comfy Clothes Company",
+        "service": "clothes",
+        "date": 1886,
+        "revenue": 5000,
+        "employees": 100
+    },
+    "5fb38eb778714": {
+        "name": "Less Comfy Clothes",
+        "service": "clothes",
+        "date": 1889,
+        "revenue": 4000,
+        "employees": 90
+    }
+}

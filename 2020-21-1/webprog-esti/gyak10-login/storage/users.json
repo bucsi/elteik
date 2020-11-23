@@ -1,0 +1,10 @@
+{
+    "5fb2acbf975cb": {
+        "username": "teszt@teszt.hu",
+        "password": "$2y$10$05Z6yTdPmOyYXg.VaHo0lOCDsQ6QgwVqK0mhgNrJ.Zyr3jCOSSKWu",
+        "fullname": "tesztUser",
+        "roles": [
+            "user"
+        ]
+    }
+}
