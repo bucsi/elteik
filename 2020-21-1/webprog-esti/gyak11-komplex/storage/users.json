@@ -1,0 +1,18 @@
+{
+    "5fb2acbf975cb": {
+        "username": "teszt@teszt.hu",
+        "password": "$2y$10$05Z6yTdPmOyYXg.VaHo0lOCDsQ6QgwVqK0mhgNrJ.Zyr3jCOSSKWu",
+        "fullname": "tesztUser",
+        "roles": [
+            "user"
+        ]
+    },
+    "5fbbe1eb2e4e1": {
+        "username": "teszt@teszt.com",
+        "password": "$2y$10$0yZNP7d2mf1UfxMsxYTSM.iqTrDWII2V3fQhCKNco1K9JWu6.JQVS",
+        "fullname": "jelszo:teszt",
+        "roles": [
+            "user"
+        ]
+    }
+}
