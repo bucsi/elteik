@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses</title>
+</head>
+<body>
+    <input type="text" /> <button>Search</button>
+    <ul></ul>
+</body>
+<script>
+     courses = {
+        'Fundaments of Computers': ['Linux', 'bash', 'powershell'],
+        'Programming Fundamentals': ['C++', 'basic algorythms'],
+        'Programming Languages': ['Advanced language concepts', 'Java'],
+        'Web-development 1.': ['HTML5', 'CSS'],
+        'Web-programming': ['Javascript', 'PHP']
+    }
+    const text = document.querySelector("input")
+    const btn = document.querySelector("button")
+    const ul = document.querySelector("ul")
+
+    document.addEventListener("click", ()=>{
+        let res = courses[text.value]
+        ul.innerHTML = ""
+        if(res){
+            res.forEach(r => {
+                const i = document.createElement("li");
+                i.innerHTML = r
+                ul.appendChild(i)
+            });
+        }else{
+            ul.innerHTML="<span style='color:red'>No such subject</span>"
+        }
+    })
+</script>
+</html>
