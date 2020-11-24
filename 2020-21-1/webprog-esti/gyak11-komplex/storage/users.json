@@ -14,5 +14,13 @@
         "roles": [
             "user"
         ]
+    },
+    "5fbbf7ca88f0e": {
+        "username": "igen@nem.com",
+        "password": "$2y$10$E96f\/IJ0Z4LAPEe27RYFGuo89XbmjepeJVvxcARQ8CmwoXfVgZPXe",
+        "fullname": "igen nem",
+        "roles": [
+            "user"
+        ]
     }
 }

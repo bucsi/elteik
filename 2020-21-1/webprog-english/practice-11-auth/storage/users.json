@@ -1,0 +1,34 @@
+{
+    "5fbcc352d57e8": {
+        "username": "testuser",
+        "password": "$2y$10$9bXrHy34.8subo5jG0ckXeQi3HRaMisspcwObmq0FcRe9UFxkcRb2",
+        "fullname": "Test User",
+        "roles": [
+            "user"
+        ]
+    },
+    "5fbcc76fbdbb2": {
+        "username": "notemaster",
+        "password": "$2y$10$v6ZTfBaJNOKjetEfkUhlf.xiJU93qIJLy\/bUyAdkyNhTXtLd8gP7q",
+        "fullname": "Note Master",
+        "roles": [
+            "user"
+        ]
+    },
+    "5fbcc82a0b657": {
+        "username": "notemaster",
+        "password": "$2y$10$SzTEzYeYEaHqSO34TX54NuH9tzZax6UzPMdH7ElDD56FSBNlAp4MG",
+        "fullname": "Note Master",
+        "roles": [
+            "user"
+        ]
+    },
+    "5fbcc853a8382": {
+        "username": "notemaster",
+        "password": "$2y$10$L1rmweaKGHbd6\/Dxhnt4GuWj9d8v9XRa6HudSztUIawEczcfsTiKu",
+        "fullname": "Note Master",
+        "roles": [
+            "user"
+        ]
+    }
+}

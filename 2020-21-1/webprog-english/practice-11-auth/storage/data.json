@@ -1,0 +1,27 @@
+{
+    "5fbcc76fbdbff": {
+        "userID": "5fbcc76fbdbb2",
+        "notes": [
+            {
+                "title": "testnote",
+                "text": "asdadasdas"
+            },
+            {
+                "title": "newnote",
+                "text": "new text\r\nthis will be longer\r\nhaha"
+            },
+            {
+                "title": "Module handouts",
+                "text": "Dont forget to update&translate the module handouts for the new code from the lecture!!!"
+            }
+        ]
+    },
+    "5fbcc82a0b6e6": {
+        "userID": "5fbcc82a0b657",
+        "notes": []
+    },
+    "5fbcc853a83d2": {
+        "userID": "5fbcc853a8382",
+        "notes": []
+    }
+}
