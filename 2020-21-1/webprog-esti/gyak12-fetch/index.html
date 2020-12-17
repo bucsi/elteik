@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button>Adat kérése a szervertől</button>
+    A szervertől visszakapott adat: <output></output><br><br>
+
+    <button id="spam">Valami</button>
+    <div></div>
+</body>
+<script>
+    document.querySelector("#spam").addEventListener("click", ()=>{
+        document.querySelector("div").innerHTML += "a"
+    })
+
+    document.querySelector("button").addEventListener("click", fetchJson2);
+
+    function getAdat(){
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', "lekerdezes.php", false)
+        xhr.send()
+        document.querySelector("output").innerHTML = xhr.responseText
+    }
+
+    function getAdatAsync(){
+        let xhr = new XMLHttpRequest();
+
+        xhr.addEventListener("readystatechange", ()=>{
+            console.log(`xhr ready state megváltozott ${xhr.readyState}-re`)
+            console.log(`xhr responseText tartalma: ${xhr.responseText}`)
+            if(xhr.readyState === 4){
+                document.querySelector("output").innerHTML = xhr.responseText
+            }
+        })
+
+        xhr.open('GET', "lekerdezes.php?szam=4", true)
+        xhr.send()
+        
+    }
+
+    function postAdatAsync(){
+        let xhr = new XMLHttpRequest();
+
+        xhr.addEventListener("readystatechange", ()=>{
+            console.log(`xhr ready state megváltozott ${xhr.readyState}-re`)
+            console.log(`xhr responseText tartalma: ${xhr.responseText}`)
+            if(xhr.readyState === 4){
+                document.querySelector("output").innerHTML = xhr.responseText
+            }
+        })
+
+        xhr.open('POST', "lekerdezes.php", true)
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+        xhr.send("negyzet=8")
+        
+    }
+
+    async function fetchAdat(){
+        let eredm = await fetch("lekerdezes.php?szam=4").then(valasz => valasz.text())
+        document.querySelector("output").innerHTML = eredm
+    }
+
+    function fetchJson(){
+        fetch("lekerdezes.php")
+            .then(valasz => valasz.json())
+            .then(json => json.forEach(el=>{
+                let li=document.createElement("li");
+                li.innerHTML = `${el.nev}: ${el.jegy}`
+                document.querySelector("div").appendChild(li);
+            }));
+    }
+
+    async function fetchJson2(){
+        let json = await fetch("lekerdezes.php").then(valasz => valasz.json())
+        
+        for(let elem of json) {
+            let li=document.createElement("li");
+            li.innerHTML = `${elem.nev}: ${elem.jegy}`
+            document.querySelector("div").appendChild(li);
+        }
+    }
+
+    function fetchPost(){
+        fetch("lekerdezes.php", {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: 'negyzet=64'
+        }).then(valasz=>valasz.text()).then(text => console.log(text));
+    }
+
+</script>
+</html>

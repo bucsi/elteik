@@ -22,5 +22,13 @@
         "roles": [
             "user"
         ]
+    },
+    "5fc4ff05bf1b9": {
+        "username": "asdasd@asd.com",
+        "password": "$2y$10$96PQsZxylKJij3lh8ZEe0uLSXVpuR4Y5vGVAe2qxP5o62KokUszW.",
+        "fullname": "asd",
+        "roles": [
+            "user"
+        ]
     }
 }
