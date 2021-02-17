@@ -1,0 +1,17 @@
+header nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+header nav ul li {
+  display: inline;
+}
+
+main {
+  display: flex;
+}
+
+section {
+  flex: 0 0 70%;
+}

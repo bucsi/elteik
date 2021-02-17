@@ -1,0 +1,191 @@
+header {
+  border: 1px solid red;
+}
+
+header::before {
+  content: "<header>";
+  font-size: 10px;
+  color: red;
+}
+
+header::after {
+  content: "</header>";
+  font-size: 10px;
+  color: red;
+}
+
+nav {
+  border: 1px solid orange;
+}
+
+nav::before {
+  content: "<nav>";
+  font-size: 10px;
+  color: orange;
+}
+
+nav::after {
+  content: "</nav>";
+  font-size: 10px;
+  color: orange;
+}
+
+ul {
+  border: 1px solid rgb(187, 187, 0);
+}
+
+ul::before {
+  content: "<ul>";
+  font-size: 10px;
+  color: rgb(187, 187, 0);
+}
+
+ul::after {
+  content: "</ul>";
+  font-size: 10px;
+  color: rgb(187, 187, 0);
+}
+
+li {
+  border: 2px solid green;
+}
+
+li::before {
+  content: "<li>";
+  font-size: 10px;
+  color: green;
+}
+
+li::after {
+  content: "</li>";
+  font-size: 10px;
+  color: green;
+}
+
+a {
+  border: 1px solid blue;
+}
+
+a::before {
+  content: "<a>";
+  font-size: 10px;
+  color: blue;
+}
+
+a::after {
+  content: "</a>";
+  font-size: 10px;
+  color: blue;
+}
+
+h1 {
+  border: 1px solid rgb(132, 0, 255);
+}
+
+h1::before {
+  content: "<h1>";
+  font-size: 10px;
+  color: rgb(132, 0, 255);
+}
+
+h1::after {
+  content: "</h1>";
+  font-size: 10px;
+  color: rgb(132, 0, 255);
+}
+
+h2 {
+  border: 1px solid palevioletred;
+}
+
+h2::before {
+  content: "<h2>";
+  font-size: 10px;
+  color: palevioletred;
+}
+
+h2::after {
+  content: "</h2>";
+  font-size: 10px;
+  color: palevioletred;
+}
+
+section {
+  border: 1px solid purple;
+}
+
+section::before {
+  content: "<section>";
+  font-size: 10px;
+  color: purple;
+}
+
+section::after {
+  content: "</section>";
+  font-size: 10px;
+  color: purple;
+}
+
+article {
+  border: 1px solid hotpink;
+}
+
+article::before {
+  content: "<article>";
+  font-size: 10px;
+  color: hotpink;
+}
+
+article::after {
+  content: "</article>";
+  font-size: 10px;
+  color: hotpink;
+}
+
+main {
+  border: 3px solid black;
+}
+
+main::before {
+  content: "<main>";
+  font-size: 10px;
+  color: black;
+}
+
+main::after {
+  content: "</main>";
+  font-size: 10px;
+  color: black;
+}
+
+p {
+  border: 3px solid gray;
+}
+
+p::before {
+  content: "<p>";
+  font-size: 10px;
+  color: gray;
+}
+
+p::after {
+  content: "</p>";
+  font-size: 10px;
+  color: gray;
+}
+
+aside {
+  border: 1px solid brown;
+}
+
+aside::before {
+  content: "<aside>";
+  font-size: 10px;
+  color: brown;
+}
+
+aside::after {
+  content: "</aside>";
+  font-size: 10px;
+  color: brown;
+}
