@@ -189,3 +189,9 @@ aside::after {
   font-size: 10px;
   color: brown;
 }
+
+.formatted {
+  font-style: italic;
+  font-family: serif;
+  font-size: 2em;
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="layout.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="index.html">Main Page</a></li>
+          <li><a href="#">Another Page</a></li>
+          <li><a href="#">Third Page</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section>
+        <h1>Main title</h1>
+        <article>
+          <h2>Subtitle</h2>
+          <p>Some longer text, lorem ipsum dolor sit amet</p>
+        </article>
+        <article>
+          <h2>Subtitle</h2>
+          <p>Some longer text, lorem ipsum dolor sit amet</p>
+        </article>
+        <article>
+          <h2>Subtitle</h2>
+          <p>Some longer text, lorem ipsum dolor sit amet</p>
+        </article>
+      </section>
+      <aside>
+        <p>This content appears to the right of my main content.</p>
+      </aside>
+    </main>
+    <footer></footer>
+  </body>
+</html>
