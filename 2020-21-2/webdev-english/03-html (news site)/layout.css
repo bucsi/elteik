@@ -1,0 +1,25 @@
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline;
+  background-color: rgb(182, 250, 182);
+  border-radius: 5px;
+  padding: 1em;
+}
+
+img {
+  width: 50%;
+}
+
+header img {
+  height: 10vh;
+  width: 100%;
+}
+
+article img {
+  width: 20vw;
+}
