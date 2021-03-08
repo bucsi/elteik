@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      #tipp {
+        width: 1.5ch;
+      }
+      #megoldas {
+        letter-spacing: 0.5ch;
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Akasztófa! <span></span></h1>
+    <div>Nyomd meg az indításhoz: <button>Start</button></div>
+    <form hidden>
+      <label for="tipp">Ezt a betűt tippelem:</label>
+      <input type="text" name="tipp" id="tipp" maxlength="1" />
+      <input type="submit" />
+      <br /><br />
+      <input type="text" name="megoldas" id="megoldas" disabled value="" />
+    </form>
+  </body>
+  <script src="index.js" type="module"></script>
+</html>
