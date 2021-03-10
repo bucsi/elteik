@@ -91,10 +91,10 @@ A játék egy 8x8-as sakktáblán játszódik. A tábla bal alsó sarka fekete, 
 
 ## Kockapóker
 ### Alapjáték (5 pont)
-[A kockapóker általános szabályai](http://users.atw.hu/kartyaszabalyok/mappa/kockapoker.htm) (Elég, ha egy játékosra működik, elsősorban a pontozásért van itt a link. Nektek csak a mellékelt pontozótáblához kell megírni a programot.)  
+[A kockapóker általános szabályai](http://users.atw.hu/kartyaszabalyok/mappa/kockapoker.htm) (Elég, ha egy játékosra működik, elsősorban a pontozásért van itt a link. Nektek csak a mellékelt pontozótáblához hasonlóra kell megírni a programot.)  
 A játékos gombnyomásra kap öt random számot (1 és 6 között). Kiválaszthatja, hogy melyeket szeretné újradobni, és azokat újra sorsolja a program, ezt összesen kétszer teheti meg. A három dobás után a játékos kiválasztja (pl. egy `<select>` elemből, vagy a mezőre kattintással), hogy melyik kategória szabálya szerint kér érte pontot (pl. kis sor), a megfelelő helyre pedig a program kiszámolja a dobott kockákért járó pontot.
 <details>
-<summary>A pontozótábla</summary>
+<summary>A pontozótábla pl. így is kinézhet:</summary>
 
 | Kategória | Pontszám |
 | --------- | -------- |
