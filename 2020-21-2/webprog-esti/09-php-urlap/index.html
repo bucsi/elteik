@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      form {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="get.php" method="get">
+      <input name="adat" type="text" />
+      <select name="menu">
+        <option value="a">A</option>
+        <option value="b">B</option>
+        <option value="c">C</option>
+      </select>
+      <input type="submit" />
+    </form>
+    <form action="post.php" method="post">
+      <input name="adat" type="text" />
+      <input type="submit" />
+    </form>
+    <form action="teszt.php" method="get">
+      <label for="nev">Neved:</label><input name="nev" id="nev" type="text" /><br />
+      Egy szám: <input name="szam" type="number" /><br />
+
+      Pipa: <input type="checkbox" name="checkbox" /><br />
+
+      Állatok: <input type="checkbox" name="allatok[]" value="kutya" id="kutya" />
+      <label for="kutya">Kutya</label>
+      <input type="checkbox" name="allatok[]" value="macska" id="macska" />
+      <label for="macska">Macska</label><br />
+
+      Rádió: <input type="radio" name="radio" id="egyik" value="egyik" />
+      <label for="egyik">egyik</label> <input type="radio" name="radio" id="masik" value="masik" />
+      <label for="masik">másik</label><br />
+
+      Menü:
+      <select name="menu">
+        <option value="a">A</option>
+        <option value="b">B</option>
+        <option value="c">C</option></select
+      ><br />
+
+      Szín: <input type="color" name="szin" />
+
+      <input type="submit" />
+    </form>
+  </body>
+</html>
+
+<!--
+
+
+http://localhost:3000/09-php-urlap/get.php?adat=asd
+
+google.com/search?q=1000
+
+-->
