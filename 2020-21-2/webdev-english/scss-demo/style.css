@@ -1,0 +1,60 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif; }
+
+nav {
+  color: black;
+  background: #d16323;
+  height: 48px;
+  display: flex;
+  align-items: center; }
+  nav button {
+    background: #d16323;
+    border: 0;
+    font-size: 2em;
+    display: inline-block;
+    cursor: pointer; }
+    nav button:hover {
+      background-color: rgba(255, 255, 255, 0.3); }
+    @media screen and (min-width: 650px) {
+      nav button {
+        display: none; } }
+  nav a {
+    color: black;
+    display: inline-block;
+    font-weight: bold;
+    padding: 10px; }
+    nav a:hover {
+      background-color: rgba(255, 255, 255, 0.3); }
+
+#menu {
+  background: #d16323;
+  min-width: 200px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  top: 48px;
+  margin: 0;
+  visibility: hidden; }
+  #menu li {
+    display: block;
+    list-style: none; }
+    #menu li a {
+      display: block; }
+  @media screen and (min-width: 650px) {
+    #menu {
+      display: inline-block;
+      position: static;
+      visibility: visible; }
+      #menu li {
+        display: inline-block; } }
+
+main {
+  padding: 15px; }
+  main h1 {
+    margin: 0 0 15px 0;
+    font-size: 2em; }
+
+/*# sourceMappingURL=style.css.map */

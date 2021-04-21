@@ -1,0 +1,52 @@
+/*
+Cascading
+Style
+Sheets
+
+selector {
+  property: setting;
+}
+
+
+*/
+
+img {
+    width: 50%;
+}
+
+nav {
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+            display: inline;
+            background-color: rgb(182, 250, 182);
+            border-radius: 5px;
+            padding: 1em;
+        }
+    }
+}
+
+figure img {
+    width: 25%;
+}
+
+header img {
+    height: 10vh;
+    width: 100%;
+}
+
+article img {
+    width: 20vw;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+td,
+th {
+    border: 1px solid black;
+}

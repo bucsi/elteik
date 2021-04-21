@@ -1,0 +1,84 @@
+@import "colors";
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto", sans-serif;
+}
+
+nav {
+    color: $background-color;
+    background: $primary-color;
+    height: $navbar-height;
+    display: flex;
+    align-items: center;
+
+    button {
+        background: $primary-color;
+        border: 0;
+        font-size: 2em;
+        display: inline-block;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $highligh-color;
+        }
+
+        @media screen and (min-width: 650px) {
+            display: none;
+        }
+    }
+
+    a {
+        color: $background-color;
+        display: inline-block;
+        font-weight: bold;
+        padding: 10px;
+
+        &:hover {
+            background-color: $highligh-color;
+        }
+    }
+}
+
+#menu {
+    background: $primary-color;
+    min-width: 200px;
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    top: $navbar-height;
+    margin: 0;
+
+    visibility: hidden; //default, JS will change this.
+
+    li {
+        display: block;
+        list-style: none;
+
+        a {
+            display: block;
+        }
+    }
+
+    @media screen and (min-width: 650px) {
+        display: inline-block;
+        position: static;
+
+        visibility: visible;
+
+        li {
+            display: inline-block;
+        }
+    }
+}
+
+main {
+    padding: 15px;
+
+    h1 {
+        margin: 0 0 15px 0;
+        font-size: 2em;
+    }
+}
