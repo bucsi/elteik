@@ -1,0 +1,21 @@
+{
+    "6086e9cca42c1": {
+        "username": "me@bucsi.net",
+        "password": "$2y$10$q0LMbmOvkjIAHcidLi09uOSLYZflNVn2yO4G9iAtzOq75eagmvpJi",
+        "fullname": "Tam\u00e1s Bucs\u00e1nszki",
+        "roles": [
+            "user"
+        ],
+        "id": "6086e9cca42c1"
+    },
+    "6086f1a5a9d34": {
+        "username": "admin@admin.hu",
+        "password": "$2y$10$CTH1GzT72weYu2.4AgnkBO2s2dj9hflzHxQX585fNiL.pyYCk89Su",
+        "fullname": "admin",
+        "roles": [
+            "user",
+            "admin"
+        ],
+        "id": "6086f1a5a9d34"
+    }
+}

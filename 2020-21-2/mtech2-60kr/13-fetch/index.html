@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" /><button id="load">Load</button><br />
+    <table>
+      <tr>
+        <th>Kulcs</th>
+        <th>Érték</th>
+      </tr>
+    </table>
+    <hr />
+    <textarea></textarea><button id="save">Save</button>
+  </body>
+  <script>
+    const loadBtn = document.querySelector("#load")
+    const input = document.querySelector("input")
+    const table = document.querySelector("table")
+
+    const saveBtn = document.querySelector("#save")
+    const textarea = document.querySelector("textarea")
+
+    loadBtn.addEventListener("click", async () => loadData(input.value))
+
+    async function loadData(id) {
+      let response = await fetch(`backend.php?id=${id}`)
+      let json = await response.json()
+      if (json.status === "error") {
+        alert(json.message)
+      } else {
+        table.innerHTML = "<tr><th>Kulcs</th><th>Érték</th></tr>"
+        for (kulcs in json.data) {
+          const row = document.createElement("tr")
+          const tdKulcs = document.createElement("td")
+          const tdErtek = document.createElement("td")
+          tdKulcs.innerHTML = kulcs
+          tdErtek.innerHTML = json.data[kulcs]
+          row.appendChild(tdKulcs)
+          row.appendChild(tdErtek)
+          table.appendChild(row)
+        }
+      }
+    }
+
+    saveBtn.addEventListener("click", async () => {
+      let response = await fetch(`backend.php?adat=${textarea.value}`)
+      let json = await response.json()
+      if (json.status === "error") {
+        alert(json.message)
+      } else {
+        loadData(json.id)
+      }
+    })
+  </script>
+</html>

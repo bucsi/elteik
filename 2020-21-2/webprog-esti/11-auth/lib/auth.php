@@ -3,9 +3,9 @@
 
 class UserStorage extends Storage
 {
-    public function __construct()
+    public function __construct(String $filename)
     {
-        parent::__construct(new JsonIO('users.json'));
+        parent::__construct(new JsonIO($filename));
     }
 }
 
@@ -26,7 +26,7 @@ class Auth
     public function register($data)
     {
         $user = [
-            'username'  => $data['username'],
+            'username'  => $data['username'], //lehet e-mail is
             'password'  => password_hash($data['password'], PASSWORD_DEFAULT),
             'fullname'  => $data['fullname'],
             "roles"     => ["user"],

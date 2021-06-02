@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button>Adatok kérése a szervertől</button>
+    A szerver válasza: <output></output>
+    <h1>Interaktív elem</h1>
+    <button id="masodik"></button>
+  </body>
+  <script>
+    document.querySelector("button").addEventListener("click", szerverLekerdezes)
+    document.querySelector("#masodik").addEventListener("click", serverPost)
+
+    document.querySelector("h1").addEventListener("click", e => (e.target.innerHTML += "a"))
+
+    function szerverLekerdezes() {
+      szerverLekerdez({ a: "Alma", b: "Körte", c: "Több gyümölcs együtt" })
+    }
+
+    async function szerverLekerdez(obj) {
+      let response = await fetch(`adat.php?q=${obj.a}&foo=${obj.b}&harmadikparam=${obj.c}`)
+      let adat = await response.json()
+      console.log(adat)
+    }
+
+    async function serverPost() {
+      let r = await fetch("adat.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: `q=${"egyik adat"}&foo=${123}&harmadikparam=${false}`,
+      })
+      let data = await r.json()
+      console.log(data)
+    }
+  </script>
+</html>

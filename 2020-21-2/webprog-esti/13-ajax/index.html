@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" /><button id="betoltes">Betöltés</button>
+    <div></div>
+    <hr />
+    Új adat felvétele<br />
+    <textarea></textarea><br /><button id="mentes">Mentés</button>
+  </body>
+  <script>
+    const betoltBtn = document.querySelector("#betoltes")
+    const mentBtn = document.querySelector("#mentes")
+    const input = document.querySelector("input[type=text]")
+    const textarea = document.querySelector("textarea")
+    const eredmeny = document.querySelector("div")
+
+    mentBtn.addEventListener("click", kuld)
+    betoltBtn.addEventListener("click", () => leker(input.value))
+
+    async function leker(id) {
+      let r = await fetch(`backend.php?id=${id}`)
+      let valasz = await r.json()
+      console.log(valasz)
+      if (valasz.status === "ok") {
+        eredmeny.innerHTML = "<ul>"
+        for (const kulcs in valasz.data) {
+          eredmeny.innerHTML += `<li>${kulcs}: ${valasz.data[kulcs]}</li>`
+        }
+        eredmeny.innerHTML += "</ul>"
+      } else if (valasz.status === "error") {
+        alert(valasz.message)
+      }
+    }
+
+    async function kuld() {
+      let r = await fetch("backend.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: `szoveg=${textarea.value}`,
+      })
+      let valasz = await r.json()
+
+      if (valasz.status === "ok") {
+        textarea.value = ""
+        leker(valasz.id)
+        input.value = valasz.id
+      } else if (valasz.status === "error") {
+        alert(valasz.message)
+      }
+    }
+  </script>
+</html>
