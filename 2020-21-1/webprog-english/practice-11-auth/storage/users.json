@@ -30,5 +30,13 @@
         "roles": [
             "user"
         ]
+    },
+    "5fdcd63f4fafc": {
+        "username": "asdf",
+        "password": "$2y$10$g5jPmGnPwxDI8Z7XWn7aPezBOhlGvC.6omY2awFQ\/t0IL5zNQceXy",
+        "fullname": "asdf",
+        "roles": [
+            "user"
+        ]
     }
 }
