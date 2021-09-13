@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gyakorlat 2</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //objektumok
+    // :=
+    // valtozo <- ertek
+    const ember = {
+        nev: "Bucsi",
+        kor: 24,
+        "tanar-e": true,
+        kedvenc_szinek: ["zöld", "narancs"],
+        haziallat: { //kiírásnál String lesz belőle ("[object Object] hiba")
+            nev: "Amy",
+            fajta: "macska",
+            Instagram: "instagram.com/amy.catto"
+        }
+    }
+
+    for (const kulcs in ember) {
+        console.log(`Az ember objektum ${kulcs} kulcsán tárolt érték: ${ember[kulcs]}`)
+    }
+
+    console.log(`${ember.nev} macskájának neve ${ember.haziallat.nev}, a ${ember.haziallat.fajta}`)
+
+    const tomb = ["a", "b", "c"]
+    //NE így csináld, tömböt for...of ciklussal kell bejárni!!
+    for (const ertek in tomb) {
+        console.log(`Az ember objektum ${ertek} kulcsán tárolt érték: ${tomb[ertek]}`)
+    }
+
+    /*
+    -------------TÖMBFÜGGVÉNYEK----------
+    */
+
+    const nagybetusTomb = tomb.map(elem => elem.toUpperCase())
+    nagybetusTomb.forEach(elem => console.log(elem))
+    const betuk = ['a', 'b', 'e', 'h', 'i', 't']
+    const mgh = "aeiou"
+
+    function mgh_e(betu){
+        return mgh.indexOf(betu) > -1
+    }
+
+    const szurt = betuk.filter(mgh_e)
+    szurt.forEach(elem => console.log(elem))
+</script>
+
+</html>

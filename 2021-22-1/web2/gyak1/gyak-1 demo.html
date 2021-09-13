@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+
+<script>
+    let szam = 3
+    let szoveg = "alma" // lehet '...' is
+    let logikai = true
+    /*
+    több
+    soros
+    komment
+    */
+
+    console.log(`A szám értéke: ${szam}, a szövegé: ${szoveg}, a logikai: ${logikai}`) //backtick, AltGr + 7
+    console.log("Sima szöveget is ki tud írni.")
+
+    let tomb = [1,2,3,4,5,"a", 'B', false, ["i", "ii", "iii"]]
+    let vtomb = [szam, szoveg, logikai]
+
+    console.log(tomb)
+    console.log(vtomb)
+
+    // számlálós ciklus
+    for(let i=0; i<tomb.length; i++){
+        console.log(tomb[i])
+    }
+
+    // while ciklus (első 5 elem)
+    let i = 0
+    while(i < 5){
+        console.log(tomb[i])
+        i++
+    }
+
+    let szamok = [10,20,30]
+    let szum = 0
+    // C# for(auto x : Tömb)
+    for(let ertek of szamok){
+        szum = szum + ertek // itt érték olyan, mint ha szamok[i] lenne
+    }
+    console.log(`A szamok tömb összege: ${szum}`)
+
+    let tömb = [2,4,7,5,1,4,4,8,9,11]
+
+    // megszámolás
+    let db=0
+    for(let e of tömb){
+        if(e%2===1) db++
+    }
+    console.log(`${db} darab páratlan szám van a tömbben.`)
+    console.log(`${tömb.reduce((s,x) => x % 2 === 1 ? s+1 : s,0)} darab páratlan szám van a tömbben.`)
+
+    //összegzés
+    let s = 0
+    for(let e of tömb){
+        s +=e 
+    }
+    console.log(`Az összeg: ${s}`)
+    console.log(`Az összeg: ${tömb.reduce((s,x)=>s+x,0)}`)
+
+    //min
+    let min=tömb[0]
+    for(let e of tömb){
+        if(e<min) min=e
+    }
+    console.log(`A legkisebb elem: ${min}`)
+    console.log(`A legkisebb elem: ${Math.min(...tömb)}`)
+
+    //eldöntés
+    let van = false
+    let i = 0
+    for(let e of tömb){
+        if(e%10===0){
+            van = true
+            break
+        }
+    }
+    console.log(`${van}, hogy volt 10-zel osztható elem.`)
+    console.log(`${tömb.some(e=>e%10===0)}, hogy volt 10-zel osztható elem.`)
+
+    //keresés
+    let i=0
+    while(i<tömb.length && tömb[i] % 3 !== 0){
+        i++
+    }
+    console.log(`A tömbben a(z) ${i}. helyen van 3-mal osztható elemm.`)
+    console.log(`A tömbben a(z) ${tömb.find(e=>e%3===0)}. helyen van 3-mal osztható elemm.`)
+
+    //max
+    let max=tömb[0]
+    for(let e of tömb){
+        if(e<max) max=e
+    }
+    console.log(`A legkisebb elem: ${max}`)
+    console.log(`A legkisebb elem: ${Math.max(...tömb)}`)
+
+
+</script>
+
+</html>
