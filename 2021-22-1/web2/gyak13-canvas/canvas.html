@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Canvas alapok</title>
+    <style>
+      canvas {
+        border: 1px solid black;
+        width: 500px;
+        height: 500px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas width="200" height="200"></canvas>
+  </body>
+  <script>
+    const canvas = document.querySelector("canvas");
+    const ctx = canvas.getContext("2d");
+
+    ctx.beginPath();
+    ctx.strokeStyle = "red"
+    ctx.moveTo(100, 100);
+    ctx.lineTo(0, 200);
+    ctx.closePath();
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.strokeStyle = "blue"
+    ctx.moveTo(100, 100);
+    ctx.lineTo(200, 0);
+    ctx.closePath()
+    ctx.stroke()
+
+    ctx.beginPath();
+    ctx.strokeStyle = "orange"
+    ctx.moveTo(100, 100);
+    ctx.lineTo(0, 0);
+    ctx.closePath();
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.strokeStyle = "green"
+    ctx.moveTo(100, 100);
+    ctx.lineTo(200, 200);
+    ctx.closePath();
+    ctx.stroke();
+
+    ctx.beginPath()
+    ctx.strokeStyle = "black"
+    ctx.fillStyle = "black"
+    ctx.strokeRect(50,50,100,25)
+    ctx.fillRect(50,150,100,25)
+    ctx.closePath()
+    
+
+    ctx.beginPath()
+    ctx.moveTo(100,100)
+    ctx.lineTo(0,100)
+    ctx.closePath()
+    ctx.stroke()
+  </script>
+</html>
