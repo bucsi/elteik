@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      canvas {
+        border: 1px solid black;
+        width: 500px;
+        height: 500px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas width="500" height="500"></canvas>
+    <p>Frissítés gyakorisága:</p>
+    <p>Gyorsabb <input type="range" min="500" max="5000" /> Lassabb</p>
+  </body>
+  <script>
+    let venus = {
+      angle: 0,
+      speed: 13,
+      radius: 150,
+      x: 150,
+      y: 0,
+      update: function (dt) {
+        this.angle += this.speed * dt
+        let ujKoord = koordinataSzamol(this.angle, this.radius)
+        this.x = ujKoord.x
+        this.y = ujKoord.y
+      },
+    }
+
+    let earth = {
+      angle: 0,
+      speed: 8,
+      radius: 200,
+      x: 200,
+      y: 0,
+      update: function (dt) {
+        this.angle += this.speed * dt
+        let ujKoord = koordinataSzamol(this.angle, this.radius)
+        this.x = ujKoord.x
+        this.y = ujKoord.y
+      },
+    }
+
+    let state = {
+      lines: [],
+    }
+
+    function koordinataSzamol(szog, sugar) {
+      let x = sugar * Math.cos(szog)
+      let y = sugar * Math.sin(szog)
+      return { x, y }
+    }
+
+    function update(dt) {
+      venus.update(dt)
+      earth.update(dt)
+      let vonal = {
+        honnanX: venus.x,
+        honnanY: venus.y,
+        hovaX: earth.x,
+        hovaY: earth.y,
+      }
+      state.lines.push(vonal)
+    }
+
+    function render() {
+      //Vászon törlése, háttér kirajzolása
+      ctx.fillStyle = "black"
+      ctx.rect(-canvas.width / 2, -canvas.height / 2, canvas.width, canvas.height)
+      ctx.fill()
+
+      for (let vonal of state.lines.slice(0, -1)) {
+        ctx.beginPath()
+        ctx.moveTo(vonal.honnanX, vonal.honnanY)
+        ctx.lineTo(vonal.hovaX, vonal.hovaY)
+        ctx.stroke()
+        ctx.closePath()
+      }
+
+      //tömb utolsó elem hagyományosan: state.lines[lines.length - 1]
+      // vagy Chrome 92+, Firefox 90 óta - nagyon új feature, nem minden böngésző ismeri még (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/at#browser_compatibility)
+      const v = state.lines.at(-1)
+      ctx.save()
+      ctx.beginPath()
+      ctx.strokeStyle = "white"
+      ctx.moveTo(v.honnanX, v.honnanY)
+      ctx.lineTo(v.hovaX, v.hovaY)
+      ctx.stroke()
+      ctx.closePath()
+      ctx.restore()
+
+      //Vénusz
+      ctx.save()
+      ctx.rotate(venus.angle)
+      ctx.beginPath()
+      ctx.fillStyle = "orange"
+      ctx.arc(venus.radius, 0, 2, 0, 2 * Math.PI)
+      ctx.fill()
+      ctx.closePath()
+      ctx.restore()
+
+      //Föld
+      ctx.save()
+      ctx.rotate(earth.angle)
+      ctx.beginPath()
+      ctx.fillStyle = "lightblue"
+      ctx.arc(earth.radius, 0, 4, 0, 2 * Math.PI)
+      ctx.fill()
+      ctx.closePath()
+      ctx.restore()
+
+      ///Nap
+      ctx.fillStyle = "yellow"
+      ctx.beginPath()
+      ctx.arc(0, 0, 10, 0, 2 * Math.PI)
+      ctx.fill()
+      ctx.closePath()
+    }
+
+    let utolsoKepkockaIdo = performance.now()
+    function next() {
+      let idoMost = performance.now()
+      let dt = (idoMost - utolsoKepkockaIdo) / sebessegVezerlo.value
+
+      update(dt)
+      render()
+
+      utolsoKepkockaIdo = idoMost
+      requestAnimationFrame(next)
+    }
+
+    const canvas = document.querySelector("canvas")
+    const sebessegVezerlo = document.querySelector("input")
+    const ctx = canvas.getContext("2d")
+    ctx.strokeStyle = "#222"
+    ctx.translate(canvas.width / 2, canvas.height / 2)
+
+    next()
+  </script>
+</html>
