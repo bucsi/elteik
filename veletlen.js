@@ -4,5 +4,5 @@
  * @param {*} teteje Egész szám, az intervallum teteje
  */
 function veletlenKozott(alja, teteje) {
-    Math.floor(Math.random() * (teteje - alja + 1) + alja)
+    return Math.floor(Math.random() * (teteje - alja + 1) + alja)
 }
