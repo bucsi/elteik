@@ -1,6 +1,4 @@
-import { state } from "../state.js"
-
-export function handleJump(event) {
+function handleJump(event) {
     if (event.code !== "Space" || state.player.isJumping) {
         return
     }

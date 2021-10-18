@@ -8,15 +8,28 @@
       canvas {
         border: 1px solid black;
       }
+      #debug {
+        border: 1px solid red;
+        font-family: monospace;
+      }
+      .hide {
+        display: none;
+      }
     </style>
   </head>
   <body>
     <canvas width="1500" height="500"> </canvas>
+    <br />
+    <button id="newGame">Új játék</button>
+    <br />
+    <form class="hide">
+      Játékos neve: <input name="player" type="text" /><br />
+      Elért pontszám: <input name="score" type="number" disabled /> <br />
+      Játékidő: <input name="time" type="text" disabled /><br />
+      <input type="submit" value="Eredmény mentése" />
+    </form>
+    <br />
+    <div id="debug"></div>
   </body>
-  <script src="helpers.js"></script>
-  <script src="canvas.js"></script>
-  <script src="actors/cactus.js"></script>
-  <script src="actors/dino.js"></script>
-  <script src="events/jump.js"></script>
-  <script src="game.js"></script>
+  <script type="module" src="game.js"></script>
 </html>

@@ -1,9 +1,5 @@
-import { debug } from "../helpers.js"
-
-export class Dino {
+class Dino {
     constructor() {
-        console.log("Player létrejött.")
-        debug("Player létrejött.")
         this.x = 500
         this.y = 50
         this.width = 50
@@ -18,6 +14,7 @@ export class Dino {
     collidesWith(actor) {
         const rightEdge = this.x + this.width
         const leftEdge = this.x
+        const topEdge = this.y + this.height
         const bottomEdge = this.y
 
         /*
@@ -47,7 +44,7 @@ export class Dino {
         }
     }
 
-    render(ctx) {
+    render() {
         ctx.save()
         ctx.beginPath()
         ctx.strokeStyle = "blue"

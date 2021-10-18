@@ -6,9 +6,3 @@
 function veletlenKozott(alja, teteje) {
     return Math.floor(Math.random() * (teteje - alja + 1) + alja)
 }
-
-function debug(message) {
-    document.querySelector("#debug").innerHTML += "<br>" + message
-}
-
-export { veletlenKozott, debug }
