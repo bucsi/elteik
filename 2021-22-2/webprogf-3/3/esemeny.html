@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Esemeny</title>
+    <style>
+      .megnyomva {
+        border: 5px solid green;
+      }
+    </style>
+  </head>
+  <body>
+    <button>Nyomj meg!</button>
+  </body>
+  <script>
+    const btn = document.querySelector("button")
+
+    btn.addEventListener("click", handleBtnClick)
+
+    function handleBtnClick(ev) {
+      console.log(
+        `Alt key: ${ev.altKey}
+Ctrl key: ${ev.ctrlKey}
+Shift key: ${ev.shiftKey}
+Meta key: ${ev.metaKey}
+Pozíció: {x: ${ev.clientX}, y: ${ev.clientY}}
+Type: ${ev.pointerType}`
+      )
+
+      this.classList.toggle("megnyomva")
+    }
+  </script>
+</html>
+
+<!--
+  listener: (this: HTMLButtonElement, ev: MouseEvent) => any, 
+
+  let duplazoFgv = x => x*2
+
+  tomb.reduce( (s,x) => s+x  )
+
+
+  void Main(string[] args)
+
+-->
