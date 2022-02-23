@@ -53,7 +53,7 @@ const bemenetiAdat = [
 const table = document.createElement("table")
 let fejlecSor = document.createElement("tr")
 
-for (let oszlopfejlec of bemenetiAdat[0]) {
+for (let oszlopfejlec in bemenetiAdat[0]) {
     let fejlec = document.createElement("th")
     fejlec.innerHTML = oszlopfejlec
     fejlecSor.appendChild(fejlec)
