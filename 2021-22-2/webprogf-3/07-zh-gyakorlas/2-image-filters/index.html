@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image filters</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <h1>Image filters</h1>
+  <img src="image1.jpg" id="the-image">
+  <h2>Filters</h2>
+  <div id="the-filters">
+    <label>
+      <input type="checkbox" value="blur(#px)">
+      Blur
+      <input type="range" min="0" max="10" value="3">
+    </label>
+    <label>
+      <input type="checkbox" value="grayscale(#%)">
+      Grayscale
+      <input type="range" min="0" max="100" value="50">
+    </label>
+    <label>
+      <input type="checkbox" value="hue-rotate(#deg)">
+      Hue rotate
+      <input type="range" min="0" max="360" value="90">
+    </label>
+    <label>
+      <input type="checkbox" value="sepia(#%)">
+      Sepia
+      <input type="range" min="0" max="100" value="60">
+    </label>
+  </div>
+  <script src="index.js"></script>
+</body>
+</html>

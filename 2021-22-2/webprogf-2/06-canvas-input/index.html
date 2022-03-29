@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      canvas {
+        border: 1px solid black;
+        /*itt tudnám állítani a canvas MEGJELENÍTETT méretét
+        width: 50vw;
+        height: 25vh;
+        */
+      }
+    </style>
+  </head>
+  <body>
+    <canvas width="500" height="500"></canvas><br />
+    <!--itt a számok NEM a megjelenést befolyásolják-->
+    <div>
+      Hupilila Párt
+      <input class="user-editable" data-party="hupilila" type="number" /><br />
+      Nefritzöld Párt
+      <input
+        class="user-editable"
+        data-party="nefritzold"
+        type="number"
+      /><br />
+      Diplomatakék Párt
+      <input
+        class="user-editable"
+        data-party="diplomatakek"
+        type="number"
+      /><br />
+      Kobaltviola Párt
+      <input
+        class="user-editable"
+        data-party="kobaltviola"
+        type="number"
+      /><br />
+      Egyép pártok <input data-party="egyeb" type="number" disabled />
+    </div>
+  </body>
+  <!--script src="canvas.js"></script-->
+  <script src="app.js"></script>
+</html>

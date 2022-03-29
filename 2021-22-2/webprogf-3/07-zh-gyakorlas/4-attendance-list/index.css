@@ -1,0 +1,20 @@
+@import url("https://cdn.jsdelivr.net/gh/elte-fi/www-assets@19.10.16/styles/mdss.min.css");
+
+* {
+  box-sizing: border-box;
+}
+table {
+  border-spacing: 0;
+  border-collapse: separate;
+}
+td:not(:first-child) {
+  border: 3px solid white;
+  text-align: center;
+  background-color: pink;
+}
+td:focus-within {
+  border: 3px solid orange;
+}
+td.present {
+  background-color: lightgreen;
+}

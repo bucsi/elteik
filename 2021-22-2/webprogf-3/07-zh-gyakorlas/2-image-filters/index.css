@@ -1,0 +1,21 @@
+@import url("https://cdn.jsdelivr.net/gh/elte-fi/www-assets@19.10.16/styles/mdss.min.css");
+
+#the-image {
+  width: 100%;
+  max-width: 600px;
+}
+#the-filters {
+  display: flex;
+  flex-wrap: wrap;
+}
+#the-filters label {
+  width: 28%;
+  padding: 10px;
+  margin: 5px;
+  border: 2px solid #777777;
+  border-radius: 5px;
+  border-left: 15px solid #777777;
+}
+#the-filters label:checked {
+  border-color: orange;
+}
