@@ -1,0 +1,18 @@
+{
+    "printWidth":120,
+    "proseWrap":"preserve",
+    "tabWidth": 4,
+    "semi": false,
+    "singleQuote": false,
+    "quoteProps": "as-needed",
+    "trailingComma": "es5",
+    "arrowParens": "avoid",
+    "overrides": [
+        {
+            "files": ["*.html", "*.json", "*.yaml"],
+            "options": {
+                "tabWidth": 2
+            }
+        }
+    ]
+}
