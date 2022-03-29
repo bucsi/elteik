@@ -1,0 +1,8 @@
+/**
+ * Véletlen egész számot ad vissza az [alja-teteje] zárt intervallumból.
+ * @param {Number} alja Egész szám, az intervallum alja
+ * @param {Number} teteje Egész szám, az intervallum teteje
+ */
+export function veletlenKozott(alja, teteje) {
+    return Math.floor(Math.random() * (teteje - alja + 1) + alja)
+}

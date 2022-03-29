@@ -1,0 +1,23 @@
+{
+    "61aa13847d379": {
+        "from": "qweqwe",
+        "to": "asdasd",
+        "subject": "testing",
+        "content": "123456789\u00f6\u00fc\u00f3\r\nasdfghjkl\u00e9\u00e1\u0171\r\ny\u00edxcvbnm,.-",
+        "id": "61aa13847d379"
+    },
+    "61aa1699ec113": {
+        "from": "asdasd",
+        "to": "asdasd",
+        "subject": "pr\u00f3ba 2",
+        "content": "asd\r\nasd\r\nasd",
+        "id": "61aa1699ec113"
+    },
+    "61aa72268bb38": {
+        "from": "asdasd",
+        "to": "qweqwe",
+        "subject": "szia",
+        "content": "ez az \u00fczenetem",
+        "id": "61aa72268bb38"
+    }
+}
