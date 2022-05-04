@@ -1,0 +1,23 @@
+{
+    "6270f7012a103": {
+        "to": [
+            "b4tm4n"
+        ],
+        "priority": 3,
+        "from": "b4tm4n",
+        "subject": "teszt1",
+        "message": "magamnak \u00edrom",
+        "id": "6270f7012a103"
+    },
+    "6270f743d8d24": {
+        "to": [
+            "b4tm4n",
+            "r0b1n1"
+        ],
+        "priority": 9,
+        "from": "b4tm4n",
+        "subject": "teszt2",
+        "message": "k\u00e9t c\u00edmzett",
+        "id": "6270f743d8d24"
+    }
+}

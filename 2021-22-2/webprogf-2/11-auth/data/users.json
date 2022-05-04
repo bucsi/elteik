@@ -1,0 +1,20 @@
+{
+    "6270dab93b5bd": {
+        "username": "asdfgh",
+        "password": "$2y$10$WRU\/hhn380RdaETmN3\/pqOk8Ry7Giiw1iDGIfOavvjp0PafBFuZ0.",
+        "fullname": "Asd Fgh",
+        "roles": [
+            "user"
+        ],
+        "id": "6270dab93b5bd"
+    },
+    "6270e25be2a93": {
+        "username": "b4tm4n",
+        "password": "$2y$10$pM3ZRc6u9C8KdRTzGjjo2uGcsHvvrhywOJmZ4iu7HYc1fLrSwIUj6",
+        "fullname": "Batman",
+        "roles": [
+            "user"
+        ],
+        "id": "6270e25be2a93"
+    }
+}

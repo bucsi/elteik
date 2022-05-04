@@ -1,0 +1,21 @@
+{
+    "6270de948d5ce": {
+        "subject": "Teszt1",
+        "to": [
+            "asdfgh"
+        ],
+        "from": "asdfgh",
+        "message": "magamnak \u00edrom",
+        "id": "6270de948d5ce"
+    },
+    "6270dea897616": {
+        "subject": "Teszt2",
+        "to": [
+            "asdfgh",
+            "b4tm4n"
+        ],
+        "from": "asdfgh",
+        "message": "k\u00e9t c\u00edmzett",
+        "id": "6270dea897616"
+    }
+}
