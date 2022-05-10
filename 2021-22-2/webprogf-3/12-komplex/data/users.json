@@ -1,0 +1,29 @@
+{
+    "6270ef88106b1": {
+        "username": "b4tm4n",
+        "password": "$2y$10$sEvG6GsCcpn7ohJkvBvCZelitycKYFDBxeMEuxF28z.2BeckjsigK",
+        "fullname": "Bruce Wayne",
+        "roles": [
+            "user"
+        ],
+        "id": "6270ef88106b1"
+    },
+    "6270fbb54c09d": {
+        "username": "r0b1n1",
+        "password": "$2y$10$zHhNI\/s47N9KG2VlEtEYN.Tu.MvZK.2hUmxmaILIRdht0USOhJssS",
+        "fullname": "Robin",
+        "roles": [
+            "user"
+        ],
+        "id": "6270fbb54c09d"
+    },
+    "627a330a65b97": {
+        "username": "bucsi0",
+        "password": "$2y$10$b2xH9Bflgnpqrp3vzS16PuLwYL9GMld88RaVKudoX0N0gsLpBhVdS",
+        "fullname": "BUCSI0",
+        "roles": [
+            "user"
+        ],
+        "id": "627a330a65b97"
+    }
+}
