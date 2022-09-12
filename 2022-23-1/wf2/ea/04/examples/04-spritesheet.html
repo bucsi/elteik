@@ -1,0 +1,60 @@
+<canvas id="example" width="128" height="128"></canvas>
+
+<script>
+  const canvas = document.querySelector("#example");
+  const context = canvas.getContext("2d");
+  
+  let lastFrameTime = performance.now();
+  const spritesPerRow = 4;
+  const spritesCount = 16;
+  const spriteDuration = 16;
+  const spriteWidth = 128;
+  const spriteHeight = 128;
+  
+  const spriteSheet = new Image();
+  spriteSheet.src = "../../../assets/images/examples/spritesheet.png";
+  
+  const state = {
+    currentSprite: 0,
+    timeSinceSpriteChange: 0
+  };
+  
+  function next() {
+    const currentTime = performance.now();
+    const dt = currentTime - lastFrameTime;
+  
+    update(dt);
+    render();
+  
+    lastFrameTime = currentTime;
+  
+    requestAnimationFrame(next);
+  }
+  
+  function update(dt) {
+    state.timeSinceSpriteChange += dt;
+    if (state.timeSinceSpriteChange > spriteDuration) {
+      state.currentSprite = (state.currentSprite + 1) % spritesCount;
+      state.timeSinceSpriteChange = 0;
+    }
+  }
+  
+  function render() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    const spriteX = state.currentSprite % spritesPerRow;
+    const spriteY = Math.trunc(state.currentSprite / spritesPerRow);
+    context.drawImage(
+      spriteSheet, 
+      spriteWidth * spriteX,  // Source X
+      spriteHeight * spriteY, // Source Y
+      spriteWidth,            // Source width
+      spriteHeight,           // Source height
+      0,                      // Target X
+      0,                      // Target Y
+      spriteWidth,            // Target width
+      spriteHeight,           // Target height
+    );
+  }
+  
+  next();
+  </script>

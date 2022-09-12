@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>Webprogramozás - Szerveroldali webprogramozás</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+  <!-- Reveal.js Theme -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elte-fi/revealjs-elte-fi@1.1.1/dist/revealjs-elte-fi.min.css">
+  <!-- Highlighting -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/default.min.css">
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) 
+      ? 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/css/print/pdf.css' 
+      : 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild( link );
+  </script>
+
+  </head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+<section class="slide level2">
+
+<div class="title">
+<p>Web-fejlesztés 2.</p>
+</div>
+<h3 id="szerveroldali-webprogramozás">Szerveroldali webprogramozás</h3>
+<p><strong>Visnovitz Márton</strong><br />
+egyetemi tanársegéd<br />
+visnovitz.marton@inf.elte.hu</p>
+<p><strong><span class="citation" data-cites="elte-fi/courses-tt-webprog">@elte-fi/courses-tt-webprog</span></strong></p>
+</section>
+<section id="szerveroldali-dinamikus-webprogramozás" class="slide level2" data-state="new-section">
+<h2 data-state="new-section">Szerveroldali dinamikus webprogramozás</h2>
+</section>
+<section id="világháló" class="slide level2">
+<h2>Világháló</h2>
+<p>A világháló (angolul <strong>World Wide Web</strong>, röviden <strong>web</strong>) egy olyan információs rendszer, amelyben</p>
+<ul>
+<li><strong>dokumentumokat</strong> és más erőforrásokat</li>
+<li><strong>egységes címmel</strong> azonosítunk,</li>
+<li>ezeket <strong>hiperhivatkozásokkal</strong> kötjük össze,</li>
+<li>elérhetőségüket <strong>internetre kötött szerverek</strong> segítségével biztosítjuk,</li>
+<li>megtekintésük pedig speciális kliensprogramokban, <strong>böngészőkben</strong> történik.</li>
+</ul>
+</section>
+<section id="web-komponensei-szabványai" class="slide level2">
+<h2>Web komponensei, szabványai</h2>
+<ul>
+<li><a href="https://www.w3.org/html/">HTML</a> (dokumentumok, hiperhivatkozások)</li>
+<li><a href="https://www.w3.org/TR/url/">URL</a> (erőforrások egységes címe)</li>
+<li>webszerver (erőforrások elérhetővé tétele)</li>
+<li>webkliens, webböngésző (erőforrások megjelenítése)</li>
+<li><a href="https://tools.ietf.org/html/rfc7230">HTTP</a> (kliens-szerver kommunikáció)</li>
+</ul>
+<p><a href="https://www.w3.org/TR/">Webes szabványok</a></p>
+</section>
+<section id="http" class="slide level2">
+<h2>HTTP</h2>
+<div class="columns">
+<div class="column" style="width:70%;">
+<p><strong>HTTP protokoll</strong></p>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" checked="" />
+<strong>Web</strong>: kliens és kiszolgáló kommunikációja<br />
+</li>
+<li><input type="checkbox" disabled="" checked="" />
+<strong>HTTP</strong>: a kommunikáció protokollja</li>
+<li><input type="checkbox" disabled="" checked="" />
+Kliens kérést intéz a szervernek</li>
+<li><input type="checkbox" disabled="" checked="" />
+Szerver válaszol</li>
+<li><input type="checkbox" disabled="" checked="" />
+A kliens feldolgozza a választ</li>
+</ul>
+</div><div class="column" style="width:30%;">
+<img src="../../assets/images/architecture/server-client.png" alt="Kliens-szerver">
+</div>
+</div>
+</section>
+<section id="kliensoldali-webprogramozás" class="slide level2">
+<h2>Kliensoldali webprogramozás</h2>
+<div class="columns">
+<div class="column" style="width: 70%">
+<p><strong>Egy komponens</strong></p>
+<ul>
+<li>Kliens-szerver architektúra</li>
+<li>Statikus/dinamikus kliens</li>
+<li>Nem érdekes a szerver, csak az onnan érkező tartalom</li>
+<li>Nem is kell szerver, dolgozhatunk lokálisan</li>
+<li>Programozás a böngészőben</li>
+<li>JavaScript, DOM, stb.</li>
+</ul>
+</div><div class="column" style="width: 30%">
+<p><img data-src="../../assets/images/architecture/client.png" /></p>
+</div>
+</div>
+</section>
+<section id="kliens-szerver-architektúra" class="slide level2">
+<h2>Kliens-szerver architektúra</h2>
+<div class="columns">
+<div class="column" style="width: 70%">
+<p>Több komponens</p>
+<ul>
+<li><strong>Szerver</strong></li>
+<li>Kliens</li>
+<li>HTTP (kommunikáció)</li>
+</ul>
+<ol type="1">
+<li>Kérés (request)</li>
+<li>Válasz (response)</li>
+</ol>
+</div><div class="column" style="width: 30%">
+<p><img data-src="../../assets/images/architecture/server-client.png" /></p>
+</div>
+</div>
+</section>
+<section id="kliens-szerver-architektúra-1" class="slide level2">
+<h2>Kliens-szerver architektúra</h2>
+<p>Térben és időben elválhatnak</p>
+<p><img data-src="../../assets/images/architecture/sync-network.png" /></p>
+</section>
+<section id="statikus-szerveroldali-tartalom" class="slide level2">
+<h2>Statikus szerveroldali tartalom</h2>
+<div class="columns">
+<div class="column" style="width: 70%">
+<p>Kérés pillanatában a szerveren megtalálható az a tartalom, amely leküldésre kerül a válaszban</p>
+<ul>
+<li>Fájlkiszolgálás</li>
+<li>Kiterjesztés alapján
+<ul>
+<li><code>.html</code></li>
+<li><code>.jpg</code>, <code>.png</code>, <code>.gif</code></li>
+<li><code>.css</code></li>
+<li><code>.js</code></li>
+</ul></li>
+</ul>
+</div><div class="column" style="width: 30%">
+<p><img data-src="../../assets/images/architecture/server-client.png" /></p>
+</div>
+</div>
+</section>
+<section id="dinamikus-szerveroldali-tartalom" class="slide level2">
+<h2>Dinamikus szerveroldali tartalom</h2>
+<p>A leküldendő tartalmat egy program állítja elő.</p>
+<div class="columns">
+<div class="column" style="width: 40%">
+<p><img data-src="../../assets/images/architecture/program-client.png" /></p>
+</div>
+</div>
+</section>
+<section id="architektúrák" class="slide level2">
+<h2>Architektúrák</h2>
+<p><img data-src="../../assets/images/architecture/architectures.png" /></p>
+</section>
+<section id="szerveroldali-webprogramozás-1" class="slide level2">
+<h2>Szerveroldali webprogramozás</h2>
+<div class="columns">
+<div class="column" style="width: 50%">
+<ul>
+<li>Nem egyszerű fájlkiszolgálás</li>
+<li>Indítás
+<ul>
+<li><code>cgi-bin</code> könyvtár</li>
+<li>kiterjesztés (pl. <code>.cgi</code>, <code>.php</code>)</li>
+</ul></li>
+<li>Program
+<ul>
+<li><strong>bármilyen</strong></li>
+<li>bináris (C++, Pascal)</li>
+<li>script (PHP, Python, Ruby)</li>
+</ul></li>
+</ul>
+</div><div class="column" style="width: 50%">
+<p><img data-src="../../assets/images/architecture/web-server-client.png" /></p>
+</div>
+</div>
+</section>
+<section id="szerveroldali-webprogramozás-2" class="slide level2">
+<h2>Szerveroldali webprogramozás</h2>
+<ul>
+<li>Program célja, kimenete
+<ul>
+<li>HTML generálás (általában)</li>
+<li>Tartalom generálás (általánosan)</li>
+<li>HTTP protokoll betartásával</li>
+</ul></li>
+<li>Program helyességét a generált tartalom, a megkapott oldal forrása alapján ellenőrizhetjük.</li>
+</ul>
+</section>
+<section id="url-http-cgi" class="slide level2" data-state="new-section">
+<h2 data-state="new-section">URL, HTTP, CGI</h2>
+</section>
+<section id="url" class="slide level2">
+<h2>URL</h2>
+<p><img data-src="https://doepud.co.uk/images/blogs/complex_url.png" /></p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_is_a_URL">URL az MDN-en</a></p>
+</section>
+<section id="http-protokoll" class="slide level2">
+<h2>HTTP protokoll</h2>
+<ul>
+<li>Kérés-válasz alapú protokoll a kliens és szerver között</li>
+<li>Mindig a kliens kezdeményez</li>
+<li>Kliens: kérés
+<ul>
+<li>kérést küld a 80-as/443-as TCP portra</li>
+<li>jellemzően böngésző (hivatkozások, formok)</li>
+</ul></li>
+<li>Szerver: válasz</li>
+<li>TCP/IP réteg feletti protokoll</li>
+<li><a href="http://tools.ietf.org/html/rfc2616">Szabvány</a></li>
+</ul>
+</section>
+<section id="http-üzenetstruktúra" class="slide level2">
+<h2>HTTP üzenetstruktúra</h2>
+<div class="columns">
+<div class="column" style="width:40%">
+<pre style="font-size: 0.4em"><code>POST / HTTP/1.1
+Host: localhost:8000
+User-Agent: Mozilla/5.0 (...)
+Accept: text/html
+Accept-Language: en-Us
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Content-Type: multipart/form-data
+Content-Length: 345
+✒&gt;                &lt;✒
+-12656974
+(more data... )</code></pre>
+</div><div class="column" style="width:20%">
+<pre style="font-size: 0.4em; text-align: center"><code>start-line
+
+
+
+
+headers
+
+
+
+blank
+body</code></pre>
+</div><div class="column" style="width:40%">
+<pre style="font-size: 0.4em"><code>HTTP/1.1 403 Forbidden
+Server: Apache
+Content-Type: text/html;charset=utf-8
+Date: Wed, 10 Aug 2016 09:23:25 GMT
+Keep-Alive: timeout=5, max=1000
+Connection: Keep-Alive
+Age: 3465
+X-Cache-Info: caching
+Content-Length: 220
+✒&gt;                &lt;✒
+&lt;!DOCTYPE html&gt;
+(more data...)</code></pre>
+</div>
+</div>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview">HTTP áttekintése</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages">HTTP üzenetstruktúra</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP#Reference">HTTP referencia</a></p>
+</section>
+<section id="http-kérés" class="slide level2">
+<h2>HTTP kérés</h2>
+<pre><code>METÓDUS ERŐFORRÁS VERZIÓ
+FEJLÉC: ÉRTÉK
+FEJLÉC: ÉRTÉK
+FEJLÉC: ÉRTÉK
+
+ÜZENETTEST (opcionális)</code></pre>
+</section>
+<section id="http-metódusok" class="slide level2">
+<h2>HTTP metódusok</h2>
+<ul>
+<li><code>GET</code>: Megadott erőforrás letöltése</li>
+<li><code>POST</code>: Feldolgozandó adat felküldése</li>
+<li><code>DELETE</code>: Törli a megadott erőforrást</li>
+<li><code>PATCH</code>: Adott erőforrás javítása, frissízsée</li>
+<li><code>HEAD</code>: Ld. <code>GET</code>, de csak a válasz fejléceket kéri le</li>
+<li><code>PUT</code>: Feltölti a megadott erőforrást</li>
+<li><code>TRACE</code>: Visszaküldi a kapott kérést</li>
+<li><code>OPTIONS</code>: A szerver által támogatott HTTP metódusok listája</li>
+<li><code>CONNECT</code>: Kérést transzparens tunnellé alakítja (SSL)</li>
+</ul>
+</section>
+<section id="http-kérés-példa" class="slide level2">
+<h2>HTTP kérés példa</h2>
+<pre class="txt"><code>GET /index.html HTTP/1.1
+Host: webprogramozas.inf.elte.hu
+</code></pre>
+<pre class="txt"><code>GET / HTTP/1.1
+Host: webprogramozas.inf.elte.hu
+User-Agent: Mozilla/5.0 (Windows NT 6.1; rv:19.0) Gecko/20100101 Firefox/19.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: hu-hu,hu;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+</code></pre>
+</section>
+<section id="http-válasz" class="slide level2">
+<h2>HTTP válasz</h2>
+<pre class="txt"><code>VERZIÓ STÁTUSZKÓD INDOKLÁS
+FEJLÉC: ÉRTÉK
+FEJLÉC: ÉRTÉK
+FEJLÉC: ÉRTÉK
+
+ÜZENETTEST (opcionális)</code></pre>
+</section>
+<section id="http-státuszkódok" class="slide level2">
+<h2>HTTP státuszkódok</h2>
+<ul>
+<li><code>1xx</code>: Informatív (kérés megkapva)</li>
+<li><code>2xx</code>: Siker (kérés megérkezett, elfogadva)
+<ul>
+<li>200 OK</li>
+</ul></li>
+<li><code>3xx</code>: Átirányítás (további műveletre van szükség)</li>
+<li><code>4xx</code>: Kliens hiba (kérés hibás, nem teljesíthető)
+<ul>
+<li>403 Forbidden</li>
+<li>404 Not found</li>
+</ul></li>
+<li><code>5xx</code>: Szerver hiba (nem tudja teljesíteni a kérést)
+<ul>
+<li>500 Internal Server Error</li>
+</ul></li>
+</ul>
+</section>
+<section id="http-válasz-példa" class="slide level2">
+<h2>HTTP válasz példa</h2>
+<pre class="txt"><code>HTTP/1.1 200 OK
+Date: Wed, 03 Apr 2013 07:11:56 GMT
+Server: Apache/2.2.10 (Linux/SUSE)
+Last-Modified: Wed, 20 Feb 2013 08:39:44 GMT
+ETag: &quot;fe8438-6d6-4d623e65e9400&quot;
+Accept-Ranges: bytes
+Content-Length: 1750
+Content-Type: text/html
+
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    ...
+&lt;/html&gt;</code></pre>
+</section>
+<section id="http-eszközök" class="slide level2">
+<h2>HTTP eszközök</h2>
+<p>Webfejlesztési eszköztár (<code>F12</code>) → Hálózat (Network) fül</p>
+</section>
+<section id="common-gateway-interface-cgi" class="slide level2">
+<h2>Common Gateway Interface (CGI)</h2>
+<p>Azt határozza meg, hogy egy webszerver hogyan <em>indíthat</em> el egy programot és milyen módon cserél <em>adatot</em> vele.</p>
+<div class="columns">
+<div class="column" style="width: 60%">
+<ul>
+<li>Indítás: program futtatása</li>
+<li>Adatok
+<ul>
+<li>környezeti változók</li>
+<li>standard I/O</li>
+</ul></li>
+<li><strong>Program eredménye</strong>
+<ul>
+<li>standard kimeneten</li>
+</ul></li>
+</ul>
+</div><div class="column" style="width: 40%">
+<p><img data-src="../../assets/images/architecture/web-server-client.png" /></p>
+</div>
+</div>
+</section>
+<section id="példa-c" class="slide level2">
+<h2>Példa – C++</h2>
+<pre class="cpp"><code>#include &lt;iostream&gt;
+using namespace std;
+int main()
+{
+    cout &lt;&lt; &quot;Content-Type: text/html&quot; &lt;&lt; endl;
+    cout &lt;&lt; endl;
+
+    cout &lt;&lt; &quot;&lt;!doctype html&gt;&quot; &lt;&lt; endl;
+    cout &lt;&lt; &quot;&lt;html&gt;&quot; &lt;&lt; endl;
+    cout &lt;&lt; &quot;    &lt;head&gt;&quot; &lt;&lt; endl;
+    cout &lt;&lt; &quot;        &lt;meta charset=\&quot;utf-8\&quot;&gt;&quot; &lt;&lt; endl;
+    cout &lt;&lt; &quot;        &lt;title&gt;&lt;/title&gt;&quot; &lt;&lt; endl;
+    cout &lt;&lt; &quot;    &lt;/head&gt;&quot; &lt;&lt; endl;
+    cout &lt;&lt; &quot;    &lt;body&gt;&quot; &lt;&lt; endl;
+    cout &lt;&lt; &quot;        &lt;p&gt;Hello vilag!&lt;/p&gt;&quot; &lt;&lt; endl;
+    cout &lt;&lt; &quot;    &lt;/body&gt;&quot; &lt;&lt; endl;
+    cout &lt;&lt; &quot;&lt;/html&gt;&quot; &lt;&lt; endl;
+
+    return 0;
+}</code></pre>
+</section>
+<section id="példa-c-1" class="slide level2">
+<h2>Példa – C++</h2>
+<div class="columns">
+<div class="column" style="width: 50%">
+<ul>
+<li>Parancssorból futtatva</li>
+</ul>
+<pre class="html"><code>Content-Type: text/html
+
+&lt;!doctype html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot;&gt;
+        &lt;title&gt;&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;p&gt;Hello vilag!&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+</div><div class="column" style="width: 50%">
+<ul>
+<li>Böngészőből futtatva</li>
+</ul>
+<div class="example" style="margin-top: 20px">
+<p>
+Hello vilag!
+</p>
+</div>
+</div>
+</div>
+</section>
+<section id="példa-c-2" class="slide level2">
+<h2>Példa – C++</h2>
+<pre class="cpp"><code>int main()
+{
+    cout &lt;&lt; &quot;Content-Type: text/html&quot; &lt;&lt; endl;
+    cout &lt;&lt; endl;
+
+    cout &lt;&lt; &quot;&lt;!doctype html&gt;&quot; &lt;&lt; endl;
+    cout &lt;&lt; &quot;&lt;html&gt;&quot; &lt;&lt; endl;
+    cout &lt;&lt; &quot;    &lt;head&gt;&quot; &lt;&lt; endl;
+    cout &lt;&lt; &quot;        &lt;meta charset=\&quot;utf-8\&quot;&gt;&quot; &lt;&lt; endl;
+    cout &lt;&lt; &quot;        &lt;title&gt;&lt;/title&gt;&quot; &lt;&lt; endl;
+    cout &lt;&lt; &quot;    &lt;/head&gt;&quot; &lt;&lt; endl;
+    cout &lt;&lt; &quot;    &lt;body&gt;&quot; &lt;&lt; endl;
+
+    for (int i = 1; i &lt;= 5; i++) {
+        cout &lt;&lt; &quot;        &lt;p&gt;Hello vilag!&lt;/p&gt;&quot; &lt;&lt; endl;
+    }
+
+    cout &lt;&lt; &quot;    &lt;/body&gt;&quot; &lt;&lt; endl;
+    cout &lt;&lt; &quot;&lt;/html&gt;&quot; &lt;&lt; endl;
+    return 0;
+}</code></pre>
+</section>
+<section id="példa-c-3" class="slide level2">
+<h2>Példa – C++</h2>
+<div class="columns">
+<div class="column" style="width: 50%">
+<pre class="html"><code>Content-Type: text/html
+
+&lt;!doctype html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot;&gt;
+        &lt;title&gt;&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;p&gt;Hello vilag!&lt;/p&gt;
+        &lt;p&gt;Hello vilag!&lt;/p&gt;
+        &lt;p&gt;Hello vilag!&lt;/p&gt;
+        &lt;p&gt;Hello vilag!&lt;/p&gt;
+        &lt;p&gt;Hello vilag!&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+</div><div class="column" style="width: 50%">
+<div class="example" style="margin-top: 20px">
+<p>
+Hello vilag!
+</p>
+<p>
+Hello vilag!
+</p>
+<p>
+Hello vilag!
+</p>
+<p>
+Hello vilag!
+</p>
+<p>
+Hello vilag!
+</p>
+</div>
+</div>
+</div>
+</section>
+<section id="cgi" class="slide level2">
+<h2>CGI</h2>
+<p><img data-src="../../assets/images/architecture/web-server-client.png" /></p>
+</section>
+<section id="php" class="slide level2">
+<h2>PHP</h2>
+<p><img data-src="../../assets/images/architecture/web-server-php.png" /></p>
+</section>
+<section id="node.js" class="slide level2">
+<h2>Node.js</h2>
+<p><img data-src="../../assets/images/architecture/nodejs-client.png" /></p>
+</section>
+<section id="összefoglalás" class="slide level2" data-state="topic">
+<h2 data-state="topic">Összefoglalás</h2>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" checked="" />
+Kliens-szerver kommunikáció</li>
+<li><input type="checkbox" disabled="" checked="" />
+Cél: HTML kód előállítása</li>
+<li><input type="checkbox" disabled="" checked="" />
+HTTP, CGI</li>
+</ul>
+</section>
+    </div>
+  </div>
+
+  <div id="captcha"></div>
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/js/reveal.js"></script>
+
+  <script>
+    // Highlighting in code blocks
+    const codes = document.querySelectorAll('pre > code')
+    for (const code of codes) {
+      code.setAttribute('data-noescape', '')
+      const text = code.innerHTML
+      const markedText = text
+        .replace(/&lt;✒/g, '</mark>')
+        .replace(/✒&gt;/g, '<mark>')
+      code.innerHTML = markedText
+    }
+
+    // Adding captcha
+    const queryString = new URLSearchParams(window.location.search);
+    const captcha = queryString.get('captcha');
+    const captchaElement = document.getElementById("captcha");
+    captchaElement.innerHTML = captcha;
+
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+      // Display controls in the bottom right corner
+      controls: true,
+      controlsTutorial: false,
+      // Display a presentation progress bar
+      progress: true,
+      // Display the page number of the current slide
+      slideNumber: true,
+      // Add the current slide number to the URL hash so that reloading the
+      // page/copying the URL will return you to the same slide
+      hash: true,
+      // Push each slide change to the browser history
+      history: false,
+      // Enable keyboard shortcuts for navigation
+      keyboard: true,
+      // Enable the slide overview mode
+      overview: true,
+      // Vertical centering of slides
+      center: true,
+      // Enables touch navigation on devices with touch input
+      touch: true,
+      // Loop the presentation
+      loop: false,
+      // Hides the address bar on mobile devices
+      hideAddressBar: true,
+      // Transition style
+      transition: 'slide', // none/fade/slide/convex/concave/zoom
+      // Transition style for full page slide backgrounds
+      backgroundTransition: 'slide', // none/fade/slide/convex/concave/zoom
+      // Bounds for smallest/largest possible scale to apply to content
+      minScale: 0.5,
+      maxScale: 3,
+      // Modifier key used to click-zoom to part of the slide
+      zoomKey: "ctrl",
+      math: {
+        mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/MathJax@3.0.1/es5/tex-mml-chtml.js',
+        config: 'TeX-AMS_HTML-full',
+        tex2jax: {
+          inlineMath: [['\\(','\\)']],
+          displayMath: [['\\[','\\]']],
+          balanceBraces: true,
+          processEscapes: false,
+          processRefs: true,
+          processEnvironments: true,
+          preview: 'TeX',
+          skipTags: ['script','noscript','style','textarea','pre','code'],
+          ignoreClass: 'tex2jax_ignore',
+          processClass: 'tex2jax_process'
+        }
+      },
+      toolbar: {
+        fullscreen: false,
+        overview: false,
+        pause: false,
+        notes: false,
+        help: false,
+        captureMenu: false
+      },
+
+      // Optional reveal.js plugins
+      dependencies: [
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/zoom-js/zoom.js', async: true },
+        //{ src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/socket.io/socket.io.js', async: true },
+        //{ src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/notes-server/client.js', async: true },
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/math/math.js', async: true },
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/notes/notes.js', async: true },
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/highlight/highlight.js', async: true },
+        { src: 'https://cdn.jsdelivr.net/npm/reveal.js-toolbar@0.2.1/toolbar.js', async: true }
+      ]
+    });
+  </script>
+
+  
+  </body>
+</html>

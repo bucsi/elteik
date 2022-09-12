@@ -1,0 +1,34 @@
+<script src="sprite.js"></script>
+
+<canvas id="example" width="128" height="128">
+
+<script>
+  const canvas = document.querySelector("#example");
+  const context = canvas.getContext("2d");
+  
+  const sprite = new Sprite({
+    image: "../../../assets/images/examples/spritesheet.png",
+    width: 128, 
+    height: 128,
+    spritesPerRow: 4,
+    rowCount: 4,
+    frameDuration: 30
+  });
+  
+  let lastFrameTime = performance.now();
+  
+  function next() {
+    const currentTime = performance.now();
+    const dt = currentTime - lastFrameTime;
+  
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    sprite.update(dt);
+    sprite.render(context, 0, 0);
+  
+    lastFrameTime = currentTime;
+  
+    requestAnimationFrame(next);
+  }
+  
+  next();
+</script>

@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>Webprogramozás - Megosztott erőforrások a szerveren</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+  <!-- Reveal.js Theme -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elte-fi/revealjs-elte-fi@1.1.1/dist/revealjs-elte-fi.min.css">
+  <!-- Highlighting -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/default.min.css">
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) 
+      ? 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/css/print/pdf.css' 
+      : 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild( link );
+  </script>
+
+  </head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+<section class="slide level2">
+
+<div class="title">
+<p>Web-fejlesztés 2.</p>
+</div>
+<h3 id="megosztott-erőforrások-a-szerveren">Megosztott erőforrások a szerveren</h3>
+<p><strong>Visnovitz Márton</strong><br />
+egyetemi tanársegéd<br />
+visnovitz.marton@inf.elte.hu</p>
+<p><strong><span class="citation" data-cites="elte-fi/courses-tt-webprog">@elte-fi/courses-tt-webprog</span></strong></p>
+</section>
+<section id="ismétlés" class="slide level2" data-state="new-section">
+<h2 data-state="new-section">Ismétlés</h2>
+</section>
+<section id="ismétlés-1" class="slide level2">
+<h2>Ismétlés</h2>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" checked="" />
+Kliens-szerver kommunikáció</li>
+<li><input type="checkbox" disabled="" checked="" />
+Cél: HTML kód előállítása</li>
+<li><input type="checkbox" disabled="" checked="" />
+HTTP, CGI</li>
+</ul>
+</section>
+<section id="szerveroldali-programozás" class="slide level2">
+<h2>Szerveroldali programozás</h2>
+<p><img data-src="../../assets/images/architecture/web-server-client.png" /></p>
+</section>
+<section id="erőforrások-megosztása" class="slide level2" data-state="new-section">
+<h2 data-state="new-section">Erőforrások megosztása</h2>
+</section>
+<section id="http-állapotmentesség" class="slide level2">
+<h2>HTTP állapotmentesség</h2>
+<ul>
+<li>A HTTP állapotmentes protokoll</li>
+<li>Nem emlékezik az előző kérés adataira</li>
+<li>Függetlenül kezeli a kéréseket
+<ul>
+<li>Ugyanazon kliens különböző kéréseit</li>
+<li>Különböző kliensek kéréseit</li>
+</ul></li>
+</ul>
+<p><img data-src="../../assets/images/architecture/stateless.png" /> <img data-src="../../assets/images/architecture/multiple-clients.png" /></p>
+</section>
+<section id="probléma" class="slide level2">
+<h2>1. probléma</h2>
+<ul>
+<li>Ugyanazon kliens több kérése között az állapot megtartása</li>
+<li>Pl. kosár</li>
+<li>Megoldás: HTTP kéréstől külön tárolni</li>
+</ul>
+<p><img data-src="../../assets/images/architecture/stateless.png" /></p>
+</section>
+<section id="probléma-1" class="slide level2">
+<h2>1. probléma</h2>
+<p><img data-src="../../assets/images/architecture/stateless-file.png" /></p>
+</section>
+<section id="probléma-2" class="slide level2">
+<h2>2. probléma</h2>
+<p>Mindegyik kliens ugyanazon az adaton osztozkodik</p>
+<p><img data-src="../../assets/images/architecture/multiple-clients-file.png" /></p>
+</section>
+<section id="probléma-3" class="slide level2">
+<h2>2. probléma</h2>
+<p>“Kliensenkénti adattárolás”</p>
+<p><img data-src="../../assets/images/architecture/multiple-clients-multiple-files.png" /></p>
+</section>
+<section id="erőforrások-a-szerveren" class="slide level2">
+<h2>Erőforrások a szerveren</h2>
+<p><img data-src="../../assets/images/architecture/server-input.png" /></p>
+</section>
+<section id="adattárolás" class="slide level2" data-state="new-section">
+<h2 data-state="new-section">Adattárolás</h2>
+</section>
+<section id="külső-adattárolás" class="slide level2">
+<h2>Külső adattárolás</h2>
+<p>Lényeg: az adat a programtól különválik</p>
+<p><img data-src="../../assets/images/architecture/web-server-php-db.png" /></p>
+</section>
+<section class="slide level2">
+
+<div class="columns">
+<div class="column" style="width: 45%">
+<h3 id="fájl">Fájl</h3>
+<div class="fragment" style="color:green">
+<ul>
+<li>bármikor elérhető, nincs szükség plusz szoftverekre</li>
+<li>könnyen értelmezhető (ember, program)</li>
+<li>könnyen használható</li>
+<li>viszonylag kis méretű</li>
+</ul>
+</div>
+<div class="fragment" style="color:maroon">
+<ul>
+<li>nincs/rossz konkurenciakezelés</li>
+<li>lassú</li>
+<li>nem biztonságos</li>
+</ul>
+</div>
+</div><div class="column" style="width: 45%">
+<h3 id="adatbázis">Adatbázis</h3>
+<div class="fragment" style="color:green">
+<ul>
+<li>biztonságos</li>
+<li>típusos adatok / séma</li>
+<li>bonyolult adatszerkezetek</li>
+<li>összetett kereshetőség</li>
+<li>fejlett konkurenciakezelés</li>
+</ul>
+</div>
+<div class="fragment" style="color:maroon">
+<ul>
+<li>külön szoftver (általában)</li>
+<li>erőforrásigényes</li>
+<li>sok helyet foglal</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><strong>Általában mind a kettőre van magas szintű megoldás</strong></p>
+</div>
+</section>
+<section id="adattárolás-1" class="slide level2">
+<h2>Adattárolás</h2>
+<ul>
+<li>Adatok tárolása a kliensektől függetlenül</li>
+<li>Adatok elválasztása a programtól</li>
+<li>Minden kliens hozzáfér ugyanazokhoz az adatokhoz</li>
+<li>Példák:
+<ul>
+<li>hírportál hírei</li>
+<li>videók egy videómegosztón</li>
+<li>film adatbázis</li>
+</ul></li>
+<li>Megoldás:
+<ul>
+<li>szerver oldalon</li>
+</ul></li>
+</ul>
+</section>
+<section id="munkamenet-kezelés" class="slide level2" data-state="new-section">
+<h2 data-state="new-section">Munkamenet-kezelés</h2>
+</section>
+<section id="példa" class="slide level2">
+<h2>Példa</h2>
+<p>Tároljuk egy számláló értékét felhasználónként, és minden kérésnél növeljük a számláló értékét eggyel!</p>
+</section>
+<section id="ötlet-kliensoldali-állapottartás" class="slide level2">
+<h2>1. ötlet: kliensoldali állapottartás</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>Az adatot a kliensen tároljuk</li>
+<li>Minden kérésnél felküldjük a szerverre</li>
+<li>A szerver visszaadja a kliensnek</li>
+<li>Kliens oldali “trükkök” (URL, HTTP-body)</li>
+</ul>
+</div>
+</div>
+<p><img data-src="../../assets/images/architecture/stateless-data.png" /></p>
+</section>
+<section id="url" class="slide level2">
+<h2>1/1: URL</h2>
+<pre class="txt"><code>session_url.php?counter=1</code></pre>
+<ul>
+<li>Hátránya:
+<ul>
+<li>Minden linkhez oda kell generálni<br />
+(Ha egyről is lemarad, elvész az adat)</li>
+<li>Sok adat nem fér el benne<br />
+(URL hossza limitált)</li>
+<li>Feltűnő (zavaró)</li>
+<li><strong>Könnyen átírható</strong></li>
+</ul></li>
+<li>Előny
+<ul>
+<li>Könyvjelzőzhető</li>
+</ul></li>
+</ul>
+</section>
+<section id="rejtett-mező" class="slide level2">
+<h2>1/2: rejtett mező</h2>
+<ul>
+<li>URL: kevés adat, feltűnő, manipulálható</li>
+<li>→ űrlap rejtett mezője</li>
+</ul>
+<pre class="html"><code>&lt;input type=&quot;hidden&quot; name=&quot;counter&quot; value=&quot;4&quot;&gt;</code></pre>
+<div class="columns">
+<div class="column">
+<ul>
+<li>Előny
+<ul>
+<li>sok adat</li>
+<li>nem feltűnő</li>
+</ul></li>
+</ul>
+</div><div class="column">
+<ul>
+<li>Hátrány
+<ul>
+<li><strong>manipulálható</strong></li>
+<li>csak űrlapok esetén</li>
+<li>normál linkeknél JavaScript kell</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="süti" class="slide level2">
+<h2>1/3: Süti</h2>
+<ul>
+<li>Rejtett mező: macerás, manipulálható → süti</li>
+<li>HTTP kérés</li>
+</ul>
+<pre class="http"><code>Cookie: név1=érték1; név2=érték2; név3=érték3</code></pre>
+<p>HTTP válasz:</p>
+<pre class="http"><code>Set-Cookie: név=érték[; expires=dátum][...]</code></pre>
+</section>
+<section id="süti-1" class="slide level2">
+<h2>Süti</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>Előny
+<ul>
+<li>nem feltűnő</li>
+<li>küldése automatikus</li>
+</ul></li>
+</ul>
+</div><div class="column">
+<ul>
+<li>Hátrány
+<ul>
+<li><strong>manipulálható</strong></li>
+<li>limitált adatmennyiség</li>
+<li>letiltható</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="kliensoldali-megoldások" class="slide level2">
+<h2>Kliensoldali megoldások</h2>
+<ul>
+<li>Adat a kliensen van</li>
+<li><strong>Manipulálható</strong></li>
+<li>Sok adat esetén feleslegesen sok adat<br />
+megy oda-vissza a kliens és szerver között</li>
+</ul>
+<p><img data-src="../../assets/images/architecture/stateless-data.png" /></p>
+</section>
+<section id="ötlet-szerveroldali-állapottartás" class="slide level2">
+<h2>2 ötlet: Szerveroldali állapottartás</h2>
+<ul>
+<li>Tároljuk az adatot a szerveren
+<ul>
+<li>→ nem manipulálható kliens oldalon</li>
+<li>→ nem kell sok adatot küldözgetni</li>
+</ul></li>
+<li>A kliens megkülönböztetése továbbra is szükséges</li>
+<li>→ <strong>tokent</strong> kap, amivel azonosítja magát</li>
+<li>→ hozzáfér a <strong>tokenhez</strong> tartozó adatokhoz</li>
+<li>Token kliensoldali megoldással közlekedik
+<ul>
+<li>süti (alapértelmezett)</li>
+<li>URL (ha nincs süti)</li>
+</ul></li>
+</ul>
+</section>
+<section id="szerveroldali-megoldás" class="slide level2">
+<h2>Szerveroldali megoldás</h2>
+<p>Több kliens</p>
+<p><img data-src="../../assets/images/architecture/multiple-clients-token.png" /></p>
+</section>
+<section id="szerveroldali-megoldás-1" class="slide level2">
+<h2>Szerveroldali megoldás</h2>
+<p>Egy kliens különböző kérései</p>
+<p><img data-src="../../assets/images/architecture/stateless-token.png" /></p>
+</section>
+<section id="szerveroldali-megoldás-2" class="slide level2">
+<h2>Szerveroldali megoldás</h2>
+<ul>
+<li>Adatok tárolása
+<ul>
+<li>fájlban</li>
+<li>adatbázisban</li>
+</ul></li>
+<li>Plusz erőforrás a szervertől</li>
+<li>A tokenre nagyon kell vigyázni!
+<ul>
+<li>ellopható</li>
+<li>kilépés</li>
+</ul></li>
+</ul>
+</section>
+<section id="munkamenet-kezelés-1" class="slide level2">
+<h2>Munkamenet-kezelés</h2>
+<ul>
+<li>Kliensek megkülönböztetése</li>
+<li>Kliensenkénti adattárolás</li>
+<li>Példák:
+<ul>
+<li>levelezés, dokumentumok</li>
+<li>internetbank</li>
+<li>webáruház kosara, online szerkesztők</li>
+</ul></li>
+<li>Megoldás
+<ul>
+<li>kliens oldalon</li>
+<li>szerver oldalon</li>
+</ul></li>
+</ul>
+</section>
+<section id="összefoglalás" class="slide level2">
+<h2>Összefoglalás</h2>
+<ul>
+<li>Szerveroldali programozás = erőforrások megosztása</li>
+<li><strong>Adattárolás</strong>: ugyanazon adat minden kliensnek (térben-időben)</li>
+<li><strong>Munkamenet-kezelés</strong>: kliensenkénti adattárolás</li>
+</ul>
+</section>
+    </div>
+  </div>
+
+  <div id="captcha"></div>
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/js/reveal.js"></script>
+
+  <script>
+    // Highlighting in code blocks
+    const codes = document.querySelectorAll('pre > code')
+    for (const code of codes) {
+      code.setAttribute('data-noescape', '')
+      const text = code.innerHTML
+      const markedText = text
+        .replace(/&lt;✒/g, '</mark>')
+        .replace(/✒&gt;/g, '<mark>')
+      code.innerHTML = markedText
+    }
+
+    // Adding captcha
+    const queryString = new URLSearchParams(window.location.search);
+    const captcha = queryString.get('captcha');
+    const captchaElement = document.getElementById("captcha");
+    captchaElement.innerHTML = captcha;
+
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+      // Display controls in the bottom right corner
+      controls: true,
+      controlsTutorial: false,
+      // Display a presentation progress bar
+      progress: true,
+      // Display the page number of the current slide
+      slideNumber: true,
+      // Add the current slide number to the URL hash so that reloading the
+      // page/copying the URL will return you to the same slide
+      hash: true,
+      // Push each slide change to the browser history
+      history: false,
+      // Enable keyboard shortcuts for navigation
+      keyboard: true,
+      // Enable the slide overview mode
+      overview: true,
+      // Vertical centering of slides
+      center: true,
+      // Enables touch navigation on devices with touch input
+      touch: true,
+      // Loop the presentation
+      loop: false,
+      // Hides the address bar on mobile devices
+      hideAddressBar: true,
+      // Transition style
+      transition: 'slide', // none/fade/slide/convex/concave/zoom
+      // Transition style for full page slide backgrounds
+      backgroundTransition: 'slide', // none/fade/slide/convex/concave/zoom
+      // Bounds for smallest/largest possible scale to apply to content
+      minScale: 0.5,
+      maxScale: 3,
+      // Modifier key used to click-zoom to part of the slide
+      zoomKey: "ctrl",
+      math: {
+        mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/MathJax@3.0.1/es5/tex-mml-chtml.js',
+        config: 'TeX-AMS_HTML-full',
+        tex2jax: {
+          inlineMath: [['\\(','\\)']],
+          displayMath: [['\\[','\\]']],
+          balanceBraces: true,
+          processEscapes: false,
+          processRefs: true,
+          processEnvironments: true,
+          preview: 'TeX',
+          skipTags: ['script','noscript','style','textarea','pre','code'],
+          ignoreClass: 'tex2jax_ignore',
+          processClass: 'tex2jax_process'
+        }
+      },
+      toolbar: {
+        fullscreen: false,
+        overview: false,
+        pause: false,
+        notes: false,
+        help: false,
+        captureMenu: false
+      },
+
+      // Optional reveal.js plugins
+      dependencies: [
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/zoom-js/zoom.js', async: true },
+        //{ src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/socket.io/socket.io.js', async: true },
+        //{ src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/notes-server/client.js', async: true },
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/math/math.js', async: true },
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/notes/notes.js', async: true },
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/highlight/highlight.js', async: true },
+        { src: 'https://cdn.jsdelivr.net/npm/reveal.js-toolbar@0.2.1/toolbar.js', async: true }
+      ]
+    });
+  </script>
+
+  
+  </body>
+</html>

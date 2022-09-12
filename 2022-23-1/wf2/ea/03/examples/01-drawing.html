@@ -1,0 +1,35 @@
+<canvas id="example" width="500" height="110">
+
+<script>
+  const canvas = document.querySelector("#example")
+  const context = canvas.getContext("2d");
+
+  context.fillRect(5, 5, 20, 100);
+  context.strokeRect(30, 5, 20, 100);
+
+  context.beginPath();
+  context.rect(110, 5, 20, 100);
+  context.moveTo(130, 5);
+  context.lineTo(160, 35);
+  context.lineTo(130, 65);
+  context.stroke();
+
+  context.beginPath();
+  context.arc(200, 50, 30, 0, 2 * Math.PI);
+  context.fill();
+
+  context.beginPath();
+  context.moveTo(300, 105);
+  context.quadraticCurveTo(350, 55, 400, 105);
+  context.closePath();
+  context.stroke();
+
+  context.beginPath();
+  context.moveTo(350, 80);
+  context.bezierCurveTo(285, 90, 260, 50, 240, 50);
+  context.lineTo(240, 60);
+  context.lineTo(230, 50);
+  context.lineTo(240, 40);
+  context.lineTo(240, 50);
+  context.stroke();
+</script>

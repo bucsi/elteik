@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>Web-fejlesztés 2. - Animáció, szimuláció</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+  <!-- Reveal.js Theme -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elte-fi/revealjs-elte-fi@1.1.1/dist/revealjs-elte-fi.min.css">
+  <!-- Highlighting -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/default.min.css">
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) 
+      ? 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/css/print/pdf.css' 
+      : 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild( link );
+  </script>
+
+  </head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+<section class="slide level2">
+
+<div class="title">
+<p>Web-fejlesztés 2.</p>
+</div>
+<h3 id="játékkészítés">Játékkészítés</h3>
+<p><strong>Visnovitz Márton</strong><br />
+egyetemi tanársegéd<br />
+visnovitz.marton@inf.elte.hu</p>
+<p><strong><span class="citation" data-cites="elte-fi/courses-tt-webprog">@elte-fi/courses-tt-webprog</span></strong></p>
+</section>
+<section id="ismétlés" class="slide level2" data-state="new-section">
+<h2 data-state="new-section">Ismétlés</h2>
+</section>
+<section id="ismétlés-1" class="slide level2">
+<h2>Ismétlés</h2>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" checked="" />
+JavaScript nyelvi elemei</li>
+<li><input type="checkbox" disabled="" checked="" />
+A számítógépes grafika alapjai</li>
+<li><input type="checkbox" disabled="" checked="" />
+Rajzolás a vászonra</li>
+<li><input type="checkbox" disabled="" checked="" />
+Animációs ciklus</li>
+<li><input type="checkbox" disabled="" checked="" />
+Állapot ↔︎ Megjelenés</li>
+</ul>
+</section>
+<section id="komplex-transzformáció" class="slide level2">
+<h2>Komplex transzformáció</h2>
+<p><img data-src="../../assets/images/graphics/complex.png" /></p>
+</section>
+<section id="animációs-ciklus" class="slide level2">
+<h2>Animációs ciklus</h2>
+<p><img data-src="../../assets/images/architecture/animation-loop.png" /></p>
+</section>
+<section id="játékok-készítése-interaktív-animáció" class="slide level2" data-state="new-section">
+<h2 data-state="new-section">Játékok készítése = Interaktív animáció</h2>
+</section>
+<section id="játékciklus" class="slide level2">
+<h2>Játékciklus</h2>
+<p><img data-src="../../assets/images/architecture/game-loop.png" /></p>
+</section>
+<section id="eseménykezelés" class="slide level2">
+<h2>Eseménykezelés</h2>
+<p><strong>Mi az hogy eseménykezelés?</strong></p>
+<p class="fragment">
+Valaminek a hatására…
+</p>
+<p class="fragment">
+…valami történik.
+</p>
+</section>
+<section id="milyen-események-vannak" class="slide level2">
+<h2>Milyen események vannak?</h2>
+<ul>
+<li>Egéresemények<br />
+(kattintás, egérmozgás)</li>
+<li>Billentyűzetesemények<br />
+(gomb lenyomása, gomb felemelése)</li>
+<li>stb…</li>
+</ul>
+</section>
+<section id="események-nevei-javascriptben" class="slide level2">
+<h2>Események nevei JavaScriptben</h2>
+<ul>
+<li>Egéresemények:<br />
+(<code>click</code>, <code>dblclick</code>, <code>mousemove</code>, <code>wheel</code>, …)</li>
+<li>Billentyűzetesemények<br />
+(<code>keypress</code>, <code>keyup</code>, <code>keydown</code>)</li>
+</ul>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/Events">Referencia</a></p>
+</section>
+<section id="események-rögzítése" class="slide level2">
+<h2>Események rögzítése</h2>
+<p class="fragment">
+<strong>WHEN</strong> - esemény típusa
+</p>
+<p class="fragment">
+<strong>THEN</strong> - eseménykezelő <em>függvény</em>
+</p>
+</section>
+<section id="eseménykezelés-1" class="slide level2">
+<h2>Eseménykezelés</h2>
+<p><code>addEventListener</code> függvénnyel lehet beállítani</p>
+<pre class="js"><code>✒&gt;addEventListener&lt;✒(✒&gt;eventType&lt;✒, ✒&gt;eventHandler&lt;✒);</code></pre>
+<pre class="js"><code>function handleClick() {
+  console.log(&quot;Mouse clicked&quot;);
+}
+
+addEventListener(&quot;click&quot;, handleClick);</code></pre>
+</section>
+<section id="események-tulajdonságai" class="slide level2">
+<h2>Események tulajdonságai</h2>
+<p class="fragment">
+Nem elég tudni, hogy történt <strong>valami</strong>…
+</p>
+<p class="fragment">
+…tudni kell, hogy mik az esemény <strong>részleteit</strong>.
+</p>
+</section>
+<section id="eseményobjektum" class="slide level2">
+<h2>Eseményobjektum</h2>
+<p>Az esemény részleteit írja le,<br />
+az eseménykezelő függvény első paramétere.</p>
+<pre class="js"><code>function handleClick(✒&gt;event&lt;✒) {
+  console.log(event);
+}
+
+addEventListener(&quot;click&quot;, handleClick);</code></pre>
+</section>
+<section id="eseményobjektum-1" class="slide level2">
+<h2>Eseményobjektum</h2>
+<p>Tartalma az eseménytől függ:</p>
+<table>
+<tbody>
+<tr class="odd">
+<td>Általános tulajdonságok</td>
+<td>pl. <code>type</code>, <code>target</code></td>
+</tr>
+<tr class="even">
+<td>Egéresemény</td>
+<td>pl. <code>screenX</code>, <code>screenY</code>, <code>buttons</code></td>
+</tr>
+<tr class="odd">
+<td>Billentyűzetesemény</td>
+<td>pl. <code>key</code>, <code>code</code>, <code>altKey</code>, <code>ctrlKey</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="billentyűzetesemény-tulajdonságai" class="slide level2">
+<h2>Billentyűzetesemény tulajdonságai</h2>
+<p><code>key</code>, <code>code</code></p>
+<div class="example columns">
+<div class="column" style="width:30%;">
+<input id="keyboardInput" style="width: 100%;height: 100%">
+</div><div class="column" style="width:70%;">
+<div id="keyboardOutput" style="height: 200px">
+
+</div>
+</div>
+</div>
+<script>
+  const keyboardInput = document.querySelector("#keyboardInput");
+  const keyboardOutput = document.querySelector("#keyboardOutput");
+  function handleKeyDown(event) {
+    event.preventDefault();
+    keyboardOutput.innerHTML = `
+      Key: <code>${event.key}</code><br>
+      Code: <code>${event.code}</code>
+    `;
+  } 
+  keyboardInput.addEventListener("keydown", handleKeyDown);
+</script>
+</section>
+<section id="egéresemény-tulajdonságai" class="slide level2">
+<h2>Egéresemény tulajdonságai</h2>
+<p><code>screenX</code>, <code>screenY</code>, <code>offsetX</code>, <code>offsetY</code>, <code>clientX</code>, <code>clientY</code></p>
+<div class="example columns">
+<div class="column" style="width:30%;">
+<input id="mouseInput" style="width: 100%;height: 100%">
+</div><div class="column" style="width:70%;">
+<div id="mouseOutput" style="height: 200px">
+
+</div>
+</div>
+</div>
+<script>
+  const mouseInput = document.querySelector("#mouseInput");
+  const mouseOutput = document.querySelector("#mouseOutput");
+  function handleMouseMove(event) {
+    mouseOutput.innerHTML = `
+      ScreenX/Y: <code>${event.screenX};${event.screenY}</code><br>
+      OffsetX/Y: <code>${event.offsetX};${event.offsetY}</code><br>
+      ClientX/Y: <code>${event.clientX};${event.clientY}</code><br>
+    `;
+  } 
+  mouseInput.addEventListener("mousemove", handleMouseMove);
+</script>
+</section>
+<section id="játékciklus-1" class="slide level2">
+<h2>Játékciklus</h2>
+<p><img data-src="../../assets/images/architecture/game-loop.png" /></p>
+</section>
+<section id="játékciklus-2" class="slide level2">
+<h2>Játékciklus</h2>
+<p><img data-src="../../assets/images/architecture/game-loop-functions.png" /></p>
+</section>
+<section id="játékok-készítése" class="slide level2">
+<h2>Játékok készítése</h2>
+<pre class="js"><code>const state = /*...*/;
+
+// Game loop
+function next() {
+  update(); // Update current state
+  render(); // Rerender the frame
+  requestAnimationFrame(next);
+}
+
+next(); // Start the loop
+
+// Lifecycle functions
+function update() { /*...*/ }
+function render() { /*...*/ }
+
+// Event handlers
+function handleEvent1(event) {}
+function handleEvent2(event) {}
+
+// Event bindings
+addEventListener(&quot;event1&quot;, handleEvent1);
+addEventListener(&quot;event2&quot;, handleEvent2);</code></pre>
+</section>
+<section id="összefoglalás" class="slide level2">
+<h2>Összefoglalás</h2>
+<ul>
+<li>Játék = interaktív animáció</li>
+<li>Eseménykezelő (WHEN-THEN)</li>
+<li>Állapot módosítása eseményekkel</li>
+<li>Eseményobjektum, esemény részletei</li>
+</ul>
+</section>
+    </div>
+  </div>
+
+  <div id="captcha"></div>
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/js/reveal.js"></script>
+
+  <script>
+    // Highlighting in code blocks
+    const codes = document.querySelectorAll('pre > code')
+    for (const code of codes) {
+      code.setAttribute('data-noescape', '')
+      const text = code.innerHTML
+      const markedText = text
+        .replace(/&lt;✒/g, '</mark>')
+        .replace(/✒&gt;/g, '<mark>')
+      code.innerHTML = markedText
+    }
+
+    // Adding captcha
+    const queryString = new URLSearchParams(window.location.search);
+    const captcha = queryString.get('captcha');
+    const captchaElement = document.getElementById("captcha");
+    captchaElement.innerHTML = captcha;
+
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+      // Display controls in the bottom right corner
+      controls: true,
+      controlsTutorial: false,
+      // Display a presentation progress bar
+      progress: true,
+      // Display the page number of the current slide
+      slideNumber: true,
+      // Add the current slide number to the URL hash so that reloading the
+      // page/copying the URL will return you to the same slide
+      hash: true,
+      // Push each slide change to the browser history
+      history: false,
+      // Enable keyboard shortcuts for navigation
+      keyboard: true,
+      // Enable the slide overview mode
+      overview: true,
+      // Vertical centering of slides
+      center: true,
+      // Enables touch navigation on devices with touch input
+      touch: true,
+      // Loop the presentation
+      loop: false,
+      // Hides the address bar on mobile devices
+      hideAddressBar: true,
+      // Transition style
+      transition: 'slide', // none/fade/slide/convex/concave/zoom
+      // Transition style for full page slide backgrounds
+      backgroundTransition: 'slide', // none/fade/slide/convex/concave/zoom
+      // Bounds for smallest/largest possible scale to apply to content
+      minScale: 0.5,
+      maxScale: 3,
+      // Modifier key used to click-zoom to part of the slide
+      zoomKey: "ctrl",
+      math: {
+        mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/MathJax@3.0.1/es5/tex-mml-chtml.js',
+        config: 'TeX-AMS_HTML-full',
+        tex2jax: {
+          inlineMath: [['\\(','\\)']],
+          displayMath: [['\\[','\\]']],
+          balanceBraces: true,
+          processEscapes: false,
+          processRefs: true,
+          processEnvironments: true,
+          preview: 'TeX',
+          skipTags: ['script','noscript','style','textarea','pre','code'],
+          ignoreClass: 'tex2jax_ignore',
+          processClass: 'tex2jax_process'
+        }
+      },
+
+      // Optional reveal.js plugins
+      dependencies: [
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/zoom-js/zoom.js', async: true },
+        //{ src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/socket.io/socket.io.js', async: true },
+        //{ src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/notes-server/client.js', async: true },
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/math/math.js', async: true },
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/notes/notes.js', async: true },
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/highlight/highlight.js', async: true }
+      ]
+    });
+  </script>
+
+  
+  </body>
+</html>

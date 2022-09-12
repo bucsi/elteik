@@ -1,0 +1,34 @@
+<canvas id="example" width="500" height="500">
+
+<script>
+  const canvas = document.querySelector("#example");
+  const context = canvas.getContext("2d");
+  
+  const ball = { x: 50, y: 50, vx: 5, vy: 3 };
+  
+  function render(ball) {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.beginPath();
+    context.arc(ball.x, ball.y, 20, 0, Math.PI * 2);
+    context.fill();
+  }
+  
+  function next() {
+    ball.x += ball.vx;
+    ball.y += ball.vy;
+  
+    if (ball.x > canvas.width - 20 || ball.x < 20) {
+      ball.vx *= -1;
+    }
+  
+    if (ball.y > canvas.height - 20 || ball.y < 20) {
+      ball.vy *= -1;
+    }
+  
+    render(ball);
+  
+    requestAnimationFrame(next);
+  };
+  
+  next();
+</script>

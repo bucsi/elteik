@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>Web-fejlesztés 2. - Animáció, szimuláció</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+  <!-- Reveal.js Theme -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elte-fi/revealjs-elte-fi@1.1.1/dist/revealjs-elte-fi.min.css">
+  <!-- Highlighting -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/default.min.css">
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) 
+      ? 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/css/print/pdf.css' 
+      : 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild( link );
+  </script>
+
+  </head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+<section class="slide level2">
+
+<div class="title">
+<p>Web-fejlesztés 2.</p>
+</div>
+<h3 id="animáció-szimuláció">Animáció, szimuláció</h3>
+<p><strong>Visnovitz Márton</strong><br />
+egyetemi tanársegéd<br />
+visnovitz.marton@inf.elte.hu</p>
+<p><strong><span class="citation" data-cites="elte-fi/courses-tt-webprog">@elte-fi/courses-tt-webprog</span></strong></p>
+</section>
+<section id="ismétlés" class="slide level2" data-state="new-section">
+<h2 data-state="new-section">Ismétlés</h2>
+</section>
+<section id="ismétlés-1" class="slide level2">
+<h2>Ismétlés</h2>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" checked="" />
+JavaScript nyelvi elemei</li>
+<li><input type="checkbox" disabled="" checked="" />
+A számítógépes grafika alapjai</li>
+<li><input type="checkbox" disabled="" checked="" />
+Rajzolás a vászonra útvonalakkal</li>
+</ul>
+</section>
+<section id="rajzolás-a-számítógépen" class="slide level2">
+<h2>Rajzolás a számítógépen</h2>
+<figure>
+<img data-src="../../assets/images/graphics/coordinates.png" alt="" /><figcaption>Koordinátarendszer</figcaption>
+</figure>
+</section>
+<section class="slide level2">
+
+<h3 id="komplex-transzformáció">Komplex transzformáció</h3>
+<p><img data-src="../../assets/images/graphics/complex.png" /></p>
+</section>
+<section id="animációk" class="slide level2" data-state="new-section">
+<h2 data-state="new-section">Animációk</h2>
+</section>
+<section class="slide level2">
+
+<p><strong>Alapelv</strong>: a vásznon lévő kép <strong>gyors</strong> újrarajzolása</p>
+<ol type="1">
+<li>Változások újrarajzolása</li>
+<li>Teljes kép újrarajzolása</li>
+</ol>
+</section>
+<section class="slide level2">
+
+<p><strong>Alkalmazás-modell</strong>: tároljuk, hogy éppen hol tartunk</p>
+<ol type="1">
+<li>Állapot (adatok)</li>
+<li>Nézet (rajzolás)</li>
+</ol>
+</section>
+<section id="példa" class="slide level2">
+<h2>Példa</h2>
+<div class="example" style="text-align: center">
+<p><iframe 
+    src="examples/02-animation.html"
+    style="width:420px; height: 420px"
+  ></iframe></p>
+</div>
+</section>
+<section id="animációs-ciklus" class="slide level2">
+<h2>Animációs ciklus</h2>
+<p><img data-src="../../assets/images/architecture/animation-loop.png" /></p>
+</section>
+<section id="animációs-ciklus-1" class="slide level2">
+<h2>Animációs ciklus</h2>
+<pre class="js"><code>const state = /*...*/;
+
+function next() {
+  update(); // Update current state
+  render(); // Rerender the frame
+  requestAnimationFrame(next);
+}
+
+next(); // Start the loop
+
+function update() { /*...*/ }
+function render() { /*...*/ }</code></pre>
+</section>
+<section id="animációs-ciklus-javascriptben" class="slide level2">
+<h2>Animációs ciklus JavaScriptben</h2>
+<p><img data-src="../../assets/images/architecture/animation-loop-functions.png" /></p>
+</section>
+<section id="idő-alapú-animáció" class="slide level2">
+<h2>Idő alapú animáció</h2>
+<p>Az állapot változása az eltelt idő függvénye (pl. fizika)</p>
+<pre class="js"><code>let lastFrameTime = performance.now();
+const state = /*...*/;
+
+function next() {
+  ✒&gt;const currentTime = performance.now();&lt;✒
+  ✒&gt;const dt = currentTime - lastFrameTime;&lt;✒
+
+  update(✒&gt;dt&lt;✒); // Update current state
+  render(); // Rerender the frame
+
+  ✒&gt;lastFrameTime = currentTime;&lt;✒
+  requestAnimationFrame(next);
+}
+
+next(); // Start the loop</code></pre>
+</section>
+<section id="szereplőorientált-programozás" class="slide level2" data-state="new-section">
+<h2 data-state="new-section">Szereplőorientált programozás</h2>
+</section>
+<section class="slide level2">
+
+<iframe src="https://scratch.mit.edu/projects/169510261/embed" allowtransparency="true" width="485" height="402" frameborder="0" scrolling="no" style="height: 402px;width: 485px;" allowfullscreen>
+</iframe>
+</section>
+<section id="szereplőorientált-programozás-1" class="slide level2">
+<h2>Szereplőorientált programozás</h2>
+<ul>
+<li>Szereplők vannak</li>
+<li>Azoknak tulajdonságai</li>
+<li>Azok tudnak mozogni</li>
+<li>Egymással interakcióba lépni</li>
+</ul>
+<p><img data-src="../../assets/images/graphics/scratch.png" /> <img data-src="../../assets/images/graphics/netlogo.png" /></p>
+</section>
+<section id="egységbe-zárás" class="slide level2">
+<h2>Egységbe zárás</h2>
+<p>Az egyes szereplők tulajdonságait és műveleteit<br />
+osztályok segítségéve egységbe zárjuk.</p>
+<ul>
+<li>Pozíció</li>
+<li>Egyéb tulajdonságok (<code>state</code>)</li>
+<li>Következő állapot (<code>update()</code>)</li>
+<li>Megjelenítés (<code>render()</code>)</li>
+<li>További műveletek</li>
+</ul>
+</section>
+<section id="spritesheetek-használata" class="slide level2">
+<h2>Spritesheetek használata</h2>
+<p><img data-src="../../assets/iamges/../images/examples/spritesheet.png" /></p>
+</section>
+<section id="spritesheetek-használata-1" class="slide level2">
+<h2>Spritesheetek használata</h2>
+<div class="example">
+<p><iframe
+    src="examples/06-movement.html"
+    style="width: 720px; height: 138px"
+  ></iframe></p>
+</div>
+</section>
+<section id="háttérgrafika" class="slide level2">
+<h2>Háttérgrafika</h2>
+<p>Lehetőségek háttérre:</p>
+<ul>
+<li>Minden újrarajzolásnál először kirajzoljuk a hátteret</li>
+<li>CSS-ben állítjuk be a canvas hátterét</li>
+<li>Több “rétegre” rajzolunk - a háttér rétegre csak akkor, ha változik</li>
+</ul>
+</section>
+<section id="d-grafika" class="slide level2">
+<h2>3D grafika</h2>
+<p>A Canvas elemre: WebGL technológiával</p>
+<pre class="js"><code>const canvas = document.querySelector(&quot;canvas&quot;);
+const webGl = cavnas.getContext(&quot;webgl&quot;);
+webGl.viewport(0, 0, canvas.width, canvas.height);</code></pre>
+</section>
+<section id="demo" class="slide level2">
+<h2>Demo</h2>
+<iframe src="http://webglsamples.org/aquarium/aquarium.html" style="width: 700px; height: 500px">
+</iframe>
+<p><a href="https://github.com/WebGLSamples/WebGLSamples.github.io">Példák</a></p>
+</section>
+<section id="összefoglalás" class="slide level2">
+<h2>Összefoglalás</h2>
+<ul>
+<li>Animációk működése</li>
+<li>Animációs ciklus</li>
+<li>Médiaelemek vezérlése</li>
+</ul>
+</section>
+    </div>
+  </div>
+
+  <div id="captcha"></div>
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/js/reveal.js"></script>
+
+  <script>
+    // Highlighting in code blocks
+    const codes = document.querySelectorAll('pre > code')
+    for (const code of codes) {
+      code.setAttribute('data-noescape', '')
+      const text = code.innerHTML
+      const markedText = text
+        .replace(/&lt;✒/g, '</mark>')
+        .replace(/✒&gt;/g, '<mark>')
+      code.innerHTML = markedText
+    }
+
+    // Adding captcha
+    const queryString = new URLSearchParams(window.location.search);
+    const captcha = queryString.get('captcha');
+    const captchaElement = document.getElementById("captcha");
+    captchaElement.innerHTML = captcha;
+
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+      // Display controls in the bottom right corner
+      controls: true,
+      controlsTutorial: false,
+      // Display a presentation progress bar
+      progress: true,
+      // Display the page number of the current slide
+      slideNumber: true,
+      // Add the current slide number to the URL hash so that reloading the
+      // page/copying the URL will return you to the same slide
+      hash: true,
+      // Push each slide change to the browser history
+      history: false,
+      // Enable keyboard shortcuts for navigation
+      keyboard: true,
+      // Enable the slide overview mode
+      overview: true,
+      // Vertical centering of slides
+      center: true,
+      // Enables touch navigation on devices with touch input
+      touch: true,
+      // Loop the presentation
+      loop: false,
+      // Hides the address bar on mobile devices
+      hideAddressBar: true,
+      // Transition style
+      transition: 'slide', // none/fade/slide/convex/concave/zoom
+      // Transition style for full page slide backgrounds
+      backgroundTransition: 'slide', // none/fade/slide/convex/concave/zoom
+      // Bounds for smallest/largest possible scale to apply to content
+      minScale: 0.5,
+      maxScale: 3,
+      // Modifier key used to click-zoom to part of the slide
+      zoomKey: "ctrl",
+      math: {
+        mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/MathJax@3.0.1/es5/tex-mml-chtml.js',
+        config: 'TeX-AMS_HTML-full',
+        tex2jax: {
+          inlineMath: [['\\(','\\)']],
+          displayMath: [['\\[','\\]']],
+          balanceBraces: true,
+          processEscapes: false,
+          processRefs: true,
+          processEnvironments: true,
+          preview: 'TeX',
+          skipTags: ['script','noscript','style','textarea','pre','code'],
+          ignoreClass: 'tex2jax_ignore',
+          processClass: 'tex2jax_process'
+        }
+      },
+
+      // Optional reveal.js plugins
+      dependencies: [
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/zoom-js/zoom.js', async: true },
+        //{ src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/socket.io/socket.io.js', async: true },
+        //{ src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/notes-server/client.js', async: true },
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/math/math.js', async: true },
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/notes/notes.js', async: true },
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/highlight/highlight.js', async: true }
+      ]
+    });
+  </script>
+
+  
+  </body>
+</html>

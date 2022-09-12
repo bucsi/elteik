@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>Webprogramozás - Elemek létrehozása, az eseménykezelés részletei</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+  <!-- Reveal.js Theme -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elte-fi/revealjs-elte-fi@1.1.1/dist/revealjs-elte-fi.min.css">
+  <!-- Highlighting -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/default.min.css">
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) 
+      ? 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/css/print/pdf.css' 
+      : 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild( link );
+  </script>
+
+  </head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+<section class="slide level2">
+
+<div class="title">
+<p>Web-fejlesztés 2.</p>
+</div>
+<h3 id="elemek-létrehozása-az-eseménykezelés-részletei">Elemek létrehozása, az eseménykezelés részletei</h3>
+<p><strong>Visnovitz Márton</strong><br />
+egyetemi tanársegéd<br />
+visnovitz.marton@inf.elte.hu</p>
+<p><strong><span class="citation" data-cites="elte-fi/courses-tt-webprog">@elte-fi/courses-tt-webprog</span></strong></p>
+</section>
+<section id="ismétlés" class="slide level2" data-state="new-section">
+<h2 data-state="new-section">Ismétlés</h2>
+</section>
+<section id="ismétlés-1" class="slide level2">
+<h2>Ismétlés</h2>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" checked="" />
+JavaScript nyelvi alapok</li>
+<li><input type="checkbox" disabled="" checked="" />
+Programozott grafika (rajz, animáció, játék)</li>
+<li><input type="checkbox" disabled="" />
+<strong>HTML elemek programozása</strong></li>
+<li><input type="checkbox" disabled="" />
+Kitekintés a szerveroldali programozás világába</li>
+</ul>
+</section>
+<section id="ismétlés---felületi-elemek-programozása" class="slide level2">
+<h2>Ismétlés - Felületi elemek programozása</h2>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" checked="" />
+HTML elemek belső ábrázolása (DOM)</li>
+<li><input type="checkbox" disabled="" checked="" />
+Programozási interfész (API)</li>
+<li><input type="checkbox" disabled="" checked="" />
+Bemeneti-kimeneti interfész</li>
+<li><input type="checkbox" disabled="" checked="" />
+<code>elem.innerHTML</code>, <code>elem.innerText</code>, <code>elem.value</code></li>
+</ul>
+<p><img data-src="../../assets/images/architecture/js-dom-ui.png" /></p>
+</section>
+<section id="ismétlés-dom" class="slide level2">
+<h2>Ismétlés – DOM</h2>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" checked="" />
+Elemek kiválasztása<ul>
+<li><code>document.querySelector("css selector")</code></li>
+<li><code>document.querySelectorAll("css selector")</code></li>
+</ul></li>
+<li><input type="checkbox" disabled="" checked="" />
+Elem (JavaScript objektum) tulajdonságai<ul>
+<li>Analógia: Webfejlesztés → Webprogramozás</li>
+<li>Írás/olvasás</li>
+<li>Tulajdonságok (pl. <code>innerHTML</code>)</li>
+</ul></li>
+<li><input type="checkbox" disabled="" checked="" />
+Eseménykezelés<ul>
+<li>Eseménytípusok</li>
+<li><code>elem.addEventListener(type, handler)</code></li>
+</ul></li>
+</ul>
+</section>
+<section id="ismétlés---dom" class="slide level2">
+<h2>Ismétlés - DOM</h2>
+<pre class="html"><code>&lt;form&gt;
+  Name: &lt;input type=&quot;text&quot; id=&quot;name&quot;&gt; &lt;br&gt;
+  &lt;input type=&quot;button&quot; value=&quot;Say hello!&quot; id=&quot;hello&quot;&gt;
+  &lt;br&gt;
+  &lt;span id=&quot;output&quot;&gt;&lt;/span&gt;
+&lt;/form&gt;</code></pre>
+<pre class="js"><code>function greet(name) {
+  return `Hello ${name}!`;
+}
+
+const input = document.querySelector(&quot;#name&quot;);
+const output = document.querySelector(&quot;#output&quot;);
+const hello = document.querySelector(&quot;#hello&quot;);
+
+function handleHelloClick() {
+  const name = input.value;
+  const greeting = greet(name);
+  output.innerHTML = greeting;
+}
+
+hello.addEventListener(&quot;click&quot;, handleHelloClick);</code></pre>
+</section>
+<section id="elemek-létrehozása" class="slide level2" data-state="new-section">
+<h2 data-state="new-section">Elemek létrehozása</h2>
+<p>Dinamikusan generált felhasználói felület</p>
+</section>
+<section id="új-elemek-létrehozása" class="slide level2">
+<h2>Új elemek létrehozása</h2>
+<ul>
+<li>A kiírás egy speciális formája</li>
+<li>A HTML kód szövegesen</li>
+<li><code>innerHTML</code> tulajdonság írása</li>
+<li>Akár egyszerre több elemet is</li>
+</ul>
+<pre class="html"><code>&lt;div id=&quot;output&quot;&gt;&lt;/div&gt;
+&lt;script&gt;
+  const greeting = &quot;&lt;h1&gt;Hello &lt;em&gt;World&lt;/em&gt;&lt;/h1&gt;&quot;;
+  const output = document.querySelector(&quot;#output&quot;);
+  output.innerHTML = greeting;
+&lt;/script&gt;</code></pre>
+</section>
+<section id="html-generálás" class="slide level2">
+<h2>HTML generálás</h2>
+<div class="fragment fade-in-then-out" style="position: absolute; left: 0; right: 0;">
+<pre class="js"><code>// Rövid statikus szöveg megadása
+const html1 = `&lt;h1&gt;Hello there!&lt;/h1&gt;`;</code></pre>
+</div>
+<div class="fragment fade-in-then-out" style="position: absolute; left: 0; right: 0;">
+<pre class="js"><code>// Többsoros statikus szöveg megadása
+const html2 = `
+  &lt;div&gt;
+    &lt;p&gt;No, &lt;strong&gt;I&lt;/strong&gt; am your father!&lt;/p&gt;
+  &lt;/div&gt;
+`;</code></pre>
+</div>
+<div class="fragment fade-in-then-out" style="position: absolute; left: 0; right: 0;">
+<pre class="js"><code>// Változók behelyettesítése
+const callsign = &#39;Red 5&#39;;
+const html3 = `${callsign}, standing by.`;</code></pre>
+</div>
+<div class="fragment fade-in-then-out" style="position: absolute; left: 0; right: 0;">
+<pre class="js"><code>// Tömbök kiírása leképezéssel
+const callsigns = [&quot;Red 10&quot;, &quot;Red 7&quot;, &quot;Red 3&quot;, &quot;Red 6&quot;, &quot;Red 9&quot;];
+const html4 = `
+  &lt;p&gt;All wings, report in.&lt;/p&gt;
+  &lt;ul&gt;
+    ${callsigns.map(callsign =&gt; `
+      &lt;li&gt;${callsign}, standing by.&lt;/li&gt;
+    `).join(&quot;&quot;)}
+  &lt;/ul&gt;
+`;</code></pre>
+</div>
+<div class="fragment fade-in-then-out" style="position: absolute; left: 0; right: 0;">
+<pre class="js"><code>// Feltételes kiírás (elágazás)
+const chanceOfSuccess = 0.4;
+const html5 = `
+  &lt;span&gt;
+    I have a 
+    ${chanceOfSuccess &lt; 0.5 ? &quot;bad&quot; : &quot;good&quot;}
+    feeling about this.
+  &lt;/span&gt;
+`;</code></pre>
+</div>
+<div class="fragment fade-in-then-out" style="position: absolute; left: 0; right: 0;">
+<pre class="js"><code>// Függvényekkel
+function hanDescription(properties) {
+  return `
+    You
+    &lt;ul&gt;
+      ${properties.map(hanProperty).join(&quot;&quot;)}
+    &lt;/ul&gt;
+    Nerf Herder!
+  `;
+}
+
+function hanProperty(property) {
+  return `&lt;li&gt;${property}&lt;/li&gt;`;
+}
+
+const hanProperties = [
+  &quot;stuck up&quot;,
+  &quot;half witted&quot;,
+  &quot;scruffy looking&quot;
+];
+const html6 = hanDescription(hanProperties);</code></pre>
+</div>
+</section>
+<section id="új-elemek-létrehozása-1" class="slide level2">
+<h2>Új elemek létrehozása</h2>
+<p>Programozottan:</p>
+<ul>
+<li>Létrehozás:
+<ul>
+<li><code>document.createElement(elementName)</code></li>
+</ul></li>
+<li>Beszúrás:
+<ul>
+<li><code>parent.appendChild(childElement)</code><br />
+szülő gyerekeihez utolsóként hozzáadja az új elemet</li>
+<li><code>parent.insertBefore(newChildElement, ref)</code><br />
+referencia elé beszúrja az új elemet</li>
+<li><code>ref.insertAdjacentElement(position, newElement)</code><br />
+egy adott elemhez képes szúr be új elemet</li>
+</ul></li>
+</ul>
+</section>
+<section id="új-elemek-beszúrása" class="slide level2">
+<h2>Új elemek beszúrása</h2>
+<div class="columns">
+<div class="column" style="width: 33%">
+<pre class="html"><code>&lt;body&gt;
+  &lt;ul&gt;
+    &lt;li&gt;First&lt;/li&gt;
+    &lt;li&gt;Second&lt;/li&gt;
+    ✒&gt; &lt;✒    
+    &lt;li&gt;Third&lt;/li&gt;
+  &lt;/ul&gt;
+  ✒&gt; &lt;✒    
+&lt;/body&gt;</code></pre>
+</div><div class="column" style="width: 67%">
+<pre class="js"><code>const p = document.createElement(&quot;p&quot;);
+document.body.appendChild(p);
+
+const newLi = document.createElement(&quot;li&quot;);
+const ul = document.querySelector(&quot;ul&quot;);
+const refLi = 
+  ul.querySelector(&quot;li:nth-of-type(3)&quot;);
+ul.insertBefore(newLi, refLi);</code></pre>
+</div>
+</div>
+</section>
+<section id="stílusattribútumok-programozása" class="slide level2" data-state="new-section">
+<h2 data-state="new-section">Stílusattribútumok programozása</h2>
+</section>
+<section id="ismétlés-2" class="slide level2">
+<h2>Ismétlés</h2>
+<pre class="html"><code>&lt;div class=&quot;rodian bounty-hunter&quot; style=&quot;bottom: 72in&quot;&gt;
+  Greedo
+&lt;/div&gt;</code></pre>
+</section>
+<section id="stílusattribútum-programozása" class="slide level2">
+<h2>Stílusattribútum programozása</h2>
+<p>HTML elem <code>style</code> tulajdonságának olvasása/írása</p>
+<table>
+<thead>
+<tr class="header">
+<th>CSS stílustulajdonság</th>
+<th><code>style</code> objektum tulajdonsága</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>left</code></td>
+<td><code>left</code></td>
+</tr>
+<tr class="even">
+<td><code>background-color</code></td>
+<td><code>backgroundColor</code></td>
+</tr>
+<tr class="odd">
+<td><code>border-bottom-width</code></td>
+<td><code>borderBottomWidth</code></td>
+</tr>
+<tr class="even">
+<td><code>border-top-left-radius</code></td>
+<td><code>borderTopLeftRadius</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="stílusattribútum-programozása-1" class="slide level2">
+<h2>Stílusattribútum programozása</h2>
+<pre class="html"><code>&lt;div style=&quot;position: absolute&quot; id=&quot;movingElement&quot;&gt;&lt;/div&gt;
+&lt;script&gt;
+  document.querySelector(&quot;#movingElement&quot;).style.top  = &quot;25px&quot;;
+  document.querySelector(&quot;#movingElement&quot;).style.left = &quot;42px&quot;;
+&lt;/script&gt;</code></pre>
+</section>
+<section id="objektum-stílus" class="slide level2">
+<h2>Objektum stílus</h2>
+<ul>
+<li><code>elem.style</code>: <code>CSSStyleDeclaration</code> objektum</li>
+<li>Az összes stílustulajdonságot tartalmazza</li>
+<li>Tetszőleges tulajdonság beállítható (írás)</li>
+<li>Lekérdezhető stílustulajdonságok (olvasás):
+<ul>
+<li>a <code>style</code> attribútumon keresztül voltak megadva;</li>
+<li>JavaScriptből határoztuk meg az értéküket.</li>
+</ul></li>
+</ul>
+</section>
+<section id="példa" class="slide level2">
+<h2>Példa</h2>
+<pre class="html"><code>&lt;style&gt;
+.box {
+  position: absolute;
+  width: 100px; height: 100px;
+}
+&lt;/style&gt;
+&lt;div class=&quot;box&quot; style=&quot;left: 20px&quot;&gt;&lt;/div&gt;</code></pre>
+<pre class="js"><code>const box = document.querySelector(&quot;div&quot;);
+box.style.top = &quot;30px&quot;;
+
+box.style.top;       // &quot;30px&quot;  &lt;-- JS
+box.style.left;      // &quot;20px&quot;  &lt;-- style attribute
+box.style.width;     // &quot;&quot;
+box.style.position;  // &quot;&quot;</code></pre>
+</section>
+<section id="számított-stílus" class="slide level2">
+<h2>Számított stílus</h2>
+<ul>
+<li><code>getComputedStyle(elem)</code></li>
+<li>A böngésző által nyilvántartott stílustulajdonságok</li>
+<li>A rövidítések (pl. <code>border</code>, <code>background</code>, stb.) nem érhető el, csak az elemi tulajdonságok.</li>
+</ul>
+</section>
+<section id="példa-1" class="slide level2">
+<h2>Példa</h2>
+<pre class="html"><code>&lt;style&gt;
+.box {
+  position: absolute;
+  width: 100px; height: 100px;
+}
+&lt;/style&gt;
+&lt;div class=&quot;box&quot; style=&quot;left: 20px&quot;&gt;&lt;/div&gt;</code></pre>
+<pre class="js"><code>const box = document.querySelector(&quot;div&quot;);
+box.top = &quot;30px&quot;;
+
+const computedStyle = window.getComputedStyle(box);
+computedStyle.top       // &quot;30px&quot;
+computedStyle.left      // &quot;20px&quot;
+computedStyle.width     // &quot;100px&quot;
+computedStyle.position  // &quot;absolute&quot;</code></pre>
+</section>
+<section id="stílusosztály-programozása" class="slide level2">
+<h2>Stílusosztály programozása</h2>
+<p><code>classList</code> tulajdonság</p>
+<ul>
+<li><code id="add-class">add(className)</code></li>
+<li><code id="remove-class">remove(className)</code></li>
+<li><code id="toggle-class">toggle(className)</code></li>
+<li><code id="contains-class">contains(className)</code></li>
+</ul>
+<div id="html-code" hidden="">
+<div class="rodian bounty-hunter">
+Greedo
+</div>
+</div>
+<pre class="language-html"><code id="class-example"></code></pre>
+<script>
+  const htmlExample = document.querySelector("#html-code");
+  const htmlCode = document.querySelector("#html-code div");
+  const classExample = document.querySelector("#class-example");
+
+  function updateExample() {
+    classExample.innerHTML = htmlCode.outerHTML.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    window.RevealHighlight && window.RevealHighlight.highlightBlock(classExample);
+  }
+
+  document.querySelector("#add-class").addEventListener("click", function () {
+    htmlCode.classList.add("dead");
+    updateExample();
+  });
+  document.querySelector("#remove-class").addEventListener("click", function () {
+    htmlCode.classList.remove("dead");
+    updateExample();
+  });
+  document.querySelector("#toggle-class").addEventListener("click", function () {
+    htmlCode.classList.toggle("dead");
+    updateExample();
+  });
+  document.querySelector("#contains-class").addEventListener("click", function () {
+    alert(htmlCode.classList.contains("dead"));
+  });
+
+  updateExample();
+</script>
+</section>
+<section id="stílusosztály-programozása-1" class="slide level2">
+<h2>Stílusosztály programozása</h2>
+<p><code>add</code>, <code>remove</code>, <code>toggle</code>, <code>contains</code></p>
+<pre class="html"><code>&lt;div class=&quot;red green blue&quot;&gt;</code></pre>
+<pre class="js"><code>const div = document.querySelector(&#39;div&#39;);
+div.classList.remove(&quot;green&quot;);
+div.classList.add(&quot;pink&quot;);
+
+// váltogatás
+div.classList.toggle(&quot;pink&quot;);
+
+// feltételes megjelenítés
+div.classList.toggle(&quot;pink&quot;, i &lt; 10);
+
+// van-e adott stílusosztály
+div.classList.contains(&quot;red&quot;);  // true
+
+// több hozzáadása egyszerre
+div.classList.add(&quot;orange&quot;, &quot;yellow&quot;);</code></pre>
+</section>
+<section id="eseménykezelés" class="slide level2" data-state="new-section">
+<h2 data-state="new-section">Eseménykezelés</h2>
+<p>Interaktív programok</p>
+</section>
+<section id="fogalmak" class="slide level2">
+<h2>Fogalmak</h2>
+<ul>
+<li>Interaktív programok</li>
+<li>Felhasználói tevékenység</li>
+<li>Esemény</li>
+<li>Eseménykezelő függvények</li>
+<li>→ <strong>ESEMÉNYVEZÉRELT PROGRAMOZÁS</strong></li>
+</ul>
+</section>
+<section id="eseménykezelő-függvények-regisztrálása" class="slide level2">
+<h2>Eseménykezelő függvények regisztrálása</h2>
+<pre class="js"><code>// Egyszerűbb esetekben
+const button = document.querySelector(&quot;button&quot;);
+
+function handleButtonClick() {
+  // mi történjen kattintáskor
+}
+
+button.addEventListener(&quot;click&quot;, handleButtonClick);</code></pre>
+</section>
+<section id="események" class="slide level2">
+<h2>Események</h2>
+<ul>
+<li><code>click</code>: egérkattintás</li>
+<li><code>mousemove</code>: egérmozgatás</li>
+<li><code>mousedown</code>: egér gombjának lenyomása</li>
+<li><code>mouseup</code>: egér gombjának felengedése</li>
+<li><code>input</code>: input mező értékének megváltozása</li>
+<li><code>keydown</code>: billentyűzet gombjának lenyomása</li>
+<li><code>keyup</code>: billentyűzet gombjának felengedése</li>
+<li><code>keypress</code>: billentyűzet gombjának megnyomása</li>
+<li><code>submit</code>: űrlap elküldése</li>
+<li><code>scroll</code>: görgetés az oldalon</li>
+</ul>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/Events">Események referenciája</a></p>
+</section>
+<section id="eseménykezelők-mint-mini-programok" class="slide level2">
+<h2>Eseménykezelők mint mini programok</h2>
+<pre class="js"><code>function handleEvent() {
+  // Read
+  // Process
+  // Write
+}</code></pre>
+</section>
+<section id="eseménykezelő-példa" class="slide level2">
+<h2>Eseménykezelő példa</h2>
+<pre class="html"><code>&lt;form&gt;
+  Name: &lt;input type=&quot;text&quot; id=&quot;name&quot;&gt; &lt;br&gt;
+  &lt;input type=&quot;button&quot; value=&quot;Say hello!&quot; id=&quot;hello&quot;&gt;
+  &lt;br&gt;
+  &lt;span id=&quot;output&quot;&gt;&lt;/span&gt;
+&lt;/form&gt;</code></pre>
+<pre class="js"><code>function greet(name) {
+  return `Hello ${name}!`;
+}
+
+const input = document.querySelector(&#39;#name&#39;);
+const output = document.querySelector(&#39;#output&#39;);
+const hello = document.querySelector(&#39;#hello&#39;);
+
+function handleHelloClick() {
+  const name = input.value;
+  const greeting = greet(name);
+  output.innerHTML = greeting;
+}
+
+hello.addEventListener(&#39;click&#39;, handleHelloClick);</code></pre>
+</section>
+<section id="eseménykezelő-függvények-regisztrálása-1" class="slide level2">
+<h2>Eseménykezelő függvények regisztrálása</h2>
+<pre class="js"><code>// Egy elem egy eseményéhez több eseménykezelő függvény
+button.addEventListener(&quot;click&quot;, handleButtonClick1);
+button.addEventListener(&quot;click&quot;, handleButtonClick2);
+
+// Több eseményhez ugyanaz az eseménykezelő függvény
+button1.addEventListener(&quot;click&quot;, handleButtonClick);
+button2.addEventListener(&quot;click&quot;, handleButtonClick);</code></pre>
+</section>
+<section id="eseménykezelő-hozzárendelése-több-elemhez" class="slide level2">
+<h2>Eseménykezelő hozzárendelése több elemhez</h2>
+<p>Mi van akkor ha ugyanazt az eseménykezelőt szeretnék sok elemhez hozzárendelni?</p>
+</section>
+<section id="példa-2" class="slide level2">
+<h2>Példa</h2>
+<table id="delegate-example">
+<tr>
+<td>
+1
+</td>
+<td>
+2
+</td>
+<td>
+3
+</td>
+<td>
+4
+</td>
+</tr>
+<tr>
+<td>
+5
+</td>
+<td>
+6
+</td>
+<td>
+7
+</td>
+<td>
+8
+</td>
+</tr>
+<tr>
+<td>
+9
+</td>
+<td>
+10
+</td>
+<td>
+11
+</td>
+<td>
+12
+</td>
+</tr>
+<tr>
+<td>
+13
+</td>
+<td>
+14
+</td>
+<td>
+15
+</td>
+<td>
+16
+</td>
+</tr>
+</table>
+<script>
+const table = document.querySelector("#delegate-example");
+function handleTableClick(event) {
+  if (!event.target.matches("td"));
+  const shade = event.target.innerText;
+  event.target.style.background = `hsl(${360/16*shade}, 50%, 50%)`;
+}
+table.addEventListener("click", handleTableClick);
+</script>
+</section>
+<section id="megoldási-ötletek" class="slide level2">
+<h2>Megoldási ötletek</h2>
+<ol type="1">
+<li>Eseménykezelő hozzárendelése minden szükséges elemhez</li>
+<li>Esemény kezelése magasabb szinten</li>
+</ol>
+</section>
+<section id="eseménykezelő-hozzárendelése-minden-szükséges-elemhez" class="slide level2">
+<h2>Eseménykezelő hozzárendelése minden szükséges elemhez</h2>
+<ol type="1">
+<li>Az összes elem kiválasztása</li>
+<li>Eseménykezelő hozzárendelése mindegyikhez</li>
+</ol>
+<pre class="js"><code>function handleCellClick() { /* ... */ }
+
+const cells = document.querySelectorAll(&quot;table td&quot;);
+for (let cell of cells) {
+  cell.addEventListener(&quot;click&quot;, handleCellClick);
+}</code></pre>
+<p>Probléma: Mi a helyzet, ha új elemek jönnek létre?</p>
+</section>
+<section id="eseménykezelő-kezelése-magasabb-szinten" class="slide level2">
+<h2>Eseménykezelő kezelése magasabb szinten</h2>
+<ol type="1">
+<li>Az eseménykezelő hozzárendelése szülő elemhez</li>
+<li>Az esemény kezelése a megfelelő szinten</li>
+</ol>
+</section>
+<section id="események-buborékolása-és-delegálása" class="slide level2">
+<h2>Események buborékolása és delegálása</h2>
+<div class="fragment">
+<ul>
+<li><strong>Eseménykezelő függvény</strong>: a függvény, ami az esemény bekövetkezésekor lefut</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><strong>Eseményobjektum</strong>: az esemény részleteit leíró JavaScript objektum (<code>event</code>)</li>
+</ul>
+</div>
+</section>
+<section id="események-buborékolása-és-delegálása-1" class="slide level2">
+<h2>Események buborékolása és delegálása</h2>
+<div class="fragment">
+<ul>
+<li><strong>Buborékolás</strong>: az esemény a <strong>forrásobjektumtól</strong> kezdve sorban mindegyik szülőjén is bekövetkezik</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><strong>Forrásobjektum</strong>: az eseményt kiváltó objektum (<code>event.target</code>)</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><strong>Kezelőobjektum</strong>: az az objektum, amelyhez az eseménykezelő hozzá van rendelve (<code>this</code>)</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Lehetséges magasabb szinten kezelni az eseményt, mint ahol bekövetkezik</li>
+</ul>
+</div>
+<pre><code>forrás → szülő → szülő → ... → body → html → document → window</code></pre>
+</section>
+<section id="események-buborékolása-és-delegálása-2" class="slide level2">
+<h2>Események buborékolása és delegálása</h2>
+<div class="fragment">
+<ul>
+<li><strong>Delegálás</strong>: az eseményt magasabb szinten kezeljük, de egy alacsonyabb szintű objektummal dolgozunk</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><strong>Delegált objektum</strong>: az az objektum, amellyel az eseménykezelőben dolgozni szeretnénk</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Buborékolás megakadályozása (a további szülők nem kapják meg az eseményt): <code>e.stopPropagation()</code></li>
+</ul>
+</div>
+<pre><code>forrás → szülő → szülő → ... → body → html → document → window</code></pre>
+</section>
+<section id="eseménykezelő-kezelése-magasabb-szinten-1" class="slide level2">
+<h2>Eseménykezelő kezelése magasabb szinten</h2>
+<pre class="js"><code>const table = document.querySelector(&quot;table&quot;);
+
+function handleCellClick(event) {
+  // Run only if the current target is a `td`
+  if (!✒&gt;event.target&lt;✒.matches(&quot;td&quot;));
+  /* ... */
+}
+
+table.addEventListener(&quot;click&quot;, handleTableClick);</code></pre>
+</section>
+<section id="események-delegálása" class="slide level2">
+<h2>Események delegálása</h2>
+<ul>
+<li>Hatékony programozási minta<br />
+(egy elem - egy eseménykezelő)</li>
+<li>Sok elemnél / valamilyen típusú elemre általánosan</li>
+<li>Dinamikusan beszúrt elemeknél</li>
+<li>Viselkedés hozzárendelése elemekhez deklaratívan</li>
+</ul>
+</section>
+<section id="összefoglalás" class="slide level2" data-state="topic">
+<h2 data-state="topic">Összefoglalás</h2>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" checked="" />
+Elemek létrehozása<ul class="task-list">
+<li><input type="checkbox" disabled="" checked="" />
+HTML kód generálása</li>
+<li><input type="checkbox" disabled="" checked="" />
+Elemek beszúrása programozottan</li>
+</ul></li>
+<li><input type="checkbox" disabled="" checked="" />
+Stílusattribútumok programozása<ul class="task-list">
+<li><input type="checkbox" disabled="" checked="" />
+<code>elem.style</code></li>
+<li><input type="checkbox" disabled="" checked="" />
+<code>getComputedStyle</code></li>
+<li><input type="checkbox" disabled="" checked="" />
+<code>classList</code></li>
+</ul></li>
+<li><input type="checkbox" disabled="" checked="" />
+Eseménykezelés<ul class="task-list">
+<li><input type="checkbox" disabled="" checked="" />
+<code>elem.addEventListener(type, handler)</code></li>
+<li><input type="checkbox" disabled="" checked="" />
+Eseményobjektum</li>
+<li><input type="checkbox" disabled="" checked="" />
+Buborékolás, delegálás</li>
+</ul></li>
+</ul>
+</section>
+    </div>
+  </div>
+
+  <div id="captcha"></div>
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/js/reveal.js"></script>
+
+  <script>
+    // Highlighting in code blocks
+    const codes = document.querySelectorAll('pre > code')
+    for (const code of codes) {
+      code.setAttribute('data-noescape', '')
+      const text = code.innerHTML
+      const markedText = text
+        .replace(/&lt;✒/g, '</mark>')
+        .replace(/✒&gt;/g, '<mark>')
+      code.innerHTML = markedText
+    }
+
+    // Adding captcha
+    const queryString = new URLSearchParams(window.location.search);
+    const captcha = queryString.get('captcha');
+    const captchaElement = document.getElementById("captcha");
+    captchaElement.innerHTML = captcha;
+
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+      // Display controls in the bottom right corner
+      controls: true,
+      controlsTutorial: false,
+      // Display a presentation progress bar
+      progress: true,
+      // Display the page number of the current slide
+      slideNumber: true,
+      // Add the current slide number to the URL hash so that reloading the
+      // page/copying the URL will return you to the same slide
+      hash: true,
+      // Push each slide change to the browser history
+      history: false,
+      // Enable keyboard shortcuts for navigation
+      keyboard: true,
+      // Enable the slide overview mode
+      overview: true,
+      // Vertical centering of slides
+      center: true,
+      // Enables touch navigation on devices with touch input
+      touch: true,
+      // Loop the presentation
+      loop: false,
+      // Hides the address bar on mobile devices
+      hideAddressBar: true,
+      // Transition style
+      transition: 'slide', // none/fade/slide/convex/concave/zoom
+      // Transition style for full page slide backgrounds
+      backgroundTransition: 'slide', // none/fade/slide/convex/concave/zoom
+      // Bounds for smallest/largest possible scale to apply to content
+      minScale: 0.5,
+      maxScale: 3,
+      // Modifier key used to click-zoom to part of the slide
+      zoomKey: "ctrl",
+      math: {
+        mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/MathJax@3.0.1/es5/tex-mml-chtml.js',
+        config: 'TeX-AMS_HTML-full',
+        tex2jax: {
+          inlineMath: [['\\(','\\)']],
+          displayMath: [['\\[','\\]']],
+          balanceBraces: true,
+          processEscapes: false,
+          processRefs: true,
+          processEnvironments: true,
+          preview: 'TeX',
+          skipTags: ['script','noscript','style','textarea','pre','code'],
+          ignoreClass: 'tex2jax_ignore',
+          processClass: 'tex2jax_process'
+        }
+      },
+      toolbar: {
+        fullscreen: true,
+        overview: true,
+        pause: false,
+        notes: false,
+        help: false,
+        captureMenu: false
+      },
+
+      // Optional reveal.js plugins
+      dependencies: [
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/zoom-js/zoom.js', async: true },
+        //{ src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/socket.io/socket.io.js', async: true },
+        //{ src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/notes-server/client.js', async: true },
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/math/math.js', async: true },
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/notes/notes.js', async: true },
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/highlight/highlight.js', async: true },
+        { src: 'https://cdn.jsdelivr.net/npm/reveal.js-toolbar@0.2.1/toolbar.js', async: true }
+      ]
+    });
+  </script>
+
+  
+  </body>
+</html>

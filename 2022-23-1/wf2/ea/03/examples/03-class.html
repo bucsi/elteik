@@ -1,0 +1,59 @@
+<canvas id="example" width="500" height="50"></canvas>
+
+<script>
+class Ball {
+  vx = 500;
+  radius = 20;
+
+  constructor(x = this.radius) {
+    this.x = x;
+  }
+
+  update(dt) {
+    this.x += this.vx * dt / 1000;
+  }
+
+  render(context) {
+    context.beginPath();
+    context.arc(this.x, this.radius, this.radius, 0, Math.PI * 2);
+    context.fill();
+  }
+
+  bounceBack() {
+    this.vx *= -1;
+  }
+}
+
+const canvas = document.querySelector("#example");
+const context = canvas.getContext("2d");
+
+let lastFrameTime = performance.now();
+const ball = new Ball();
+
+function next() {
+  const currentTime = performance.now();
+  const dt = currentTime - lastFrameTime;
+
+  update(dt); // Update current state
+  render(); // Rerender the frame
+
+  lastFrameTime = currentTime;
+
+  requestAnimationFrame(next);
+}
+
+function update(dt) {
+  ball.update(dt);
+
+  if (ball.x >= canvas.width - ball.radius || ball.x <= ball.radius) {
+    ball.bounceBack();
+  }
+}
+
+function render() {
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  ball.render(context);
+}
+
+next(); // Start the loop
+</script>

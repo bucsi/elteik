@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>Web-fejlesztés 2. - Adatfeldolgozás, állapotkezelés</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+  <!-- Reveal.js Theme -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elte-fi/revealjs-elte-fi@1.1.1/dist/revealjs-elte-fi.min.css">
+  <!-- Highlighting -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/default.min.css">
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) 
+      ? 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/css/print/pdf.css' 
+      : 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild( link );
+  </script>
+
+  </head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+<section class="slide level2">
+
+<div class="title">
+<p>Web-fejlesztés 2.</p>
+</div>
+<h3 id="adatfeldolgozás-állapotkezelés">Adatfeldolgozás, állapotkezelés</h3>
+<p><strong>Visnovitz Márton</strong><br />
+egyetemi tanársegéd<br />
+visnovitz.marton@inf.elte.hu</p>
+<p><strong><span class="citation" data-cites="elte-fi/courses-tt-webprog">@elte-fi/courses-tt-webprog</span></strong></p>
+</section>
+<section id="ismétlés" class="slide level2" data-state="new-section">
+<h2 data-state="new-section">Ismétlés</h2>
+</section>
+<section id="a-javascript-nyelv" class="slide level2">
+<h2>A JavaScript nyelv</h2>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" checked="" />
+C-alapú szintaxis, vezérlési szerkezetek</li>
+<li><input type="checkbox" disabled="" checked="" />
+Gyengén, dinamikusan típusos scriptnyelv</li>
+<li><input type="checkbox" disabled="" checked="" />
+Egyszerű típusok: logikai, szám, szöveg</li>
+<li><input type="checkbox" disabled="" checked="" />
+Összetett típusok: objektum, tömb, függvény</li>
+</ul>
+</section>
+<section id="programozási-paradigmák" class="slide level2">
+<h2>Programozási paradigmák</h2>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" />
+Imperatív</li>
+<li><input type="checkbox" disabled="" />
+Objektum-orientált</li>
+<li><input type="checkbox" disabled="" />
+Funkcionális</li>
+<li><input type="checkbox" disabled="" />
+Eseményvezérelt</li>
+</ul>
+</section>
+<section id="az-informatika-alapfogalmai" class="slide level2" data-state="new-section">
+<h2 data-state="new-section">Az informatika alapfogalmai</h2>
+</section>
+<section class="slide level2">
+
+<div class="fragment">
+<p><strong>Adat</strong></p>
+</div>
+<div class="fragment">
+<p><strong>Információ</strong></p>
+</div>
+<div class="fragment">
+<p><strong>Tudás</strong></p>
+</div>
+</section>
+<section id="adat-információ-tudás" class="slide level2">
+<h2>Adat, információ, tudás</h2>
+<p><img data-src="../../assets/images/architecture/data-information-knowledge.png" /></p>
+</section>
+<section id="adatábrázolás-adattárolás" class="slide level2" data-state="new-section">
+<h2 data-state="new-section">Adatábrázolás, adattárolás</h2>
+</section>
+<section id="adat-információ-tudás-1" class="slide level2">
+<h2><em>Adat</em>, információ, tudás</h2>
+<p><img data-src="../../assets/images/architecture/dik-data.png" /></p>
+</section>
+<section id="adatok-tárolása" class="slide level2">
+<h2>Adatok tárolása</h2>
+<p>Valamilyen strukturált formában…</p>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" />
+<strong>Memóriában</strong></li>
+<li><input type="checkbox" disabled="" />
+Merevlemezen</li>
+<li><input type="checkbox" disabled="" />
+Távoli szerveren</li>
+</ul>
+</section>
+<section id="adattárolás-memóriában" class="slide level2">
+<h2>Adattárolás memóriában</h2>
+<ul>
+<li>Nem kell hozzá külső erőforrás</li>
+<li>Könnyen hozzáférhető (változók)</li>
+<li>Csak a programot futtató gépen érhető el</li>
+<li>A program végén elveszik (nem <em>perzisztens</em>)</li>
+</ul>
+</section>
+<section id="adattárolás-merevlemezen" class="slide level2">
+<h2>Adattárolás merevlemezen</h2>
+<ul>
+<li>Hozzáférés a helyi gép erőforrásaihoz</li>
+<li>A hozzáféréshez valamilyen interfész kell</li>
+<li>Csak a programot futtató gépen érhető el</li>
+<li>A program vége után is megmarad (<em>perzisztens</em>)</li>
+</ul>
+</section>
+<section id="adattárolás-távoli-szerveren" class="slide level2">
+<h2>Adattárolás távoli szerveren</h2>
+<ul>
+<li>Hozzáférés a távoli szerverhez (hálózat)</li>
+<li>A hozzáféréshez valamilyen interfész kell</li>
+<li>Bármilyen a hálózathoz csatlakozó gépről elérhető</li>
+<li>A program vége után is megmarad (<em>perzisztens</em>)</li>
+</ul>
+</section>
+<section id="milyen-típusú-adatokat-tárolunk" class="slide level2">
+<h2>Milyen típusú adatokat tárolunk?</h2>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" />
+Elemi adatok (<strong>egyszerű típusok</strong>)</li>
+<li><input type="checkbox" disabled="" />
+Különböző típusú, de összetartó adatok (<strong>objektum</strong>)</li>
+<li><input type="checkbox" disabled="" />
+Azonos típusú adatok sokaságát (<strong>tömb</strong>)</li>
+</ul>
+</section>
+<section id="adattárolás-példa" class="slide level2">
+<h2>Adattárolás (példa)</h2>
+<p>Bankszámla adatainak tárolása</p>
+<div class="fragment">
+<pre class="js"><code>// Balance of a Bank Account
+let balance = 1953007;</code></pre>
+</div>
+<div class="fragment">
+<pre class="js"><code>// Information about a Bank Account
+let account = {
+  iban: &quot;GB93116000060000000012345676&quot;,
+  owner: &quot;James Bond&quot;,
+  balance: 1953007
+};</code></pre>
+</div>
+<div class="fragment">
+<pre class="js"><code>// Transactions
+let transactions = [ 2000000, -993, -46000 ];</code></pre>
+</div>
+</section>
+<section id="adattárolás-példa-1" class="slide level2">
+<h2>Adattárolás (példa)</h2>
+<p>Bankszámla adatainak tárolása</p>
+<pre class="js"><code>// Information about a Bank Account
+let account = {
+  iban: &quot;GB93116000060000000012345676&quot;,
+  owner: &quot;James Bond&quot;,
+  transactions: [ 2000000, -993, -46000 ]
+};</code></pre>
+</section>
+<section id="json" class="slide level2">
+<h2>JSON</h2>
+<p><strong>JavaScript Object Notation</strong><br />
+A JavaScript adatábrázolásán alapuló<br />
+szöveges adattárolási formátum</p>
+<pre class="json"><code>{
+  &quot;iban&quot;: &quot;GB93116000060000000012345676&quot;,
+  &quot;owner&quot;: &quot;James Bond&quot;,
+  &quot;transactions&quot;: [ 2000000, -993, -46000 ]
+}</code></pre>
+</section>
+<section id="adatfeldolgozás" class="slide level2" data-state="new-section">
+<h2 data-state="new-section">Adatfeldolgozás</h2>
+</section>
+<section id="adat-információ-tudás-2" class="slide level2">
+<h2>Adat, információ, tudás</h2>
+<p><img data-src="../../assets/images/architecture/dik-process.png" /></p>
+</section>
+<section id="az-adatfeldolgozás-módjai" class="slide level2">
+<h2>Az adatfeldolgozás módjai</h2>
+<p><img data-src="../../assets/images/architecture/data-processing.png" /></p>
+</section>
+<section id="programozási-tételek-tömbfüggvényekkel" class="slide level2">
+<h2>Programozási tételek tömbfüggvényekkel</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Tétel</th>
+<th>JavaScript tömbfüggvény</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Sorozatszámítás</td>
+<td><code>array.reduce(f)</code></td>
+</tr>
+<tr class="even">
+<td>Megszámolás</td>
+<td><code>array.filter(p).length</code></td>
+</tr>
+<tr class="odd">
+<td>Maximumkiválasztás</td>
+<td><code>array.reduce(m)</code></td>
+</tr>
+<tr class="even">
+<td>Eldöntés</td>
+<td><code>array.some(p)</code></td>
+</tr>
+<tr class="odd">
+<td>Kiválasztás</td>
+<td><code>array.find(p)</code></td>
+</tr>
+<tr class="even">
+<td>Keresés</td>
+<td><code>array.find(p)</code></td>
+</tr>
+<tr class="odd">
+<td>Másolás</td>
+<td><code>array.map(f)</code></td>
+</tr>
+<tr class="even">
+<td>Kiválogatás</td>
+<td><code>array.filter(f)</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tömbfüggvények-példa" class="slide level2">
+<h2>Tömbfüggvények (példa)</h2>
+<div class="fragment">
+<pre class="js"><code>let transactions = [ 2000000, -993, -46000 ];</code></pre>
+</div>
+<div class="fragment">
+<pre class="js"><code>let balance = 0;
+for (let i = 0; i &lt; transactions.length; i++) {
+  balance += transactions[i];
+}</code></pre>
+</div>
+<div class="fragment">
+<pre class="js"><code>let balance = 0;
+for (let transaction of transactions) {
+  balance += transaction;
+}</code></pre>
+</div>
+<div class="fragment">
+<pre class="js"><code>let balance = transactions.reduce((s, x) =&gt; s + x);</code></pre>
+</div>
+</section>
+<section id="számított-adat" class="slide level2">
+<h2>Számított adat</h2>
+<ul>
+<li>A rendelkezésre álló adatokból számítható ki</li>
+<li>Nem tároljuk el (redundancia), hanem kiszámítjuk, ha kell</li>
+<li>Egy függvény számítja ki a meglévő adatokból</li>
+</ul>
+</section>
+<section id="számított-adat-1" class="slide level2">
+<h2>Számított adat</h2>
+<pre class="js"><code>let transactions = [ 2000000, -993, -46000 ];
+
+function getBalance() {
+  return transactions.reduce((s, x) =&gt; s + x);
+}</code></pre>
+</section>
+<section id="adatok-módosítása-függvényekkel" class="slide level2">
+<h2>Adatok módosítása függvényekkel</h2>
+<ul>
+<li>A tárolt adatokat módosítjuk</li>
+<li>Valamilyen függvénnyel</li>
+<li>A függvénynek általában van bemenete</li>
+</ul>
+</section>
+<section id="adatok-módosítása-függvényekkel-1" class="slide level2">
+<h2>Adatok módosítása függvényekkel</h2>
+<pre class="js"><code>let transactions = [ 2000000, -993, -46000 ];
+
+function addExpense(amount) {
+  transactions.push(-amount);
+}
+
+function addIncome(amount) {
+  transactions.push(amount);
+}
+
+addExpense(100);</code></pre>
+</section>
+<section id="egységbe-zárás" class="slide level2">
+<h2>Egységbe zárás</h2>
+<p>Adat, számított adat, adatmódosítás<br />
+egységbe zárása</p>
+</section>
+<section id="egységbe-zárás-1" class="slide level2">
+<h2>Egységbe zárás</h2>
+<pre class="js"><code>let account = {
+  iban: &quot;GB93116000060000000012345676&quot;,
+  owner: &quot;James Bond&quot;,
+  transactions: [ 2000000, -993, -46000 ],
+  get balance() {
+    return this.transactions.reduce((s, x) =&gt; s + x);
+  },
+  addExpense(amount) {
+    this.transactions.push(-amount);
+  },
+  addIncome(amount) {
+    this.transactions.push(amount);
+  },
+};</code></pre>
+</section>
+<section id="tiszta-függvények-immutability" class="slide level2">
+<h2>Tiszta függvények, immutability</h2>
+<ul>
+<li>Adatfeldolgozó függvény</li>
+<li>Bemenete a tárolt adat</li>
+<li>Kimenete az új adat</li>
+<li>Nem módosíthatja az eddigi adatokat</li>
+<li>Jobban tesztelhető, időutazás, …</li>
+</ul>
+</section>
+<section id="tiszta-függvények-immutability-1" class="slide level2">
+<h2>Tiszta függvények, immutability</h2>
+<pre class="js"><code>let transactions = [
+  2000000,
+  -993,
+  -46000
+];
+
+function addExpense(transactions, amount) {
+  return [...transactions, -amount];
+}
+
+function addIncome(amount) {
+  return [...transactions, amount];
+}
+
+transactions = addExpense(transactions, 100);</code></pre>
+</section>
+<section id="összefoglalás" class="slide level2" data-state="topic">
+<h2 data-state="topic">Összefoglalás</h2>
+<ul>
+<li>Adat → Információ → Tudás</li>
+<li>Adatok ábrázolása JavaScriptben</li>
+<li>Az adatfeldolgozás módjai</li>
+<li>Adatok módosítása</li>
+<li>Egységbe zárás</li>
+</ul>
+</section>
+    </div>
+  </div>
+
+  <div id="captcha"></div>
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/js/reveal.js"></script>
+
+  <script>
+    // Highlighting in code blocks
+    const codes = document.querySelectorAll('pre > code')
+    for (const code of codes) {
+      code.setAttribute('data-noescape', '')
+      const text = code.innerHTML
+      const markedText = text
+        .replace(/&lt;✒/g, '</mark>')
+        .replace(/✒&gt;/g, '<mark>')
+      code.innerHTML = markedText
+    }
+
+    // Adding captcha
+    const queryString = new URLSearchParams(window.location.search);
+    const captcha = queryString.get('captcha');
+    const captchaElement = document.getElementById("captcha");
+    captchaElement.innerHTML = captcha;
+
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+      // Display controls in the bottom right corner
+      controls: true,
+      controlsTutorial: false,
+      // Display a presentation progress bar
+      progress: true,
+      // Display the page number of the current slide
+      slideNumber: true,
+      // Add the current slide number to the URL hash so that reloading the
+      // page/copying the URL will return you to the same slide
+      hash: true,
+      // Push each slide change to the browser history
+      history: false,
+      // Enable keyboard shortcuts for navigation
+      keyboard: true,
+      // Enable the slide overview mode
+      overview: true,
+      // Vertical centering of slides
+      center: true,
+      // Enables touch navigation on devices with touch input
+      touch: true,
+      // Loop the presentation
+      loop: false,
+      // Hides the address bar on mobile devices
+      hideAddressBar: true,
+      // Transition style
+      transition: 'slide', // none/fade/slide/convex/concave/zoom
+      // Transition style for full page slide backgrounds
+      backgroundTransition: 'slide', // none/fade/slide/convex/concave/zoom
+      // Bounds for smallest/largest possible scale to apply to content
+      minScale: 0.5,
+      maxScale: 3,
+      // Modifier key used to click-zoom to part of the slide
+      zoomKey: "ctrl",
+      math: {
+        mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/MathJax@3.0.1/es5/tex-mml-chtml.js',
+        config: 'TeX-AMS_HTML-full',
+        tex2jax: {
+          inlineMath: [['\\(','\\)']],
+          displayMath: [['\\[','\\]']],
+          balanceBraces: true,
+          processEscapes: false,
+          processRefs: true,
+          processEnvironments: true,
+          preview: 'TeX',
+          skipTags: ['script','noscript','style','textarea','pre','code'],
+          ignoreClass: 'tex2jax_ignore',
+          processClass: 'tex2jax_process'
+        }
+      },
+
+      // Optional reveal.js plugins
+      dependencies: [
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/zoom-js/zoom.js', async: true },
+        //{ src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/socket.io/socket.io.js', async: true },
+        //{ src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/notes-server/client.js', async: true },
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/math/math.js', async: true },
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/notes/notes.js', async: true },
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/highlight/highlight.js', async: true }
+      ]
+    });
+  </script>
+
+  
+  </body>
+</html>

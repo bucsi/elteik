@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>Web-fejlesztés 2. - Kódszervezés, időzítők</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+  <!-- Reveal.js Theme -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elte-fi/revealjs-elte-fi@1.1.1/dist/revealjs-elte-fi.min.css">
+  <!-- Highlighting -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/default.min.css">
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) 
+      ? 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/css/print/pdf.css' 
+      : 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild( link );
+  </script>
+
+  </head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+<section class="slide level2">
+
+<div class="title">
+<p>Web-fejlesztés 2.</p>
+</div>
+<h3 id="kódszervezés-időzítők">Kódszervezés, időzítők</h3>
+<p><strong>Visnovitz Márton</strong><br />
+egyetemi tanársegéd<br />
+visnovitz.marton@inf.elte.hu</p>
+<p><strong><span class="citation" data-cites="elte-fi/courses-tt-webprog">@elte-fi/courses-tt-webprog</span></strong></p>
+</section>
+<section id="ismétlés" class="slide level2" data-state="new-section">
+<h2 data-state="new-section">Ismétlés</h2>
+</section>
+<section id="ismétlés---nyelvi-elemek" class="slide level2">
+<h2>Ismétlés - nyelvi elemek</h2>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" checked="" />
+Rajzolás a vászonra</li>
+<li><input type="checkbox" disabled="" checked="" />
+Animációs ciklus</li>
+<li><input type="checkbox" disabled="" checked="" />
+Állapot ↔︎ Megjelenés</li>
+<li><input type="checkbox" disabled="" checked="" />
+Események kezelése</li>
+<li><input type="checkbox" disabled="" checked="" />
+Játékkészítés</li>
+</ul>
+</section>
+<section id="ismétlés---játékciklus" class="slide level2">
+<h2>Ismétlés - Játékciklus</h2>
+<p><img data-src="../../assets/images/architecture/game-loop.png" /></p>
+</section>
+<section id="ismétlés---eseménykezelés" class="slide level2">
+<h2>Ismétlés - Eseménykezelés</h2>
+<p><code>addEventListener</code> függvénnyel lehet beállítani</p>
+<pre class="js"><code>✒&gt;addEventListener&lt;✒(✒&gt;eventType&lt;✒, ✒&gt;eventHandler&lt;✒);</code></pre>
+<pre class="js"><code>function handleClick() {
+  console.log(&quot;Mouse clicked&quot;);
+}
+
+addEventListener(&quot;click&quot;, handleClick);</code></pre>
+</section>
+<section id="kódszervezés" class="slide level2" data-state="new-section">
+<h2 data-state="new-section">Kódszervezés</h2>
+<p>Fizikai és logikai egységek</p>
+</section>
+<section id="kódszervezés-1" class="slide level2">
+<h2>Kódszervezés</h2>
+<ul>
+<li>Fizikai
+<ul>
+<li>külön fájl</li>
+<li><em>modul</em></li>
+</ul></li>
+<li>Logikai
+<ul>
+<li>függvény</li>
+<li>osztály (egységbe zárás)</li>
+<li><em>modul</em></li>
+</ul></li>
+</ul>
+</section>
+<section id="fizikai-csoportosítás" class="slide level2">
+<h2>Fizikai csoportosítás</h2>
+<ul>
+<li>Külön fájlokba funkció szerint</li>
+<li>Függőségek kézi kezelése</li>
+</ul>
+<pre class="js"><code>// math.js
+function add(a, b) {
+  return a + b;
+}</code></pre>
+<pre class="js"><code>// app.js
+console.log(add(40, 2));</code></pre>
+<pre class="html"><code>&lt;body&gt;
+  &lt;!-- ... --&gt;
+  ✒&gt;&lt;script src=&quot;math.js&quot;&gt;&lt;/script&gt;&lt;✒
+  &lt;script src=&quot;app.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;</code></pre>
+</section>
+<section id="fizikai-csoportosítás-1" class="slide level2">
+<h2>Fizikai csoportosítás</h2>
+<ul>
+<li>Külön fájlokba: <strong>modul</strong></li>
+<li>Függőségek automatikus kezelése</li>
+</ul>
+<pre class="js"><code>// math.js
+const add = (a, b) =&gt; a + b;
+export { add };</code></pre>
+<pre class="js"><code>// app.js
+import { add } from &quot;./math.js&quot;;
+console.log(add(40, 2));</code></pre>
+<pre class="html"><code>&lt;body&gt;
+  &lt;!-- ... --&gt;
+  &lt;script ✒&gt;type=&quot;module&quot;&lt;✒ src=&quot;app.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;</code></pre>
+<!-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
+https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script -->
+</section>
+<section id="modulok-export" class="slide level2">
+<h2>Modulok – export</h2>
+<pre class="js"><code>// in-place export
+export const add = (a, b) =&gt; a + b;
+export const multiply = (a, b) =&gt; a * b;
+
+// separate export
+const add = (a, b) =&gt; a + b;
+const multiply = (a, b) =&gt; a * b;
+export { add, multiply };
+
+// default export
+export default const add = (a, b) =&gt; a + b;
+
+// rename exports
+const add = (a, b) =&gt; a + b;
+const multiply = (a, b) =&gt; a * b;
+export { add as customAdd, multiply as customMultiply };
+
+// export from module
+export * from &quot;./other.js&quot;;</code></pre>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export">Referencia</a></p>
+</section>
+<section id="modulok-import" class="slide level2">
+<h2>Modulok – import</h2>
+<pre class="js"><code>// import entities
+import { add, multiply } from &quot;./math.js&quot;;
+
+// import defaults
+import add from &quot;./math.js&quot;;
+
+// rename imports
+import { add as mathAdd } from &quot;./math.js&quot;;
+
+// import module object
+import * as MyMath from &quot;./math.js&quot;;
+
+// import just for side effects
+import &quot;./something.js&quot;;
+
+// import URL
+import * as MyMath from &quot;http://some.where.hu/math.js&quot;</code></pre>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import">Referencia</a></p>
+</section>
+<section id="modulok" class="slide level2">
+<h2>Modulok</h2>
+<ul>
+<li>Strict mode</li>
+<li>Nem globális scope
+<ul>
+<li>nehezebb debugolás<br />
+(konzolon nem látszik)</li>
+</ul></li>
+<li>File protocol-on nem működik</li>
+<li>Webszerver</li>
+<li><strong>VS Code <a href="https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer">Live Server extension</a></strong></li>
+</ul>
+</section>
+<section id="logikai-csoportosítás" class="slide level2">
+<h2>Logikai csoportosítás</h2>
+<ul>
+<li>Függvények
+<ul>
+<li>elemi egység</li>
+<li>műveletek strukturálása</li>
+</ul></li>
+</ul>
+<pre class="js"><code>// Helper/utility function
+function randomBetween(a, b) {
+  return Math.floor(Math.random() * (b - a + 1)) + a;
+}
+
+// Lifecycle functions
+function init() { /* ... */ }
+function update(dt) { /* ... */ }
+function render() { /* ... */ }
+function next() { /* ... */ }
+
+// State mutators
+function createNewActor() { /* ... */ }
+
+// Event handler
+function handleKeyUp(e) { /* ... */ }</code></pre>
+</section>
+<section id="logikai-csoportosítás-1" class="slide level2">
+<h2>Logikai csoportosítás</h2>
+<ul>
+<li>Osztályok
+<ul>
+<li>magasabb szintű egység</li>
+<li>műveletek és adatok egységbe zárása</li>
+</ul></li>
+</ul>
+<pre class="js"><code>class Tile {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  get coords() {
+    return {x, y};
+  }
+
+  distance(tile) {
+    return Math.sqrt(
+      (tile.x - this.x) ** 2 + (tile.y - this.y) ** 2
+    );
+  }
+}</code></pre>
+</section>
+<section id="kódszervezés-2" class="slide level2" data-state="new-section">
+<h2 data-state="new-section">Kódszervezés</h2>
+<p>Egységbe zárás</p>
+</section>
+<section id="egységbezárás-1." class="slide level2">
+<h2>Egységbezárás 1.</h2>
+<p>Globális változók és metódusok</p>
+<pre class="js"><code>let number = 0;
+
+function increase() {
+  number++;
+}
+
+function init() {
+  number = 0;
+}
+
+increase();
+console.log(number); // 1</code></pre>
+</section>
+<section id="egységbezárás-2." class="slide level2">
+<h2>Egységbezárás 2.</h2>
+<p>Objektum, ~Namespace</p>
+<pre class="js"><code>const game = {
+  number: 0,
+  increase() {
+    this.number++;
+  },
+  init() {
+    this.number = 0;
+  }
+}
+
+game.init();
+game.increase();
+console.log(game.number); // 1</code></pre>
+</section>
+<section id="egységbezárás-3." class="slide level2">
+<h2>Egységbezárás 3.</h2>
+<p>Osztály</p>
+<pre class="js"><code>class Game {
+  constructor() {
+    this.number = 0;
+  }
+  increase() {
+    this.number++;
+  }
+}
+
+const game = new Game();
+game.increase();
+console.log(game.number); // 1</code></pre>
+</section>
+<section id="egységbezárás-4." class="slide level2">
+<h2>Egységbezárás 4.</h2>
+<p>Függvény, saját hatókörrel (felfedő modul minta), <strong>IIFE</strong></p>
+<pre class="js"><code>let game = (function () {
+  let number = 0;
+
+  function increase() {
+    number++;
+  }
+
+  function init() {
+    number = 0;
+  }
+
+  function getNumber() {
+    return number;
+  }
+
+  return { increase, getNumber};
+})();
+
+game.increase();
+console.log(game.getNumber()); // 1</code></pre>
+</section>
+<section id="egységbezárás-5." class="slide level2">
+<h2>Egységbezárás 5.</h2>
+<p>Modul, függvény</p>
+<pre class="js"><code>// game.js
+let number = 0;
+
+export function increase() {
+  number++;
+}
+
+export function init() {
+  number = 0;
+}
+
+export function getNumber() {
+  return number;
+}</code></pre>
+<pre class="js"><code>// main.js
+import { increase, init, getNumber } from &quot;./game.js&quot;;
+
+increase();
+console.log(getNumber()); // 1</code></pre>
+</section>
+<section id="egységbezárás-6." class="slide level2">
+<h2>Egységbezárás 6.</h2>
+<p>Modul, osztály</p>
+<pre class="js"><code>// game.js
+export class Game {
+  constructor() {
+    this.number = 0;
+  }
+  
+  increase() {
+    this.counter += 1;
+  }
+}</code></pre>
+<pre class="js"><code>import { Game } from &#39;./game.js&#39;;
+
+const game = new Game();
+game.increase();
+console.log(game.number);</code></pre>
+</section>
+<section id="időzítők" class="slide level2" data-state="new-section">
+<h2 data-state="new-section">Időzítők</h2>
+</section>
+<section id="problémák-a-játékciklussal" class="slide level2">
+<h2>Problémák a játékciklussal</h2>
+<ul>
+<li>A változások mindig “a lehető leggyorsabban történnek”</li>
+<li>Van, amikor még mindig nem elég gyorsan<br />
+(pl. falhoz ragadó labda)</li>
+<li>Van, amikor túl gyorsan (pl. tetris léptetés)</li>
+<li>A léptetés nem feltétlenül fix időközönként történik</li>
+</ul>
+<div class="fragment">
+<p><strong>IDŐZÍTŐK</strong></p>
+</div>
+</section>
+<section id="játékciklus-időzítőkkel" class="slide level2">
+<h2>Játékciklus időzítőkkel</h2>
+<p><img data-src="../../assets/images/architecture/game-loop-timer.png" /></p>
+</section>
+<section id="settimeout" class="slide level2">
+<h2><code>setTimeout</code></h2>
+<p>Függvény futtatása adott idő múlva</p>
+<pre class="js"><code>// Creating a timer
+function tick() {
+  console.log(&quot;tick&quot;);
+}
+setTimeout(tick, 1000);
+
+// Clearing a timer
+let timer = setTimeout(tick, 1000);
+// do something, or even in an event:
+clearTimeout(timer);</code></pre>
+</section>
+<section id="setinterval" class="slide level2">
+<h2><code>setInterval</code></h2>
+<p>Függvény futtatása adott időközönként</p>
+<pre class="js"><code>// Creating a repeating timer
+function tick() {
+  console.log(&quot;tick&quot;);
+}
+setInterval(tick, 1000);
+
+// Clearing a repeating timer
+let timer = setInterval(tick, 1000);
+// do something, or even in an event:
+clearInterval(timer);</code></pre>
+</section>
+<section id="játékciklus-időzítőkkel-1" class="slide level2">
+<h2>Játékciklus időzítőkkel</h2>
+<p><img data-src="../../assets/images/architecture/game-loop-timer-functions.png" /></p>
+</section>
+<section id="időzítők-használata" class="slide level2">
+<h2>Időzítők használata</h2>
+<ul>
+<li>Késleltetett végrehajtás</li>
+<li>Emberi léptékű műveletvégrehajtás (pl. mp. időközönként)</li>
+<li>Hosszú műveletek felosztása</li>
+</ul>
+</section>
+<section id="összefoglalás" class="slide level2">
+<h2>Összefoglalás</h2>
+<ul>
+<li>Kódszervezés
+<ul>
+<li>fizikai, logikai</li>
+<li>egységbe zárás</li>
+</ul></li>
+<li>Időzítők</li>
+</ul>
+</section>
+    </div>
+  </div>
+
+  <div id="captcha"></div>
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/js/reveal.js"></script>
+
+  <script>
+    // Highlighting in code blocks
+    const codes = document.querySelectorAll('pre > code')
+    for (const code of codes) {
+      code.setAttribute('data-noescape', '')
+      const text = code.innerHTML
+      const markedText = text
+        .replace(/&lt;✒/g, '</mark>')
+        .replace(/✒&gt;/g, '<mark>')
+      code.innerHTML = markedText
+    }
+
+    // Adding captcha
+    const queryString = new URLSearchParams(window.location.search);
+    const captcha = queryString.get('captcha');
+    const captchaElement = document.getElementById("captcha");
+    captchaElement.innerHTML = captcha;
+
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+      // Display controls in the bottom right corner
+      controls: true,
+      controlsTutorial: false,
+      // Display a presentation progress bar
+      progress: true,
+      // Display the page number of the current slide
+      slideNumber: true,
+      // Add the current slide number to the URL hash so that reloading the
+      // page/copying the URL will return you to the same slide
+      hash: true,
+      // Push each slide change to the browser history
+      history: false,
+      // Enable keyboard shortcuts for navigation
+      keyboard: true,
+      // Enable the slide overview mode
+      overview: true,
+      // Vertical centering of slides
+      center: true,
+      // Enables touch navigation on devices with touch input
+      touch: true,
+      // Loop the presentation
+      loop: false,
+      // Hides the address bar on mobile devices
+      hideAddressBar: true,
+      // Transition style
+      transition: 'slide', // none/fade/slide/convex/concave/zoom
+      // Transition style for full page slide backgrounds
+      backgroundTransition: 'slide', // none/fade/slide/convex/concave/zoom
+      // Bounds for smallest/largest possible scale to apply to content
+      minScale: 0.5,
+      maxScale: 3,
+      // Modifier key used to click-zoom to part of the slide
+      zoomKey: "ctrl",
+      math: {
+        mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/MathJax@3.0.1/es5/tex-mml-chtml.js',
+        config: 'TeX-AMS_HTML-full',
+        tex2jax: {
+          inlineMath: [['\\(','\\)']],
+          displayMath: [['\\[','\\]']],
+          balanceBraces: true,
+          processEscapes: false,
+          processRefs: true,
+          processEnvironments: true,
+          preview: 'TeX',
+          skipTags: ['script','noscript','style','textarea','pre','code'],
+          ignoreClass: 'tex2jax_ignore',
+          processClass: 'tex2jax_process'
+        }
+      },
+
+      // Optional reveal.js plugins
+      dependencies: [
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/zoom-js/zoom.js', async: true },
+        //{ src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/socket.io/socket.io.js', async: true },
+        //{ src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/notes-server/client.js', async: true },
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/math/math.js', async: true },
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/notes/notes.js', async: true },
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/highlight/highlight.js', async: true }
+      ]
+    });
+  </script>
+
+  
+  </body>
+</html>

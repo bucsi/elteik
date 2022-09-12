@@ -1,0 +1,64 @@
+<script src="sprite.js"></script>
+<script>
+class Runner extends Sprite {
+  direction = 1;
+  x = 0;
+  vx = 200;
+
+  update(dt) {
+    super.update(dt);
+    this.x += this.vx * dt / 1000;
+  }
+
+  render(context) {
+    context.save();
+    context.translate(this.x, 0);
+    context.scale(this.direction, 1);
+    super.render(context, -this.width, 0);
+    context.restore();
+  }
+
+  turnAround() {
+    this.vx *= -1;
+    this.direction *= -1;
+  }
+}
+</script>
+
+<canvas id="example" width="700" height="128"></canvas>
+
+<script>
+  const canvas = document.querySelector("#example");
+  const context = canvas.getContext("2d");
+  
+  const runner = new Runner({
+    image: "../../../assets/images/examples/spritesheet.png",
+    width: 128, 
+    height: 128,
+    spritesPerRow: 4,
+    rowCount: 4,
+    frameDuration: 20
+  });
+  
+  let lastFrameTime = performance.now();
+  
+  function next() {
+    const currentTime = performance.now();
+    const dt = currentTime - lastFrameTime;
+  
+    
+    runner.update(dt);
+    if (runner.x >= canvas.width + runner.width || runner.x <= -runner.width) {
+      runner.turnAround();
+    }
+    
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    runner.render(context);
+  
+    lastFrameTime = currentTime;
+  
+    requestAnimationFrame(next);
+  }
+  
+  next();
+</script>

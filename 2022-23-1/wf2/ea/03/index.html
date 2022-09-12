@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>Web-fejlesztés 2. - Canvas, grafika</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+  <!-- Reveal.js Theme -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/elte-fi/revealjs-elte-fi@1.1.1/dist/revealjs-elte-fi.min.css">
+  <!-- Highlighting -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/default.min.css">
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match(/print-pdf/gi) 
+      ? 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/css/print/pdf.css' 
+      : 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/css/print/paper.css';
+    document.getElementsByTagName('head')[0].appendChild( link );
+  </script>
+
+  </head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+<section class="slide level2">
+
+<div class="title">
+<p>Web-fejlesztés 2.</p>
+</div>
+<h3 id="canvas-grafika">Canvas, grafika</h3>
+<p><strong>Visnovitz Márton</strong><br />
+egyetemi tanársegéd<br />
+visnovitz.marton@inf.elte.hu</p>
+<p><strong><span class="citation" data-cites="elte-fi/courses-tt-webprog">@elte-fi/courses-tt-webprog</span></strong></p>
+</section>
+<section id="ismétlés" class="slide level2" data-state="new-section">
+<h2 data-state="new-section">Ismétlés</h2>
+</section>
+<section id="ismétlés-1" class="slide level2">
+<h2>Ismétlés</h2>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" checked="" />
+JavaScript nyelvi elemei</li>
+<li><input type="checkbox" disabled="" checked="" />
+Típusok a JavaScript nyelven</li>
+<li><input type="checkbox" disabled="" checked="" />
+Adatok ábrázolása</li>
+<li><input type="checkbox" disabled="" checked="" />
+Adatok feldolgozása</li>
+<li><input type="checkbox" disabled="" checked="" />
+Tömbfüggvények</li>
+</ul>
+</section>
+<section id="számítógépes-grafika" class="slide level2" data-state="new-section">
+<h2 data-state="new-section">Számítógépes grafika</h2>
+</section>
+<section id="rajzolás-a-számítógépen" class="slide level2">
+<h2>Rajzolás a számítógépen</h2>
+<figure>
+<img data-src="../../assets/images/graphics/coordinates.png" alt="" /><figcaption>Koordinátarendszer</figcaption>
+</figure>
+</section>
+<section class="slide level2">
+
+<div class="fragment">
+<p><strong>Raszteres</strong></p>
+</div>
+<div class="fragment">
+<p><strong>Vektoros</strong></p>
+</div>
+</section>
+<section id="raszteres-grafika" class="slide level2">
+<h2>Raszteres grafika</h2>
+<figure>
+<img data-src="../../assets/images/graphics/../architecture/graphics-raster.png" alt="" /><figcaption>Raszteres grafika</figcaption>
+</figure>
+</section>
+<section id="vektoros-grafika" class="slide level2">
+<h2>Vektoros grafika</h2>
+<figure>
+<img data-src="../../assets/images/graphics/../architecture/graphics-vector.png" alt="" /><figcaption>Vektoros grafika</figcaption>
+</figure>
+</section>
+<section id="transzformációk" class="slide level2">
+<h2>Transzformációk</h2>
+<ul>
+<li>Forgatás (rotate)</li>
+<li>Eltolás (translate)</li>
+<li>Méretezés (scale)</li>
+</ul>
+</section>
+<section id="eltolás" class="slide level2">
+<h2>Eltolás</h2>
+<p><img data-src="../../assets/images/graphics/translate.png" /></p>
+</section>
+<section id="forgatás" class="slide level2">
+<h2>Forgatás</h2>
+<p><img data-src="../../assets/images/graphics/rotate.png" /></p>
+</section>
+<section id="méretezés" class="slide level2">
+<h2>Méretezés</h2>
+<p><img data-src="../../assets/images/graphics/scale.png" /></p>
+</section>
+<section class="slide level2">
+
+<h3 id="komplex-transzformáció">Komplex transzformáció</h3>
+<p><img data-src="../../assets/images/graphics/complex.png" /></p>
+</section>
+<section id="canvas-api" class="slide level2" data-state="new-section">
+<h2 data-state="new-section">Canvas API</h2>
+</section>
+<section id="grafikus-lehetőségek-a-böngészőben" class="slide level2">
+<h2>Grafikus lehetőségek a böngészőben</h2>
+<ul>
+<li>Képfájlok</li>
+<li><strong>CSS formázás</strong></li>
+<li><strong>(Inline) SVG (vektorgrafika)</strong></li>
+<li><strong>Canvas (raszteres grafika)</strong></li>
+</ul>
+</section>
+<section id="canvas" class="slide level2">
+<h2>Canvas</h2>
+<pre class="html"><code>&lt;canvas ✒&gt;width=&quot;200&quot; height=&quot;200&quot;&lt;✒&gt;&lt;/canvas&gt;</code></pre>
+<pre class="js"><code>// Canvas elem elérése
+const canvas = document.querySelector(&quot;canvas&quot;);
+// 2D rajzolási &quot;kontextus&quot; elérése
+const context = ✒&gt;canvas.getContext(&quot;2d&quot;)&lt;✒;</code></pre>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas">Referencia</a></p>
+</section>
+<section id="rajzolás-alakzatokkal-képekkel" class="slide level2">
+<h2>Rajzolás alakzatokkal, képekkel</h2>
+<p>A rendelkezésre álló magas szintű műveletek:</p>
+<ul>
+<li>Téglalap rajzolása</li>
+<li>Szöveg kirajzolása</li>
+<li>Kép(részlet) kirajzolása</li>
+</ul>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D">Referencia</a></p>
+</section>
+<section id="rajzolás-útvonalakkal" class="slide level2">
+<h2>Rajzolás útvonalakkal</h2>
+<ul>
+<li>Útvonal kezdete</li>
+<li>Útvonal lezárása ❕</li>
+<li>Útvonal kitöltése</li>
+<li>Útvonal megrajzolása</li>
+</ul>
+</section>
+<section id="rajzolás-útvonalakkal-1" class="slide level2">
+<h2>Rajzolás útvonalakkal</h2>
+<ul>
+<li>“Toll” mozgatása</li>
+<li>Körív húzása</li>
+<li>Ellipszis húzása</li>
+<li>Téglalap húzása</li>
+<li>Vonal húzása adott pontba</li>
+<li>Bezier-görbe húzása</li>
+</ul>
+</section>
+<section id="rajzolás-útvonalakkal-2" class="slide level2">
+<h2>Rajzolás útvonalakkal</h2>
+<p><img data-src="../../assets/images/examples/path.png" /></p>
+</section>
+<section id="beállítások" class="slide level2">
+<h2>Beállítások</h2>
+<ul>
+<li>Kitöltés színe/mintázata</li>
+<li>Vonal színe</li>
+<li>Vonal vastagsága</li>
+<li>Vonalak vége</li>
+<li>Vonalak illesztése</li>
+<li>Áttetszőség</li>
+</ul>
+</section>
+<section id="feladatok-egyszerű-alakzatokkal" class="slide level2">
+<h2>Feladatok egyszerű alakzatokkal</h2>
+<ul>
+<li>Alakzatokra bontás - rajzolás</li>
+<li>Ciklusok</li>
+<li>Változók</li>
+<li>Véletlen számok</li>
+<li>…</li>
+</ul>
+</section>
+<section id="összefoglalás" class="slide level2">
+<h2>Összefoglalás</h2>
+<ul>
+<li>Számítógépes grafika alapjai</li>
+<li>Transzformációk</li>
+<li>Rajzolás a <code>canvas</code> elemre</li>
+</ul>
+</section>
+    </div>
+  </div>
+
+  <div id="captcha"></div>
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/js/reveal.js"></script>
+
+  <script>
+    // Highlighting in code blocks
+    const codes = document.querySelectorAll('pre > code')
+    for (const code of codes) {
+      code.setAttribute('data-noescape', '')
+      const text = code.innerHTML
+      const markedText = text
+        .replace(/&lt;✒/g, '</mark>')
+        .replace(/✒&gt;/g, '<mark>')
+      code.innerHTML = markedText
+    }
+
+    // Adding captcha
+    const queryString = new URLSearchParams(window.location.search);
+    const captcha = queryString.get('captcha');
+    const captchaElement = document.getElementById("captcha");
+    captchaElement.innerHTML = captcha;
+
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+      // Display controls in the bottom right corner
+      controls: true,
+      controlsTutorial: false,
+      // Display a presentation progress bar
+      progress: true,
+      // Display the page number of the current slide
+      slideNumber: true,
+      // Add the current slide number to the URL hash so that reloading the
+      // page/copying the URL will return you to the same slide
+      hash: true,
+      // Push each slide change to the browser history
+      history: false,
+      // Enable keyboard shortcuts for navigation
+      keyboard: true,
+      // Enable the slide overview mode
+      overview: true,
+      // Vertical centering of slides
+      center: true,
+      // Enables touch navigation on devices with touch input
+      touch: true,
+      // Loop the presentation
+      loop: false,
+      // Hides the address bar on mobile devices
+      hideAddressBar: true,
+      // Transition style
+      transition: 'slide', // none/fade/slide/convex/concave/zoom
+      // Transition style for full page slide backgrounds
+      backgroundTransition: 'slide', // none/fade/slide/convex/concave/zoom
+      // Bounds for smallest/largest possible scale to apply to content
+      minScale: 0.5,
+      maxScale: 3,
+      // Modifier key used to click-zoom to part of the slide
+      zoomKey: "ctrl",
+      math: {
+        mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/MathJax@3.0.1/es5/tex-mml-chtml.js',
+        config: 'TeX-AMS_HTML-full',
+        tex2jax: {
+          inlineMath: [['\\(','\\)']],
+          displayMath: [['\\[','\\]']],
+          balanceBraces: true,
+          processEscapes: false,
+          processRefs: true,
+          processEnvironments: true,
+          preview: 'TeX',
+          skipTags: ['script','noscript','style','textarea','pre','code'],
+          ignoreClass: 'tex2jax_ignore',
+          processClass: 'tex2jax_process'
+        }
+      },
+
+      // Optional reveal.js plugins
+      dependencies: [
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/zoom-js/zoom.js', async: true },
+        //{ src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/socket.io/socket.io.js', async: true },
+        //{ src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/notes-server/client.js', async: true },
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/math/math.js', async: true },
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/notes/notes.js', async: true },
+        { src: 'https://cdn.jsdelivr.net/gh/hakimel/reveal.js@3.9.2/plugin/highlight/highlight.js', async: true }
+      ]
+    });
+  </script>
+
+  
+  </body>
+</html>
