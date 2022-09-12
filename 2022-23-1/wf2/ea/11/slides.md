@@ -30,7 +30,7 @@ visnovitz.marton@inf.elte.hu
 
 ## Szerveroldali programozás
 
-![](http://webprogramozas.inf.elte.hu/hallgatok/vimtaai/assets/images/architecture/web-server-client.png)
+![](https://bucsi.web.elte.hu/assets/images/architecture/web-server-client.png)
 
 ------
 
@@ -46,8 +46,8 @@ visnovitz.marton@inf.elte.hu
     + Ugyanazon kliens különböző kéréseit
     + Különböző kliensek kéréseit
 
-![](http://webprogramozas.inf.elte.hu/hallgatok/vimtaai/assets/images/architecture/stateless.png)
-![](http://webprogramozas.inf.elte.hu/hallgatok/vimtaai/assets/images/architecture/multiple-clients.png)
+![](https://bucsi.web.elte.hu/assets/images/architecture/stateless.png)
+![](https://bucsi.web.elte.hu/assets/images/architecture/multiple-clients.png)
 
 ------
 
@@ -57,13 +57,13 @@ visnovitz.marton@inf.elte.hu
 - Pl. kosár
 - Megoldás: HTTP kéréstől külön tárolni
 
-![](http://webprogramozas.inf.elte.hu/hallgatok/vimtaai/assets/images/architecture/stateless.png)
+![](https://bucsi.web.elte.hu/assets/images/architecture/stateless.png)
 
 ------
 
 ## 1. probléma
 
-![](http://webprogramozas.inf.elte.hu/hallgatok/vimtaai/assets/images/architecture/stateless-file.png)
+![](https://bucsi.web.elte.hu/assets/images/architecture/stateless-file.png)
 
 ------
 
@@ -71,7 +71,7 @@ visnovitz.marton@inf.elte.hu
 
 Mindegyik kliens ugyanazon az adaton osztozkodik
 
-![](http://webprogramozas.inf.elte.hu/hallgatok/vimtaai/assets/images/architecture/multiple-clients-file.png)
+![](https://bucsi.web.elte.hu/assets/images/architecture/multiple-clients-file.png)
 
 ------
 
@@ -79,13 +79,13 @@ Mindegyik kliens ugyanazon az adaton osztozkodik
 
 "Kliensenkénti adattárolás"
 
-![](http://webprogramozas.inf.elte.hu/hallgatok/vimtaai/assets/images/architecture/multiple-clients-multiple-files.png)
+![](https://bucsi.web.elte.hu/assets/images/architecture/multiple-clients-multiple-files.png)
 
 ------
 
 ## Erőforrások a szerveren
 
-![](http://webprogramozas.inf.elte.hu/hallgatok/vimtaai/assets/images/architecture/server-input.png)
+![](https://bucsi.web.elte.hu/assets/images/architecture/server-input.png)
 
 ------
 
@@ -97,7 +97,7 @@ Mindegyik kliens ugyanazon az adaton osztozkodik
 
 Lényeg: az adat a programtól különválik
 
-![](http://webprogramozas.inf.elte.hu/hallgatok/vimtaai/assets/images/architecture/web-server-php-db.png)
+![](https://bucsi.web.elte.hu/assets/images/architecture/web-server-php-db.png)
 
 ------
 
@@ -176,7 +176,7 @@ Tároljuk egy számláló értékét felhasználónként, és minden kérésnél
 :::
 ::::::::::::::::::::
 
-![](http://webprogramozas.inf.elte.hu/hallgatok/vimtaai/assets/images/architecture/stateless-data.png)
+![](https://bucsi.web.elte.hu/assets/images/architecture/stateless-data.png)
 
 ------
 
@@ -266,7 +266,7 @@ Set-Cookie: név=érték[; expires=dátum][...]
 - Sok adat esetén feleslegesen sok adat  
   megy oda-vissza a kliens és szerver között
 
-![](http://webprogramozas.inf.elte.hu/hallgatok/vimtaai/assets/images/architecture/stateless-data.png)
+![](https://bucsi.web.elte.hu/assets/images/architecture/stateless-data.png)
 
 ------
 
@@ -288,7 +288,7 @@ Set-Cookie: név=érték[; expires=dátum][...]
 
 Több kliens
 
-![](http://webprogramozas.inf.elte.hu/hallgatok/vimtaai/assets/images/architecture/multiple-clients-token.png)
+![](https://bucsi.web.elte.hu/assets/images/architecture/multiple-clients-token.png)
 
 ------
 
@@ -296,7 +296,7 @@ Több kliens
 
 Egy kliens különböző kérései
 
-![](http://webprogramozas.inf.elte.hu/hallgatok/vimtaai/assets/images/architecture/stateless-token.png)
+![](https://bucsi.web.elte.hu/assets/images/architecture/stateless-token.png)
 
 ------
 
