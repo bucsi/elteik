@@ -57,7 +57,7 @@ A világháló (angolul **World Wide Web**, röviden **web**) egy olyan informá
 - [x] A kliens feldolgozza a választ
 
 </div>
-<div class="column" width="30%"><img src="../../assets/images/architecture/server-client.png" alt="Kliens-szerver"></div>
+<div class="column" width="30%"><img src="http://webprogramozas.inf.elte.hu/hallgatok/vimtaai/assets/images/architecture/server-client.png" alt="Kliens-szerver"></div>
 </div>
 
 ------
@@ -77,7 +77,7 @@ A világháló (angolul **World Wide Web**, röviden **web**) egy olyan informá
 :::
 
 ::: {.column style="width: 30%"}
-![](../../assets/images/architecture/client.png)
+![](http://webprogramozas.inf.elte.hu/hallgatok/vimtaai/assets/images/architecture/client.png)
 :::
 ::::::::::::::::::::
 
@@ -98,7 +98,7 @@ Több komponens
 :::
 
 ::: {.column style="width: 30%"}
-![](../../assets/images/architecture/server-client.png)
+![](http://webprogramozas.inf.elte.hu/hallgatok/vimtaai/assets/images/architecture/server-client.png)
 :::
 ::::::::::::::::::::
 
@@ -108,7 +108,7 @@ Több komponens
 
 Térben és időben elválhatnak
 
-![](../../assets/images/architecture/sync-network.png)
+![](http://webprogramozas.inf.elte.hu/hallgatok/vimtaai/assets/images/architecture/sync-network.png)
 
 ------
 
@@ -127,7 +127,7 @@ Kérés pillanatában a szerveren megtalálható az a tartalom, amely leküldés
 :::
 
 ::: {.column style="width: 30%"}
-![](../../assets/images/architecture/server-client.png)
+![](http://webprogramozas.inf.elte.hu/hallgatok/vimtaai/assets/images/architecture/server-client.png)
 :::
 ::::::::::::::::::::
 
@@ -139,7 +139,7 @@ A leküldendő tartalmat egy program állítja elő.
 
 :::::::::::::::::::: {.columns}
 ::: {.column style="width: 40%"}
-![](../../assets/images/architecture/program-client.png)
+![](http://webprogramozas.inf.elte.hu/hallgatok/vimtaai/assets/images/architecture/program-client.png)
 :::
 ::::::::::::::::::::
 
@@ -147,7 +147,7 @@ A leküldendő tartalmat egy program állítja elő.
 
 ## Architektúrák
 
-![](../../assets/images/architecture/architectures.png)
+![](http://webprogramozas.inf.elte.hu/hallgatok/vimtaai/assets/images/architecture/architectures.png)
 
 ------
 
@@ -166,7 +166,7 @@ A leküldendő tartalmat egy program állítja elő.
 :::
 
 ::: {.column style="width: 50%"}
-![](../../assets/images/architecture/web-server-client.png)
+![](http://webprogramozas.inf.elte.hu/hallgatok/vimtaai/assets/images/architecture/web-server-client.png)
 :::
 ::::::::::::::::::::
 
@@ -380,7 +380,7 @@ Azt határozza meg, hogy egy webszerver hogyan *indíthat* el egy programot és 
 :::
 
 ::: {.column style="width: 40%"}
-![](../../assets/images/architecture/web-server-client.png)
+![](http://webprogramozas.inf.elte.hu/hallgatok/vimtaai/assets/images/architecture/web-server-client.png)
 :::
 ::::::::::::::::::::
 
@@ -514,20 +514,20 @@ Content-Type: text/html
 ## CGI
 
 
-![](../../assets/images/architecture/web-server-client.png)
+![](http://webprogramozas.inf.elte.hu/hallgatok/vimtaai/assets/images/architecture/web-server-client.png)
 
 ------
 
 ## PHP
 
-![](../../assets/images/architecture/web-server-php.png)
+![](http://webprogramozas.inf.elte.hu/hallgatok/vimtaai/assets/images/architecture/web-server-php.png)
 
 ------
 
 ## Node.js
 
 
-![](../../assets/images/architecture/nodejs-client.png)
+![](http://webprogramozas.inf.elte.hu/hallgatok/vimtaai/assets/images/architecture/nodejs-client.png)
 
 ------
 
