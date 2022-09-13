@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+const double = (x) => 2*x;
+
+function toDouble(x){
+    return 2*x;
+}
+
+console.log(double(2));
+console.log(double(4));
+
+console.log([2,4,8].map(toDouble));
+
+// valogasd ki a paratlan szamokat a tombbol
+// "bemenet"
+const tomb = [1,2,3,4,5,6,7,8,9,0]
+
+// feldolgozas
+const parosak = tomb.filter(  (x) => x%2 === 0  )
+
+// kiiras
+console.log(parosak)
+</script>
+</html>
