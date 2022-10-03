@@ -10,6 +10,9 @@ class Dino {
 
   update(dt) {
     this.position.y += this.vy*dt
+    if(this.vy < 0){
+        this.vy = 0
+    }
   }
 
   jump() {
