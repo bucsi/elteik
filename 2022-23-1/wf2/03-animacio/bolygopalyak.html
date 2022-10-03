@@ -45,6 +45,7 @@
         y: 0,
       },
       lastFrameTime: 0,
+      lines: [],
     };
 
     function update(dt) {
@@ -53,12 +54,19 @@
         state.venus.angle,
         state.venus.radius
       );
+
       state.earth.angle += state.earth.speed * dt;
       [state.earth.x, state.earth.y] = angleToCoordinates(
         state.earth.angle,
         state.earth.radius
       );
-      console.log(JSON.stringify(state.venus));
+
+      state.lines.unshift({
+        start: { x: state.venus.x, y: state.venus.y },
+        end: { x: state.earth.x, y: state.earth.y },
+      });
+
+      console.log(state.lines);
     }
 
     function render() {
@@ -73,7 +81,7 @@
       //sun
       ctx.beginPath();
       ctx.arc(0, 0, 30, 0, 2 * Math.PI);
-      ctx.fillStyle = "black";
+      ctx.fillStyle = "yellow";
       ctx.fill();
       ctx.closePath();
 
