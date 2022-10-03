@@ -24,10 +24,17 @@ function next() {
   requestAnimationFrame(next);
 }
 
-function handleSpace(event){
-  console.log(event)
+function handleSpace(event) {
+  if (event.key !== " ") {
+
+    return;
+  }
+
+  state.player.jump()
+
+  console.log(event);
 }
 
-addEventListener("keypress", handleSpace)
+addEventListener("keypress", handleSpace);
 
 next();
