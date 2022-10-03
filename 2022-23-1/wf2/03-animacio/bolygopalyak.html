@@ -108,19 +108,29 @@
       ctx.closePath();
 
       //vonalak
-      for(let i=1; i<state.lines.length; i++){
+      //ez ugyanaz, mintha for(let i=1; i<state.lines.length; i++)-t csinalnek
+      for(const elem of state.lines.slice(1)){
         ctx.beginPath();
         ctx.moveTo(state.lines[i].start.x, state.lines[i].start.y);
         ctx.lineTo(state.lines[i].end.x, state.lines[i].end.y);
-        ctx.strokeStyle = "gray";
+        ctx.strokeStyle = "#333";
         ctx.stroke();
         ctx.closePath();
       }
+
+      /*
+      ugyanezt tombfuggvennyel is lehetne:
+      state.lines.slice(1).forEach(line => {
+        ...
+      })
+      */
+
+      
     }
 
     function next() {
       const currentTime = performance.now();
-      const dt = (state.lastFrameTime - currentTime) / 5000;
+      const dt = (state.lastFrameTime - currentTime) / 2000;
 
       update(dt);
       render();
