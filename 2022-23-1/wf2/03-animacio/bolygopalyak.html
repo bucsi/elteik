@@ -108,11 +108,11 @@
       ctx.closePath();
 
       //vonalak
-      //ez ugyanaz, mintha for(let i=1; i<state.lines.length; i++)-t csinalnek
+      //ez ugyanaz, mintha for(let i=1; i<state.lines.length; i++)-t csinalnek, ahol elem === state.lines[i]
       for(const elem of state.lines.slice(1)){
         ctx.beginPath();
-        ctx.moveTo(state.lines[i].start.x, state.lines[i].start.y);
-        ctx.lineTo(state.lines[i].end.x, state.lines[i].end.y);
+        ctx.moveTo(elem.start.x, elem.start.y);
+        ctx.lineTo(elem.end.x, elem.end.y);
         ctx.strokeStyle = "#333";
         ctx.stroke();
         ctx.closePath();
