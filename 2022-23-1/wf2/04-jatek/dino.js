@@ -14,6 +14,6 @@ class Dino {
 
   jump() {
     console.log("Jump!");
-    this.vy = 2
+    this.vy = 0.5
   }
 }
