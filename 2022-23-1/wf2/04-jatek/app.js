@@ -1,6 +1,6 @@
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
-ctx.translate(canvas.width / 2, canvas.height / 2);
+ctx.transform(1, 0, 0, -1, 0, -canvas.height);
 const state = {
   player: new Dino(),
   lastFrameTime: 0,
@@ -9,7 +9,7 @@ const state = {
 function update(dt) {}
 
 function render() {
-  state.player.render()
+  state.player.render();
 }
 
 function next() {
