@@ -10,4 +10,8 @@ class Dino {
   update(){
     return
   }
+
+  jump(){
+    console.log("Jump!")
+  }
 }
