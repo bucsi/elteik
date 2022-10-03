@@ -7,7 +7,9 @@ const state = {
   lastFrameTime: 0,
 };
 
-function update(dt) {}
+function update(dt) {
+  player.update(dt)
+}
 
 function render() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
