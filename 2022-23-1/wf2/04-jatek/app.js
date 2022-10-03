@@ -18,7 +18,7 @@ function render() {
 
 function next() {
   const currentTime = performance.now();
-  const dt = (currentTime - state.lastFrameTime) / 2000;
+  const dt = (currentTime - state.lastFrameTime);
 
   update(dt);
   render();
