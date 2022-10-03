@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      canvas {
+        background-color: black;
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas width="500" height="500"></canvas>
+  </body>
+  <script>
+    const canvas = document.querySelector("canvas");
+    const ctx = canvas.getContext("2d");
+    ctx.translate(canvas.width / 2, canvas.height / 2);
+
+    function angleToCoordinates(angle, radius) {
+      const x = radius * Math.cos(angle);
+      const y = radius * Math.sin(angle);
+
+      return [x, y];
+    }
+
+    angleToCoordinates();
+
+    const state = {
+      earth: {
+        angle: 0,
+        speed: 8,
+        radius: 200, // bolygopalya sugara
+        x: 0,
+        y: 0,
+      },
+      venus: {
+        angle: 0,
+        speed: 13,
+        radius: 150,
+        x: 0,
+        y: 0,
+      },
+      lastFrameTime: 0,
+    };
+
+    function update(dt) {
+      state.venus.angle += state.venus.speed * dt;
+      [state.venus.x, state.venus.y] = angleToCoordinates(
+        state.venus.angle,
+        state.venus.radius
+      );
+      state.earth.angle += state.earth.speed * dt;
+      [state.earth.x, state.earth.y] = angleToCoordinates(
+        state.earth.angle,
+        state.earth.radius
+      );
+      console.log(JSON.stringify(state.venus));
+    }
+
+    function render() {
+      //clear screen
+      ctx.clearRect(
+        -canvas.height / 2,
+        -canvas.width / 2,
+        canvas.height,
+        canvas.width
+      );
+
+      //sun
+      ctx.beginPath();
+      ctx.arc(0, 0, 30, 0, 2 * Math.PI);
+      ctx.fillStyle = "yellow";
+      ctx.fill();
+      ctx.closePath();
+
+      //venus
+      ctx.beginPath();
+      ctx.arc(state.venus.x, state.venus.y, 5, 0, 2 * Math.PI);
+      ctx.fillStyle = "orange";
+      ctx.fill();
+      ctx.closePath();
+
+      //earth
+      ctx.beginPath();
+      ctx.arc(state.earth.x, state.earth.y, 10, 0, 2 * Math.PI);
+      ctx.fillStyle = "blue";
+      ctx.fill();
+      ctx.closePath();
+
+      //vonal
+      ctx.beginPath();
+      ctx.moveTo(state.venus.x, state.venus.y);
+      ctx.lineTo(state.earth.x, state.earth.y);
+      ctx.strokeStyle = "white";
+      ctx.stroke();
+      ctx.closePath();
+    }
+
+    function next() {
+      const currentTime = performance.now();
+      const dt = (state.lastFrameTime - currentTime) / 5000;
+
+      update(dt);
+      render();
+
+      state.lastFrameTime = currentTime;
+      requestAnimationFrame(next);
+    }
+
+    next();
+  </script>
+</html>
