@@ -11,8 +11,8 @@ class Dino {
   update(dt) {
     this.position.y += this.vy*dt
     this.vy -= 0.1
-    if(this.vy < 0){
-        this.vy = 0
+    if(this.position.y < 20){
+        this.position.y = 20
     }
   }
 
