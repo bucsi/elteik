@@ -1,6 +1,7 @@
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 ctx.transform(1, 0, 0, -1, 0, canvas.height);
+
 const state = {
   player: new Dino(),
   lastFrameTime: 0,
@@ -22,5 +23,11 @@ function next() {
   state.lastFrameTime = currentTime;
   requestAnimationFrame(next);
 }
+
+function handleSpace(event){
+  console.log(event)
+}
+
+addEventListener("keypress", handleSpace)
 
 next();
