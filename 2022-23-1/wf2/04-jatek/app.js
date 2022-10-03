@@ -10,6 +10,7 @@ const state = {
 function update(dt) {}
 
 function render() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   state.player.render();
 }
 
@@ -29,7 +30,7 @@ addEventListener("keypress", (event) => {
     return;
   }
 
-  state.player.jump()
+  state.player.jump();
 });
 
 next();
