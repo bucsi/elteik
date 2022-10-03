@@ -8,7 +8,7 @@ const state = {
 };
 
 function update(dt) {
-  player.update(dt)
+  state.player.update(dt)
 }
 
 function render() {
