@@ -106,6 +106,16 @@
       ctx.strokeStyle = "white";
       ctx.stroke();
       ctx.closePath();
+
+      //vonalak
+      for(let i=1; i<state.lines.length; i++){
+        ctx.beginPath();
+        ctx.moveTo(state.lines[i].start.x, state.lines[i].start.y);
+        ctx.lineTo(state.lines[i].end.x, state.lines[i].end.y);
+        ctx.strokeStyle = "gray";
+        ctx.stroke();
+        ctx.closePath();
+      }
     }
 
     function next() {
