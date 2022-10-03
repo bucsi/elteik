@@ -1,6 +1,6 @@
 class Dino {
   constructor() {
-    this.position = { x: 0, y: 0 };
+    this.position = { x: 10, y: 20 };
   }
 
   render(){
