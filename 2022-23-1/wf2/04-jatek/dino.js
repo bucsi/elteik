@@ -9,15 +9,17 @@ class Dino {
   }
 
   update(dt) {
-    this.position.y += this.vy*dt
-    this.vy -= 0.1
-    if(this.position.y < 20){
-        this.position.y = 20
+    this.position.y += this.vy * dt;
+    this.vy -= 0.1;
+    if (this.position.y < 20) {
+      this.position.y = 20;
     }
   }
 
   jump() {
-    console.log("Jump!");
-    this.vy = 0.5
+    if (this.position.y !== 20) {
+      return;
+    }
+    this.vy = 2;
   }
 }
