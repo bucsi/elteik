@@ -1,0 +1,4 @@
+const DINO_WIDTH = 50;
+const CACTUS_WIDTH = 50;
+
+export { DINO_WIDTH, CACTUS_WIDTH };

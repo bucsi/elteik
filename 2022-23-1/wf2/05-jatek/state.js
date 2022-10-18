@@ -3,4 +3,5 @@ export const state = {
   lastFrameTime: 0,
   cactusTimer: null,
   enemies: [],
+  game: null,
 };

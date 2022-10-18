@@ -1,5 +1,6 @@
 import { ctx } from "../canvas.js";
 import { randomBetween } from "../util.js";
+import { CACTUS_WIDTH } from "../config.js";
 
 export class Cactus {
   constructor() {
