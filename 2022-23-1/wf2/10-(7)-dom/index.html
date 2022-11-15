@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!------------------------------------>
+    Name: <input type="text" id="name" />
+    <button id="hello">Say hello!</button>
+    <br />
+    <output></output>
+    <!------------------------------------>
+  </body>
+  <script>
+    const btn = document.querySelector("button");
+
+    btn.addEventListener("click", () => {
+      const userName = input.value;
+      output.innerText = sayHello(userName);
+    });
+
+    const input = document.querySelector("input");
+    const output = document.querySelector("output");
+
+    function sayHello(name) {
+      return `Hello, ${name}!`; //AltGr + 7
+    }
+  </script>
+</html>
