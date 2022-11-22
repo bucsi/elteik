@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .colored {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <button>Switch colors!</button>
+      <button>Delete cells without color!</button>
+      <tr>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+        <td>10</td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td>12</td>
+        <td>13</td>
+        <td>14</td>
+        <td>15</td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td>17</td>
+        <td>18</td>
+        <td>19</td>
+        <td>20</td>
+      </tr>
+      <tr>
+        <td>21</td>
+        <td>22</td>
+        <td>23</td>
+        <td>24</td>
+        <td>25</td>
+      </tr>
+    </table>
+  </body>
+  <script>
+    function calculateHSLColor(shade) {
+      return `hsl(${(360 / 25) * shade}, 50%, 50%)`;
+    }
+
+    function handleClick(event) {
+      if (!event.target.matches("td")) {
+        return;
+      }
+      if (event.target.classList.contains("colored")) {
+        event.target.style.background = "";
+        //event.target.classList.remove("colored")
+      } else {
+        const shade = event.target.innerHTML;
+        console.log(shade);
+        event.target.style.background = calculateHSLColor(shade);
+      }
+      event.target.classList.toggle("colored");
+    }
+
+    const table = document.querySelector("table");
+    table.addEventListener("click", handleClick);
+    const switchBtn = document.querySelector("button");
+    switchBtn.addEventListener("click", () => {
+      const coloredCells = document.querySelectorAll("td.colored");
+      const cellsWithoutColors = document.querySelectorAll("td:not(.colored)");
+
+      for (const cell of [...coloredCells, ...cellsWithoutColors]) {
+        cell.style.background = cell.classList.contains("colored")
+          ? ""
+          : calculateHSLColor(cell.innerText);
+        cell.classList.toggle("colored");
+      }
+    });
+
+    const deleteBtn = document.querySelector("button:nth-of-type(2)");
+    deleteBtn.addEventListener("click", () => {
+      const cellsWithoutColors = document.querySelectorAll("td:not(.colored)");
+      for (const cell of cellsWithoutColors) {
+        const row = cell.parentElement;
+        row.removeChild(cell);
+      }
+    });
+  </script>
+</html>

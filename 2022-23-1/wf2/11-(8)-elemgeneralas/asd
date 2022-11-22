@@ -1,0 +1,18 @@
+const callsigns = ["Red 10", "Red 7", "Red 3", "Red 6", "Red 9"];
+//map
+callsigns.map(callsign => `<li>${callsign}, standing by.</li>`)
+const callsigns2 = [ "<li>Red 10, standing by</li>", "<li>Red 7, standing by</li>", ...]
+//join
+const callsigns3 =  `<li>Red 10, standing by</li>
+                    <li>Red 7, standing by</li>...`
+
+const html4 =  `
+<p>All wings, report in.</p>
+<ul>
+    <li>Red 10, standing by</li>
+    <li>Red 7, standing by</li>...
+</ul>`
+
+
+    const shade = elem.innerText;
+    elem.style.background = `hsl(${360/16*shade}, 50%, 50%)`;
